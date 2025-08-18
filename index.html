@@ -1,389 +1,109 @@
 
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CDL · Panel de Mantenimiento</title>
-<meta name="description" content="Panel interno de mantenimiento: estado de equipos y grúas, incidencias y KPIs.">
+<!doctype html><html lang=es><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1"><title>CDL · Panel</title>
 <style>
-:root{
-  --c-primary:#C62828; --c-dark:#212121; --c-mid:#424242; --c-soft:#f4f5f7;
-  --c-green:#2e7d32; --c-orange:#f57c00; --c-red:#d32f2f; --radius:12px;
-}
-*{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--c-soft)}
-.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:10px 12px;background:#fff;border-bottom:4px solid var(--c-primary)}
-.topbar img{height:38px}
-.topbar h1{font-size:18px;margin:0 0 0 6px;font-weight:800;color:#000}
-.topbar nav{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
-.topbar nav a{text-decoration:none;color:#fff;background:linear-gradient(90deg,var(--c-dark),var(--c-primary));padding:8px 12px;border-radius:8px;font-weight:700}
-.topbar nav a.active{background:#e0e0e0;color:#000}
-.burger{margin-left:6px;width:36px;height:36px;border-radius:8px;border:1px solid #ddd;background:#fafafa;cursor:pointer}
-.drawer{position:fixed;inset:0;pointer-events:none} .drawer .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.3);opacity:0;transition:opacity .2s}
-.drawer.open .backdrop{opacity:1;pointer-events:auto} .drawer .panel{position:absolute;top:0;left:0;height:100%;width:300px;max-width:86%;background:#fff;box-shadow:6px 0 24px rgba(0,0,0,.2);transform:translateX(-100%);transition:transform .25s;overflow:auto}
-.drawer.open .panel{transform:none;pointer-events:auto} .drawer .panel h3{margin:14px;font-weight:800;color:var(--c-dark)}
-.menu-link{display:block;padding:10px 14px;text-decoration:none;color:#111;font-weight:700} .menu-link:hover{background:#f4f5f7}
-.menu-group summary{list-style:none;padding:10px 14px;cursor:pointer;font-weight:800;border-top:1px solid #eee}
-.menu-group summary::marker, .menu-group summary::-webkit-details-marker{display:none}
-.menu-group .submenu a{display:block;padding:8px 22px;color:#333;text-decoration:none;border-left:3px solid transparent}
-.menu-group .submenu a:hover{background:#f7f7f7;border-left-color:var(--c-primary)}
-.container{max-width:1100px;margin:16px auto;padding:0 12px}
-.card{background:#fff;border-radius:var(--radius);box-shadow:0 4px 18px rgba(0,0,0,.06);padding:14px;margin:12px 0}
-.section-title{margin:6px 0 12px 0;font-size:18px;color:var(--c-dark);display:flex;align-items:center;gap:10px}
-.badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 10px;background:#eee;font-weight:600;font-size:12px}
-.badge.red{background:#fde7e7;color:var(--c-red)} .badge.orange{background:#fff1e0;color:var(--c-orange)} .badge.green{background:#e6f4ea;color:var(--c-green)}
-.grid{display:grid;grid-template-columns:1fr;gap:10px} @media(min-width:700px){.grid{grid-template-columns:1fr 1fr}}
-.item{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid #eee;border-radius:10px;padding:10px}
-.item-left{display:flex;align-items:center;gap:10px;min-width:0} .dot{width:12px;height:12px;border-radius:999px;display:inline-block}
-.dot.green{background:var(--c-green)} .dot.orange{background:var(--c-orange)} .dot.red{background:var(--c-red)}
-.btn{appearance:none;border:0;background:var(--c-primary);color:#fff;border-radius:8px;padding:8px 12px;font-weight:700;cursor:pointer}
-.btn.ghost{background:#e8eaed;color:#111} .btn.warn{background:var(--c-red)}
-select.status{border:1px solid #ddd;border-radius:8px;padding:6px 8px} a.link{color:var(--c-primary);font-weight:700;text-decoration:none}
-.hidden{display:none}
-.table{width:100%;border-collapse:separate;border-spacing:0 8px} .table th{text-align:left;color:#666;font-size:12px} .table td{background:#fff;padding:10px;border-radius:8px;vertical-align:top}
-.alert-top{background:#fff;border-left:6px solid var(--c-red);border-radius:10px;padding:12px;box-shadow:0 4px 18px rgba(0,0,0,.06)}
-.alert-top h3{margin:0 0 8px 0;color:var(--c-red)} .alert-list{display:flex;flex-direction:column;gap:6px}
-.alert-item{display:flex;justify-content:space-between;gap:8px;border:1px dashed #f1b0b0;padding:8px;border-radius:8px;background:#fffafa}
-.kpi{display:flex;gap:14px;flex-wrap:wrap} .kpi .box{background:#fff;border-radius:10px;box-shadow:0 4px 18px rgba(0,0,0,.06);padding:12px 14px;min-width:140px}
-.kpi .label{font-size:12px;color:#666} .kpi .value{font-size:22px;font-weight:800}
-.canvas-wrap{background:#fff;border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.06);padding:12px}
-footer{text-align:center;color:#666;font-size:12px;padding:20px}
+:root{--p:#C62828;--g:#2e7d32;--o:#f57c00;--r:#d32f2f}*{box-sizing:border-box}body{margin:0;font-family:system-ui,Arial;background:#f4f5f7}
+.topbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:3px solid var(--p)}.topbar>div{display:flex;align-items:center;gap:10px;padding:6px 10px}
+img.logo{height:50px}h1{font-size:16px;margin:0;font-weight:800}.nav{margin-left:auto;display:flex;gap:8px;overflow:auto}
+.nav a{text-decoration:none;color:#111;background:#f0f0f0;border:1px solid #e2e2e2;padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px;white-space:nowrap}
+.nav a.active{background:#111;color:#fff}.c{max-width:1100px;margin:12px auto;padding:0 10px}.card{background:#fff;border-radius:10px;box-shadow:0 4px 18px #0001;padding:12px;margin:10px 0}
+.grid{display:grid;gap:8px}@media(min-width:720px){.grid{grid-template-columns:1fr 1fr}}.item{display:flex;flex-wrap:wrap;gap:8px;border:1px solid #eee;border-radius:10px;padding:10px}
+.item-left{display:flex;align-items:center;gap:8px;flex:1 1 240px;min-width:0}.dot{width:12px;height:12px;border-radius:999px}
+.dot.g{background:var(--g)}.dot.o{background:var(--o)}.dot.r{background:var(--r)}.title{font-weight:800;word-break:break-word;line-height:1.15}
+.item-actions{display:flex;gap:8px;flex:1 1 220px;justify-content:flex-end}select,textarea,input{border:1px solid #ddd;border-radius:8px;padding:8px}
+.btn{border:0;border-radius:8px;padding:8px 10px;font-weight:700;cursor:pointer;color:#fff;background:var(--p)}.ghost{background:#e8eaed;color:#111}
+.table-wrap{overflow-x:auto;border-radius:10px}table{width:100%;min-width:820px;border-collapse:separate;border-spacing:0 6px}th{text-align:left;color:#666;font-size:12px;padding:8px}td{background:#fff;padding:10px;border-radius:8px;vertical-align:top;word-break:break-word}
+.toast{position:fixed;left:10px;right:10px;bottom:12px;display:none;z-index:50}.toast .in{background:#323232;color:#fff;padding:10px 12px;border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;box-shadow:0 6px 18px #0004}
+.toast button{background:#ff7043;border:0;color:#fff;border-radius:6px;padding:6px 10px;font-weight:700}
+.badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 8px;background:#eee;font-weight:600;font-size:12px}
 </style>
-</head>
 <body>
-<div class="topbar">
-  <button class="burger" onclick="openDrawer()">☰</button>
-  <img src="logo_mantenimiento.jpeg" alt="Logo Mantenimiento">
-  <h1>CDL · Panel de Mantenimiento</h1>
-  <nav>
-    <a href="#inicio" class="active">Inicio</a>
-    <a href="#gruas">Grúas</a>
-    <a href="#incidencias">Incidencias</a>
-    <a href="#indicadores">Indicadores</a>
-    <a href="#leyenda">Leyenda</a>
-  </nav>
-</div>
-
-<div class="drawer" id="drawer">
-  <div class="backdrop" onclick="closeDrawer()"></div>
-  <div class="panel">
-    <h3>Menú</h3>
-    <a class="menu-link" href="#inicio" onclick="closeDrawer()">Inicio</a>
-    <details class="menu-group">
-      <summary>Equipos</summary>
-      <div class="submenu" id="submenuEquipos"></div>
-    </details>
-    <details class="menu-group">
-      <summary>Puentes (grúas)</summary>
-      <div class="submenu" id="submenuGruas"></div>
-    </details>
-    <a class="menu-link" href="#gruas" onclick="closeDrawer()">Página de grúas</a>
-    <a class="menu-link" href="#incidencias" onclick="closeDrawer()">Incidencias</a>
-    <a class="menu-link" href="#indicadores" onclick="closeDrawer()">Indicadores</a>
-    <a class="menu-link" href="#leyenda" onclick="closeDrawer()">Leyenda</a>
-  </div>
-</div>
-
-<div class="container">
-  <div id="alerta" class="card alert-top hidden">
-    <h3>Equipos parados o con restricciones por avería</h3>
-    <div class="alert-list" id="alertaList"></div>
-  </div>
-
-  <section id="inicioSec" class="card">
-    <div class="section-title">
-      <span class="badge red">🔴 Parada</span>
-      <span class="badge orange">🟠 Restricciones</span>
-      <span class="badge green">🟢 En marcha</span>
-    </div>
-    <button class="btn warn" onclick="mailtoParadaProlongada()">Parada prolongada (aviso correo)</button>
-    <div id="inicioGroups"></div>
-  </section>
-
-  <section id="gruasSec" class="card hidden">
-    <h2 class="section-title">Puentes grúa por nave</h2>
-    <div id="gruasGroups"></div>
-  </section>
-
-  <section id="fichaSec" class="card hidden">
-    <h2 class="section-title" id="fichaTitle">Ficha</h2>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-      <div id="fichaEstado" class="badge">Estado</div>
-      <select id="fichaSelect" class="status">
-        <option>En marcha</option><option>Restricciones</option><option>Parada</option>
-      </select>
-      <button class="btn warn" id="fichaBtn">Parada prolongada</button>
-    </div>
-    <div class="kpi" style="margin-top:12px">
-      <div class="box"><div class="label">MTTR medio (h)</div><div id="fichaMttr" class="value">0</div></div>
-      <div class="box"><div class="label">MTTA (h)</div><div id="fichaMtta" class="value">0</div></div>
-    </div>
-    <h3 style="margin-top:12px">Incidencias del equipo</h3>
-    <table class="table" id="fichaTable"><thead>
-      <tr><th>Fecha</th><th>Tipo</th><th>Descripción</th><th>Horas parada</th><th>MTTA (h)</th></tr>
-    </thead><tbody></tbody></table>
-  </section>
-
-  <section id="incidenciasSec" class="card hidden">
-    <h2 class="section-title">Incidencias</h2>
-    <div class="card">
-      <h3>Registrar nueva incidencia</h3>
+<div class=topbar><div><img class=logo src=logo_mantenimiento.jpeg alt=CDL><h1>CDL · Panel de Mantenimiento</h1>
+<nav class=nav id=nav><a href=#inicio class=active>Inicio</a><a href=#gruas>Grúas</a><a href=#incidencias>Incidencias</a><a href=#indicadores>Indicadores</a></nav></div></div>
+<div class=c>
+  <div id=alerta class=card style="display:none;border-left:6px solid var(--r)"><b>Equipos parados o con restricciones</b><div id=alertaList></div></div>
+  <section id=inicioSec class=card><div style=display:flex;gap:8px;margin:6px 0>
+    <span class=badge>🔴 Parada</span><span class=badge>🟠 Restricciones</span><span class=badge>🟢 En marcha</span></div>
+    <button class="btn" onclick="mailtoParadaProlongada()">Parada prolongada (aviso correo)</button>
+    <div id=inicioGroups></div></section>
+  <section id=gruasSec class=card style="display:none"><h3>Puentes grúa por nave</h3><div id=gruasGroups></div></section>
+  <section id=incidenciasSec class=card style="display:none">
+    <h3>Incidencias</h3>
+    <div class=card>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-        <div><label>Equipo</label><br><input id="incEquipo" list="equiposList" placeholder="Empieza a escribir..." style="width:100%;padding:8px;border:1px solid #ddd;border-radius:8px"><datalist id="equiposList"></datalist></div>
-        <div><label>Tipo</label><br><select id="incTipo" style="width:100%" class="status"><option value="Correctivo">Correctivo</option><option value="Preventivo">Preventivo</option><option value="Mejora">Mejora</option></select></div>
-        <div><label>Hora aviso</label><br><input type="datetime-local" id="incAviso" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:8px"></div>
-        <div><label>Hora atención</label><br><input type="datetime-local" id="incAtencion" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:8px"></div>
-        <div><label>Hora fin</label><br><input type="datetime-local" id="incFin" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:8px"></div>
-        <div><label>Horas de parada</label><br><input type="number" step="0.01" id="incHoras" placeholder="Ej. 2.5" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:8px"></div>
-        <div style="grid-column:1/3"><label>Descripción (obligatorio)</label><br><textarea id="incDesc" rows="3" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:8px"></textarea></div>
+        <div><label>Equipo</label><br><input id=incEquipo list=equiposList placeholder="Empieza a escribir..."><datalist id=equiposList></datalist></div>
+        <div><label>Tipo</label><br><select id=incTipo><option>Correctivo</option><option>Preventivo</option><option>Mejora</option></select></div>
+        <div><label>Hora aviso</label><br><input type=datetime-local id=incAviso></div>
+        <div><label>Hora atención</label><br><input type=datetime-local id=incAtencion></div>
+        <div><label>Hora fin</label><br><input type=datetime-local id=incFin></div>
+        <div><label>Horas de parada</label><br><input type=number step=0.01 id=incHoras placeholder="Ej. 2.5"></div>
+        <div style="grid-column:1/3"><label>Descripción (obligatorio)</label><br><textarea id=incDesc rows=3></textarea></div>
       </div>
-      <div style="margin-top:10px;display:flex;gap:8px">
-        <button class="btn" onclick="addIncidencia()">Añadir incidencia</button>
-        <button class="btn ghost" onclick="exportBackup()">Exportar backup</button>
-        <input type="file" id="importFile" style="display:none" accept=".json" onchange="importBackup(this.files[0])">
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class=btn onclick=addIncidencia()>Añadir incidencia</button>
+        <button class="btn ghost" onclick=exportBackup()>Exportar backup</button>
+        <input type=file id=importFile style="display:none" accept=.json onchange="importBackup(this.files[0])">
         <button class="btn ghost" onclick="document.getElementById('importFile').click()">Importar backup</button>
       </div>
     </div>
-    <h3 style="margin-top:16px">Historial (últimas primero)</h3>
-    <table class="table" id="incTable"><thead><tr><th>Fecha</th><th>Equipo</th><th>Tipo</th><th>Descripción</th><th>Horas parada</th><th>MTTA (h)</th></tr></thead><tbody></tbody></table>
-  </section>
-
-  <section id="indicadoresSec" class="card hidden">
-    <h2 class="section-title">Indicadores (semanales)</h2>
-    <div class="kpi">
-      <div class="box"><div class="label">MTTR medio (h)</div><div id="kpiMttr" class="value">0</div></div>
-      <div class="box"><div class="label">MTTA (h)</div><div id="kpiMtta" class="value">0</div></div>
+    <div class=card>
+      <h4>Filtros / búsqueda</h4>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <div style="flex:1 1 140px"><label>Equipo</label><br><input id=fEquipo list=equiposList placeholder=Todos></div>
+        <div style="flex:1 1 140px"><label>Tipo</label><br><select id=fTipo><option value=''>Todos</option><option>Correctivo</option><option>Preventivo</option><option>Mejora</option></select></div>
+        <div style="flex:1 1 140px"><label>Desde</label><br><input type=date id=fDesde></div>
+        <div style="flex:1 1 140px"><label>Hasta</label><br><input type=date id=fHasta></div>
+        <div style="flex:2 1 220px"><label>Texto</label><br><input id=fTexto placeholder="Equipo o descripción"></div>
+        <div style="display:flex;gap:8px;align-items:end"><button class="btn ghost" onclick=resetFiltros()>Limpiar</button><button class=btn onclick=aplicarFiltros()>Aplicar</button><button class="btn ghost" onclick=exportCSV()>Exportar CSV</button></div>
+      </div>
     </div>
-    <div class="canvas-wrap" style="margin-top:12px"><h3>MTTR por semana</h3><canvas id="chartMttr" height="160"></canvas></div>
-    <div class="canvas-wrap" style="margin-top:12px"><h3>Incidencias por semana</h3><canvas id="chartCount" height="160"></canvas></div>
+    <div class=card><div style="display:flex;gap:10px;flex-wrap:wrap">
+      <div><div style="font-size:12px;color:#666">MTTR medio (h)</div><div id=kpiMttr style="font-weight:800;font-size:22px">0</div></div>
+      <div><div style="font-size:12px;color:#666">MTTA (h)</div><div id=kpiMtta style="font-weight:800;font-size:22px">0</div></div>
+    </div>
+    <div class=card><b>MTTR por semana</b><canvas id=chartMttr height=160></canvas></div>
+    <div class=card><b>Incidencias por semana</b><canvas id=chartCount height=160></canvas></div></div>
+    <h4>Historial (según filtro)</h4>
+    <div class=table-wrap><table id=incTable><thead><tr><th>Fecha</th><th>Equipo</th><th>Tipo</th><th>Descripción</th><th>Horas parada</th><th>MTTA (h)</th><th>Acciones</th></tr></thead><tbody></tbody></table></div>
   </section>
-
-  <section id="leyendaSec" class="card hidden">
-    <h2 class="section-title">Leyenda de KPIs</h2>
-    <ul>
-      <li><b>MTTR</b>: Σ horas parada ÷ nº averías (correctivas).</li>
-      <li><b>MTTA</b>: Σ (hora atención − hora aviso) ÷ nº avisos.</li>
-      <li><b>MTBF</b>: tiempo medio entre fallos (estimable por periodos entre correctivos).</li>
-    </ul>
+  <section id=indicadoresSec class=card style="display:none"><h3>Indicadores</h3>
+    <div class=card><b>MTTR por semana</b><canvas id=chartMttr2 height=160></canvas></div>
+    <div class=card><b>Incidencias por semana</b><canvas id=chartCount2 height=160></canvas></div>
   </section>
-
-  <footer>© CDL — Panel interno de Mantenimiento</footer>
 </div>
-
+<div class=toast id=toast><div class=in><div id=toastMsg>Incidencia borrada.</div><div style="display:flex;gap:8px;align-items:center"><button onclick=deshacerBorrado()>Deshacer</button><span id=toastCountdown style=font-size:12px></span></div></div></div>
 <script>
-const DATA = {
-  "equipos": {
-    "Línea KALTENBACH": [
-      "SIERRA KBS",
-      "KDP1",
-      "KDP3",
-      "ÁREA PINTURA",
-      "TRANSPORTE T13 (Rodillo central)",
-      "VALLADO Y SEGURIDADES",
-      "SALIDA Q8",
-      "SALIDA Q9"
-    ],
-    "Máquinas independientes": [
-      "HGG",
-      "SIERRA DE PAQUETES",
-      "TECOI (THOR)",
-      "MAZAK FG-400NEO"
-    ],
-    "Láser Trumpf": [
-      "LASER T12-2",
-      "LASER T12-1",
-      "LASER T7-1",
-      "LASER T7-2",
-      "LASER T11-1",
-      "LASER T11-2"
-    ],
-    "Maquinaria móvil / transporte": [
-      "CARRETILLA ELEVADORA LINDE 1",
-      "CARRETILLA ELEVADORA LINDE 2",
-      "PLATAFORMA ELEVADORA ARTICULADA",
-      "TRANSPALETAS ELÉCTRICAS",
-      "CARRO DE TRANSPORTE TRANSVERSAL 1",
-      "CARRO DE TRANSPORTE TRANSVERSAL 2"
-    ]
-  },
-  "gruas": {
-    "Nave 1": [
-      "N1 PUENTE GRÚA CON IMANES (SIN INSTALAR)",
-      "N1 DEMAG 5+5T",
-      "N1 DEMAG 6.3+6.3T",
-      "N1 GH 6.3+6.3T"
-    ],
-    "Nave 2": [
-      "N2 PUENTE GRÚA CON IMANES (SIN INSTALAR)",
-      "N2 DEMAG 5+5T (PORTADOR IMANES)",
-      "N2 DEMAG 6.3+6.3T",
-      "N2 GH 6.3+6.3T",
-      "N2 GH 5+5T"
-    ],
-    "Nave 3": [
-      "N3 ARAEL 3.2+3.2T (IMANES)",
-      "N3 DEMAG 5+5T",
-      "N3 DEMAG 6.3+6.3T",
-      "N3 GH 5+5T (1)",
-      "N3 GH 5+5T (2)",
-      "N3 GH 3.2+3.2T DESCARGA ZONA LÁSER (1)",
-      "N3 GH 3.2+3.2T DESCARGA ZONA LÁSER (2)"
-    ],
-    "Nave 4": [
-      "N4 GH 2.2+2.2T (IMANES)",
-      "N4 DEMAG 5+5T",
-      "N4 DEMAG 6.3+6.3T",
-      "N4 GH 10+10T",
-      "N4 GH 5+5T"
-    ]
-  }
-};
+const DATA={"equipos": {"Línea KALTENBACH": ["SIERRA KBS", "KDP1", "KDP3", "ÁREA PINTURA", "TRANSPORTE T13 (Rodillo central)", "VALLADO Y SEGURIDADES", "SALIDA Q8", "SALIDA Q9"], "Máquinas independientes": ["HGG", "SIERRA DE PAQUETES", "TECOI (THOR)", "MAZAK FG-400NEO"], "Láser Trumpf": ["LASER T12-2", "LASER T12-1", "LASER T7-1", "LASER T7-2", "LASER T11-1", "LASER T11-2"], "Maquinaria móvil / transporte": ["CARRETILLA ELEVADORA LINDE 1", "CARRETILLA ELEVADORA LINDE 2", "PLATAFORMA ELEVADORA ARTICULADA", "TRANSPALETAS ELÉCTRICAS", "CARRO DE TRANSPORTE TRANSVERSAL 1", "CARRO DE TRANSPORTE TRANSVERSAL 2"]}, "gruas": {"Nave 1": ["N1 PUENTE GRÚA CON IMANES (SIN INSTALAR)", "N1 DEMAG 5+5T", "N1 DEMAG 6.3+6.3T", "N1 GH 6.3+6.3T"], "Nave 2": ["N2 PUENTE GRÚA CON IMANES (SIN INSTALAR)", "N2 DEMAG 5+5T (PORTADOR IMANES)", "N2 DEMAG 6.3+6.3T", "N2 GH 6.3+6.3T", "N2 GH 5+5T"], "Nave 3": ["N3 ARAEL 3.2+3.2T (IMANES)", "N3 DEMAG 5+5T", "N3 DEMAG 6.3+6.3T", "N3 GH 5+5T (1)", "N3 GH 5+5T (2)", "N3 GH 3.2+3.2T DESCARGA ZONA LÁSER (1)", "N3 GH 3.2+3.2T DESCARGA ZONA LÁSER (2)"], "Nave 4": ["N4 GH 2.2+2.2T (IMANES)", "N4 DEMAG 5+5T", "N4 DEMAG 6.3+6.3T", "N4 GH 10+10T", "N4 GH 5+5T"]}};
 
-const KEY_STATE="cdl_state_v1"; const KEY_INCID="cdl_incid_v1";
-function loadState(){return JSON.parse(localStorage.getItem(KEY_STATE)||'{}');}
-function saveState(s){localStorage.setItem(KEY_STATE,JSON.stringify(s));}
-function loadIncid(){return JSON.parse(localStorage.getItem(KEY_INCID)||'[]');}
-function saveIncid(a){localStorage.setItem(KEY_INCID,JSON.stringify(a));}
-function statusDot(s){if(s==='Parada')return'red';if(s==='Restricciones')return'orange';return'green';}
-function mailtoParadaProlongada(equipo='(no especificado)'){
-  const to='mrsmarioruizsola@outlook.es'; const subj=encodeURIComponent('🚨 Parada prolongada — '+equipo);
-  const body=encodeURIComponent('Se ha marcado PARADA PROLONGADA.\n\nEquipo: '+equipo+'\nFecha: '+new Date().toLocaleString());
-  window.location.href=`mailto:${to}?subject=${subj}&body=${body}`;
-}
-function openDrawer(){document.getElementById('drawer').classList.add('open');}
-function closeDrawer(){document.getElementById('drawer').classList.remove('open');}
-function setActive(hash){
-  document.querySelectorAll('.topbar nav a').forEach(a=>a.classList.remove('active'));
-  const link=document.querySelector('.topbar nav a[href="'+hash+'"]'); if(link) link.classList.add('active');
-  ['inicioSec','gruasSec','incidenciasSec','indicadoresSec','leyendaSec','fichaSec'].forEach(id=>document.getElementById(id).classList.add('hidden'));
-  if(hash.startsWith('#equipo=')||hash.startsWith('#grua=')){document.getElementById('fichaSec').classList.remove('hidden'); renderFicha(decodeURIComponent(hash.split('=')[1]||'')); return;}
-  if(hash==='#gruas') document.getElementById('gruasSec').classList.remove('hidden');
-  else if(hash==='#incidencias') document.getElementById('incidenciasSec').classList.remove('hidden');
-  else if(hash==='#indicadores') document.getElementById('indicadoresSec').classList.remove('hidden');
-  else if(hash==='#leyenda') document.getElementById('leyendaSec').classList.remove('hidden');
-  else document.getElementById('inicioSec').classList.remove('hidden');
-}
-function buildDrawerMenus(){
-  const se=document.getElementById('submenuEquipos'); se.innerHTML='';
-  Object.entries(DATA.equipos).forEach(([grupo,lista])=>{const t=document.createElement('div'); t.style.fontWeight='800'; t.style.padding='6px 14px'; t.textContent=grupo; se.appendChild(t);
-    lista.forEach(n=>{const a=document.createElement('a'); a.href='#equipo='+encodeURIComponent(n); a.textContent='• '+n; a.onclick=closeDrawer; se.appendChild(a);});
-  });
-  const sg=document.getElementById('submenuGruas'); sg.innerHTML='';
-  Object.entries(DATA.gruas).forEach(([nave,lista])=>{const t=document.createElement('div'); t.style.fontWeight='800'; t.style.padding='6px 14px'; t.textContent=nave; sg.appendChild(t);
-    lista.forEach(n=>{const a=document.createElement('a'); a.href='#grua='+encodeURIComponent(n); a.textContent='• '+n; a.onclick=closeDrawer; sg.appendChild(a);});
-  });
-}
-function renderItem(name, group, isGrua=false){
-  const st=loadState();
-  const item=document.createElement('div'); item.className='item';
-  const left=document.createElement('div'); left.className='item-left';
-  const dot=document.createElement('span'); dot.className='dot '+statusDot(st[name]?.estado||'En marcha');
-  const nm=document.createElement('div'); nm.innerHTML='<div style="font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+name+'</div><small>'+group+'</small>';
-  left.appendChild(dot); left.appendChild(nm);
-  const actions=document.createElement('div'); actions.className='item-actions';
-  const sel=document.createElement('select'); sel.className='status';
-  ['En marcha','Restricciones','Parada'].forEach(opt=>{const o=document.createElement('option'); o.value=opt; o.textContent=opt; if((st[name]?.estado||'En marcha')===opt) o.selected=true; sel.appendChild(o);});
-  sel.onchange=()=>{const s=loadState(); s[name]={estado:sel.value,updated:new Date().toISOString()}; saveState(s); renderAll();};
-  const btn=document.createElement('button'); btn.className='btn ghost'; btn.textContent='Ficha'; btn.onclick=()=>{window.location.hash=(isGrua?'#grua=':'#equipo=')+encodeURIComponent(name);};
-  const btnAlert=document.createElement('button'); btnAlert.className='btn warn'; btnAlert.textContent='Parada prolongada'; btnAlert.onclick=()=>{sel.value='Parada'; sel.onchange(); mailtoParadaProlongada(name);};
-  actions.appendChild(sel); actions.appendChild(btn); actions.appendChild(btnAlert);
-  item.appendChild(left); item.appendChild(actions);
-  return item;
-}
-function renderInicio(){
-  const wrap=document.getElementById('inicioGroups'); wrap.innerHTML='';
-  Object.entries(DATA.equipos).forEach(([grupo,lista])=>{const card=document.createElement('div'); card.className='card';
-    const title=document.createElement('h3'); title.className='section-title'; title.textContent=grupo; card.appendChild(title);
-    const grid=document.createElement('div'); grid.className='grid';
-    lista.forEach(name=>{ grid.appendChild(renderItem(name,grupo)); });
-    card.appendChild(grid); wrap.appendChild(card);
-  });
-}
-function renderGruas(){
-  const wrap=document.getElementById('gruasGroups'); wrap.innerHTML='';
-  Object.entries(DATA.gruas).forEach(([nave,lista])=>{const card=document.createElement('div'); card.className='card';
-    const title=document.createElement('h3'); title.className='section-title'; title.textContent=nave; card.appendChild(title);
-    const grid=document.createElement('div'); grid.className='grid';
-    lista.forEach(name=>{ grid.appendChild(renderItem(name,nave,true)); });
-    card.appendChild(grid); wrap.appendChild(card);
-  });
-}
-function renderFicha(name){
-  const st=loadState();
-  document.getElementById('fichaTitle').textContent=name;
-  const estado=st[name]?.estado||'En marcha';
-  const badge=document.getElementById('fichaEstado'); badge.textContent=estado;
-  badge.className='badge '+(estado==='Parada'?'red':(estado==='Restricciones'?'orange':'green'));
-  const select=document.getElementById('fichaSelect'); Array.from(select.options).forEach(o=>o.selected=(o.value===estado));
-  select.onchange=()=>{const s=loadState(); s[name]={estado:select.value,updated:new Date().toISOString()}; saveState(s); renderAll();};
-  const btn=document.getElementById('fichaBtn'); btn.onclick=()=>{select.value='Parada'; select.onchange(); mailtoParadaProlongada(name);};
-
-  const tbody=document.querySelector('#fichaTable tbody'); tbody.innerHTML='';
-  const arr=loadIncid().filter(i=>i.equipo===name).sort((a,b)=>new Date(b.created)-new Date(a.created));
-  const corr=arr.filter(i=>i.tipo==='Correctivo'&&i.horas);
-  const mttr=corr.length?corr.reduce((s,i)=>s+(i.horas||0),0)/corr.length:0;
-  const mttaArr=arr.filter(i=>i.mtta); const mtta=mttaArr.length?mttaArr.reduce((s,i)=>s+i.mtta,0)/mttaArr.length:0;
-  document.getElementById('fichaMttr').textContent=mttr.toFixed(2);
-  document.getElementById('fichaMtta').textContent=mtta.toFixed(2);
-  arr.forEach(it=>{const tr=document.createElement('tr'); const fmt=d=>d?new Date(d).toLocaleString():'—';
-    tr.innerHTML='<td>'+fmt(it.created)+'</td><td>'+it.tipo+'</td><td>'+it.desc+'</td><td>'+((it.horas||0).toFixed(2))+'</td><td>'+((it.mtta||0).toFixed(2))+'</td>'; tbody.appendChild(tr);
-  });
-}
-function fillDatalist(){
-  const dl=document.getElementById('equiposList'); dl.innerHTML='';
-  Object.values(DATA.equipos).flat().concat(Object.values(DATA.gruas).flat()).forEach(n=>{const o=document.createElement('option'); o.value=n; dl.appendChild(o);});
-}
-function addIncidencia(){
-  const equipo=document.getElementById('incEquipo').value.trim();
-  const tipo=document.getElementById('incTipo').value;
-  const aviso=document.getElementById('incAviso').value;
-  const atencion=document.getElementById('incAtencion').value;
-  const fin=document.getElementById('incFin').value;
-  const horas=parseFloat(document.getElementById('incHoras').value||'0');
-  const desc=document.getElementById('incDesc').value.trim();
-  if(!equipo||!desc){alert('Equipo y descripción son obligatorios');return;}
-  let mtta=0; if(aviso&&atencion) mtta=(new Date(atencion)-new Date(aviso))/(1000*60*60);
-  const arr=loadIncid();
-  arr.push({id:'INC'+Date.now(),equipo,tipo,aviso,atencion,fin,horas,mtta,desc,created:new Date().toISOString()});
-  saveIncid(arr); renderIncidencias(); renderIndicadores();
-  if(location.hash.startsWith('#equipo=')||location.hash.startsWith('#grua=')) renderFicha(decodeURIComponent(location.hash.split('=')[1]||''));
-}
-function renderIncidencias(){
-  const tbody=document.querySelector('#incTable tbody'); tbody.innerHTML='';
-  const arr=loadIncid().sort((a,b)=>new Date(b.created)-new Date(a.created));
-  arr.forEach(it=>{const tr=document.createElement('tr'); const fmt=d=>d?new Date(d).toLocaleString():'—';
-    tr.innerHTML='<td>'+fmt(it.created)+'</td><td><span class="badge">'+it.equipo+'</span></td><td>'+it.tipo+'</td><td>'+it.desc+'</td><td>'+((it.horas||0).toFixed(2))+'</td><td>'+((it.mtta||0).toFixed(2))+'</td>'; tbody.appendChild(tr);
-  });
-}
-function isoWeek(d){const date=new Date(d);const target=new Date(date.valueOf());const dayNr=(date.getDay()+6)%7;target.setDate(target.getDate()-dayNr+3);const firstThursday=new Date(target.getFullYear(),0,4);const week=1+Math.round(((target-firstThursday)/86400000-3+((firstThursday.getDay()+6)%7))/7);return week;}
-function renderIndicadores(){
-  const arr=loadIncid();
-  const corr=arr.filter(i=>i.tipo==='Correctivo'&&i.horas);
-  const mttr=corr.length?corr.reduce((s,i)=>s+(i.horas||0),0)/corr.length:0;
-  const mttaArr=arr.filter(i=>i.mtta);
-  const mtta=mttaArr.length?mttaArr.reduce((s,i)=>s+i.mtta,0)/mttaArr.length:0;
-  document.getElementById('kpiMttr').textContent=mttr.toFixed(2);
-  document.getElementById('kpiMtta').textContent=mtta.toFixed(2);
-  const byW={}; arr.forEach(i=>{const w=isoWeek(i.created); if(!byW[w]) byW[w]={count:0,hrs:0}; byW[w].count++; byW[w].hrs+=(i.horas||0);});
-  const weeks=Object.keys(byW).sort((a,b)=>a-b); const dataMttr=weeks.map(w=>byW[w].count?byW[w].hrs/byW[w].count:0); const dataCount=weeks.map(w=>byW[w].count);
-  drawBars('chartMttr',weeks,dataMttr,'h'); drawBars('chartCount',weeks,dataCount,'');
-}
-function drawBars(id,labels,values,unit){
-  const c=document.getElementById(id); const ctx=c.getContext('2d'); const W=c.width=c.clientWidth; const H=c.height=c.clientHeight;
-  ctx.clearRect(0,0,W,H); const pad=28; const max=Math.max(1,...values); const step=(W-pad*2)/(values.length||1); const barW=step*0.7;
-  ctx.strokeStyle='#ccc'; ctx.beginPath(); ctx.moveTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke();
-  values.forEach((v,i)=>{const x=pad+i*step+(step-barW)/2; const h=(H-pad*2)*(v/max); const y=H-pad-h; ctx.fillStyle='rgba(198,40,40,0.85)'; ctx.fillRect(x,y,barW,h); ctx.fillStyle='#333'; ctx.font='12px system-ui'; ctx.fillText(labels[i], x, H-pad+14); ctx.fillText(v.toFixed(1)+(unit||''), x, y-4);});
-}
-function renderAlert(){
-  const st=loadState(); const alerta=document.getElementById('alerta'); const list=document.getElementById('alertaList');
-  const all=Object.values(DATA.equipos).flat().concat(Object.values(DATA.gruas).flat());
-  const items=all.filter(n=> (st[n]?.estado==='Parada' || st[n]?.estado==='Restricciones'));
-  if(items.length===0){ alerta.classList.add('hidden'); list.innerHTML=''; }
-  else{ alerta.classList.remove('hidden'); list.innerHTML=''; items.forEach(n=>{ const div=document.createElement('div'); div.className='alert-item'; const s=st[n]?.estado||'En marcha'; div.innerHTML='<div><b>'+n+'</b></div><div class="badge '+(s==='Parada'?'red':'orange')+'">'+s+'</div>'; list.appendChild(div);});}
-}
-function renderAll(){ buildDrawerMenus(); renderInicio(); renderGruas(); renderIncidencias(); renderIndicadores(); renderAlert(); fillDatalist(); }
-window.addEventListener('hashchange', ()=>setActive(location.hash||'#inicio'));
-window.addEventListener('load', ()=>{ setActive(location.hash||'#inicio'); renderAll(); });
+const KEY_STATE="cdl_state_v1", KEY_INCID="cdl_incid_v1";
+let _cacheFiltrado=[], _undo=null, _toastTimer=null;
+const q=x=>document.querySelector(x);
+function loadState(){return JSON.parse(localStorage.getItem(KEY_STATE)||'{}')}
+function saveState(s){localStorage.setItem(KEY_STATE,JSON.stringify(s))}
+function loadIncid(){return JSON.parse(localStorage.getItem(KEY_INCID)||'[]')}
+function saveIncid(a){localStorage.setItem(KEY_INCID,JSON.stringify(a))}
+function statusDot(s){return s==='Parada'?'r':(s==='Restricciones'?'o':'g')}
+function mailtoParadaProlongada(eq='(no especificado)'){const to='mrsmarioruizsola@outlook.es';location.href=`mailto:${to}?subject=${encodeURIComponent('🚨 Parada prolongada — '+eq)}&body=${encodeURIComponent('Equipo: '+eq+'\nFecha: '+new Date().toLocaleString())}`}
+function setActive(h){document.querySelectorAll('.nav a').forEach(a=>a.classList.remove('active'));const l=document.querySelector('.nav a[href="'+h+'"]');if(l)l.classList.add('active');['inicioSec','gruasSec','incidenciasSec','indicadoresSec'].forEach(id=>q('#'+id).style.display='none');q(h==='#gruas'?'#gruasSec':h==='#incidencias'?'#incidenciasSec':h==='#indicadores'?'#indicadoresSec':'#inicioSec').style.display='block'}
+function renderItem(name,group){const st=loadState();const d=document.createElement('div');d.className='item';d.innerHTML=`<div class=item-left><span class="dot ${statusDot(st[name]?.estado||'En marcha')}"></span><div><div class=title>${name}</div><small>${group}</small></div></div><div class=item-actions><select class=status><option>En marcha</option><option>Restricciones</option><option>Parada</option></select><button class=btn onclick="mailtoParadaProlongada('${name.replace("'", "\'")}')">Parada prolongada</button></div>`;const sel=d.querySelector('select');sel.value=(st[name]?.estado)||'En marcha';sel.onchange=()=>{const s=loadState();s[name]={estado:sel.value,updated:new Date().toISOString()};saveState(s);renderAll()};return d}
+function renderInicio(){const w=q('#inicioGroups');w.innerHTML='';Object.entries(DATA.equipos).forEach(([g,l])=>{const c=document.createElement('div');c.className='card';c.innerHTML=`<h3>${g}</h3>`;const grd=document.createElement('div');grd.className='grid';l.forEach(n=>grd.appendChild(renderItem(n,g)));c.appendChild(grd);w.appendChild(c)})}
+function renderGruas(){const w=q('#gruasGroups');w.innerHTML='';Object.entries(DATA.gruas).forEach(([g,l])=>{const c=document.createElement('div');c.className='card';c.innerHTML=`<h3>${g}</h3>`;const grd=document.createElement('div');grd.className='grid';l.forEach(n=>grd.appendChild(renderItem(n,g)));c.appendChild(grd);w.appendChild(c)})}
+function fillDatalist(){const dl=q('#equiposList');dl.innerHTML='';[...Object.values(DATA.equipos).flat(),...Object.values(DATA.gruas).flat()].forEach(n=>{const o=document.createElement('option');o.value=n;dl.appendChild(o)})}
+function addIncidencia(){const equipo=q('#incEquipo').value.trim(),tipo=q('#incTipo').value,aviso=q('#incAviso').value,at=q('#incAtencion').value,fin=q('#incFin').value,horas=parseFloat(q('#incHoras').value||'0'),desc=q('#incDesc').value.trim();if(!equipo||!desc){alert('Equipo y descripción son obligatorios');return}let mtta=0;if(aviso&&at)mtta=(new Date(at)-new Date(aviso))/36e5;const arr=loadIncid();arr.push({id:'INC'+Date.now(),equipo,tipo,aviso,atencion:at,fin,horas,mtta,desc,created:new Date().toISOString()});saveIncid(arr);aplicarFiltros()}
+function isoWeek(d){const dt=new Date(d),t=new Date(dt.valueOf());const dn=(dt.getDay()+6)%7;t.setDate(t.getDate()-dn+3);const ft=new Date(t.getFullYear(),0,4);return 1+Math.round(((t-ft)/86400000-3+((ft.getDay()+6)%7))/7)}
+function drawBars(id,labels,values,unit){const c=q('#'+id),ctx=c.getContext('2d');const W=c.width=c.clientWidth,H=c.height=c.clientHeight;ctx.clearRect(0,0,W,H);const pad=28,max=Math.max(1,...values),step=(W-pad*2)/Math.max(1,labels.length),bw=step*.7;ctx.strokeStyle='#ccc';ctx.beginPath();ctx.moveTo(pad,H-pad);ctx.lineTo(W-pad,H-pad);ctx.stroke();values.forEach((v,i)=>{const x=pad+i*step+(step-bw)/2,h=(H-pad*2)*(v/max),y=H-pad-h;ctx.fillStyle='rgba(198,40,40,.88)';ctx.fillRect(x,y,bw,h);ctx.fillStyle='#333';ctx.font='12px system-ui';ctx.fillText(labels[i],x,H-pad+14);ctx.fillText((+v).toFixed(1)+(unit||''),x,y-4)})}
+function getFiltros(){const eq=q('#fEquipo').value.trim(),tipo=q('#fTipo').value;const desde=q('#fDesde').value?new Date(q('#fDesde').value):null;const hasta=q('#fHasta').value?new Date(q('#fHasta').value):null;const texto=q('#fTexto').value.trim().toLowerCase();return {eq,tipo,desde,hasta,texto}}
+function filtrar(a){const f=getFiltros();return a.filter(i=>{if(f.eq&&i.equipo!==f.eq)return false;if(f.tipo&&i.tipo!==f.tipo)return false;const d=new Date(i.created);if(f.desde&&d<f.desde)return false;if(f.hasta){const h=new Date(f.hasta);h.setHours(23,59,59,999);if(d>h)return false}if(f.texto){const blob=(i.equipo+' '+(i.desc||'')).toLowerCase();if(!blob.includes(f.texto))return false}return true})}
+function resetFiltros(){['#fEquipo','#fTipo','#fDesde','#fHasta','#fTexto'].forEach(s=>q(s).value='');aplicarFiltros()}
+function aplicarFiltros(){const arr=loadIncid().sort((a,b)=>new Date(b.created)-new Date(a.created)),vis=filtrar(arr);_cacheFiltrado=vis;const tb=q('#incTable tbody');tb.innerHTML='';const fmt=d=>d?new Date(d).toLocaleString():'—';vis.forEach(it=>{const tr=document.createElement('tr');tr.innerHTML='<td>'+fmt(it.created)+'</td><td><span class=badge>'+it.equipo+'</span></td><td>'+it.tipo+'</td><td>'+it.desc+'</td><td>'+((it.horas||0).toFixed(2))+'</td><td>'+((it.mtta||0).toFixed(2))+'</td><td><button class="btn" style="background:#d32f2f" onclick="borrarIncidencia(\''+it.id+'\')">Borrar</button></td>';tb.appendChild(tr)});const corr=vis.filter(i=>i.tipo==='Correctivo'&&i.horas);const mttr=corr.length?corr.reduce((s,i)=>s+(i.horas||0),0)/corr.length:0;const ma=vis.filter(i=>i.mtta);const mtta=ma.length?ma.reduce((s,i)=>s+i.mtta,0)/ma.length:0;q('#kpiMttr').textContent=mttr.toFixed(2);q('#kpiMtta').textContent=mtta.toFixed(2);const by={};vis.forEach(i=>{const w=isoWeek(i.created);by[w]=by[w]||{count:0,hrs:0};by[w].count++;by[w].hrs+=(i.horas||0)});const weeks=Object.keys(by).sort((a,b)=>a-b);drawBars('chartMttr',weeks,weeks.map(w=>by[w].count?by[w].hrs/by[w].count:0),'h');drawBars('chartCount',weeks,weeks.map(w=>by[w].count),'')}
+function exportCSV(){const rows=_cacheFiltrado.map(i=>[new Date(i.created).toLocaleString(),i.equipo,i.tipo,(i.desc||'').replace(/\n/g,' '),(i.horas||0),(i.mtta||0)]);const header=['Fecha','Equipo','Tipo','Descripción','Horas_parada','MTTA_h'];const csv=[header].concat(rows).map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='incidencias_filtradas.csv';a.click()}
+function borrarIncidencia(id){const arr=loadIncid();const i=arr.findIndex(x=>x.id===id);if(i<0)return;const [rm]=arr.splice(i,1);saveIncid(arr);_undo={item:rm};aplicarFiltros();showToast('Incidencia borrada.',6,()=>{_undo=null})}
+function deshacerBorrado(){if(!_undo)return;const arr=loadIncid();arr.push(_undo.item);saveIncid(arr);_undo=null;hideToast();aplicarFiltros();showToast('Restaurada.',2)}
+function showToast(msg,sec,onExpire){q('#toastMsg').textContent=msg;let left=sec||4;q('#toastCountdown').textContent=left+'s';q('#toast').style.display='block';if(_toastTimer)clearInterval(_toastTimer);_toastTimer=setInterval(()=>{left--;q('#toastCountdown').textContent=left>0?left+'s':'';if(left<=0){clearInterval(_toastTimer);hideToast();if(onExpire)onExpire();}},1000)}
+function hideToast(){q('#toast').style.display='none'}
+function renderKPIsGlobal(){const arr=loadIncid(),by={};arr.forEach(i=>{const w=isoWeek(i.created);by[w]=by[w]||{count:0,hrs:0};by[w].count++;by[w].hrs+=(i.horas||0)});const weeks=Object.keys(by).sort((a,b)=>a-b);drawBars('chartMttr2',weeks,weeks.map(w=>by[w].count?by[w].hrs/by[w].count:0),'h');drawBars('chartCount2',weeks,weeks.map(w=>by[w].count),'')}
+function renderAlert(){const s=loadState(),all=[...Object.values(DATA.equipos).flat(),...Object.values(DATA.gruas).flat()],its=all.filter(n=>['Parada','Restricciones'].includes(s[n]?.estado));const b=q('#alerta'),l=q('#alertaList');if(its.length==0){b.style.display='none';l.innerHTML='';return}b.style.display='block';l.innerHTML='';its.forEach(n=>{const d=document.createElement('div');d.textContent=n+' — '+(s[n]?.estado||'En marcha');l.appendChild(d)})}
+function renderAll(){renderInicio();renderGruas();fillDatalist();aplicarFiltros();renderKPIsGlobal();renderAlert();setActive(location.hash||'#inicio')}
+addEventListener('hashchange',()=>setActive(location.hash||'#inicio'));addEventListener('load',renderAll);
 </script>
-</body>
 </html>
