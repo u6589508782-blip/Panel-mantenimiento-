@@ -1,54 +1,61 @@
-
 <!doctype html><html lang="es"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CDL · Panel de Mantenimiento</title>
+<title>CDL · CMMS</title>
 <style>
-:root{--c1:#C62828;--g:#2e7d32;--o:#f57c00;--r:#d32f2f;--soft:#f6f7f9}
+:root{--c1:#C62828;--c1l:#FBEAEA;--g:#2e7d32;--o:#f57c00;--r:#d32f2f;--soft:#f6f7f9}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--soft)}
-.header{position:sticky;top:0;z-index:30;background:#fff;border-bottom:3px solid var(--c1)}
-.header-top{display:flex;align-items:center;gap:12px;padding:6px 12px}
-.header-top img{height:64px}
-.header-top h1{margin:0;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:800}
-.header-bottom{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;padding:6px 10px;border-top:1px solid #eee}
-.navbtn{flex:0 0 auto;text-decoration:none;color:#111;background:#f0f0f0;border:1px solid #e2e2e2;padding:6px 12px;border-radius:999px;font-weight:700;font-size:13px}
-.navbtn.active{background:#111;color:#fff;border-color:#111}
+.header{position:sticky;top:0;z-index:30;background:linear-gradient(180deg,var(--c1l),#fff);border-bottom:3px solid var(--c1)}
+.header-top{display:flex;align-items:center;gap:14px;padding:8px 12px}
+.header-top img{height:70px}
+.header-top h1{margin:0;font-size:19px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:900;color:#111}
+.header-bottom{display:flex;gap:8px;overflow-x:auto;padding:8px 10px;border-top:1px solid #eee}
+.navbtn{flex:0 0 auto;text-decoration:none;color:#111;background:#fff;border:1px solid #e2e2e2;padding:8px 12px;border-radius:999px;font-weight:800;font-size:13px}
+.navbtn.active{background:var(--c1);color:#fff;border-color:var(--c1)}
 .container{max-width:1100px;margin:12px auto;padding:0 12px}
-.card{background:#fff;border-radius:10px;box-shadow:0 4px 18px rgba(0,0,0,.06);padding:12px;margin:10px 0}
+.card{background:#fff;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.06);padding:12px;margin:12px 0;border:1px solid #eee}
 .section-title{margin:4px 0 10px 0;font-size:17px;color:#111}
 .grid{display:grid;grid-template-columns:1fr;gap:8px}@media(min-width:720px){.grid{grid-template-columns:1fr 1fr}}
-.item{display:flex;flex-wrap:wrap;gap:10px;border:1px solid #eee;border-radius:10px;padding:10px}
+.item{display:flex;flex-wrap:wrap;gap:10px;border:1px solid #eee;border-radius:12px;padding:10px}
 .item-left{display:flex;align-items:center;gap:10px;flex:1 1 260px;min-width:0}
 .dot{width:12px;height:12px;border-radius:999px}
 .dot.g{background:var(--g)}.dot.o{background:var(--o)}.dot.r{background:var(--r)}
-.title{font-weight:800;line-height:1.15;word-break:break-word}
+.title{font-weight:900;line-height:1.15;word-break:break-word}
 .small{color:#666}
 .item-actions{display:flex;gap:8px;flex:1 1 240px;justify-content:flex-end}
-select,input,textarea{border:1px solid #ddd;border-radius:8px;padding:8px}
-.btn{appearance:none;border:0;background:var(--c1);color:#fff;border-radius:8px;padding:8px 10px;font-weight:700;cursor:pointer}
+select,input,textarea{border:1px solid #ddd;border-radius:10px;padding:8px}
+.btn{appearance:none;border:0;background:var(--c1);color:#fff;border-radius:10px;padding:9px 12px;font-weight:800;cursor:pointer}
 .btn.ghost{background:#e8eaed;color:#111}.btn.warn{background:var(--r)}
-.table-wrap{overflow-x:auto;border-radius:10px}
-.table{width:100%;min-width:880px;border-collapse:separate;border-spacing:0 6px}
+.table-wrap{overflow-x:auto;border-radius:12px}
+.table{width:100%;min-width:920px;border-collapse:separate;border-spacing:0 8px}
 .table th{text-align:left;color:#666;font-size:12px;padding:8px;white-space:nowrap}
-.table td{background:#fff;padding:10px;border-radius:8px;vertical-align:top;word-break:break-word}
+.table td{background:#fff;padding:10px;border-radius:10px;vertical-align:top;word-break:break-word}
+.badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 8px;background:#eee;font-weight:700;font-size:12px}
+canvas{max-width:100%}
+.inv-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 160px;gap:8px;align-items:center}
+.inv-item{display:contents}
+.inv-head{font-size:12px;color:#666}
+.inv-cell{background:#fff;border:1px solid #eee;border-radius:10px;padding:8px}
+.qty{display:flex;gap:6px;align-items:center;justify-content:flex-end}
+.qty button{padding:6px 10px;border-radius:8px;border:0;background:#e9e9e9;font-weight:800;cursor:pointer}
+.alert{background:#fff3f3;border-left:6px solid var(--c1);padding:10px;border-radius:10px}
 .toast{position:fixed;left:10px;right:10px;bottom:12px;display:none;z-index:50}
 .toast .in{background:#323232;color:#fff;padding:10px 12px;border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;box-shadow:0 6px 18px rgba(0,0,0,.3)}
 .toast button{background:#ff7043;border:0;color:#fff;border-radius:6px;padding:6px 10px;font-weight:700}
-.badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 8px;background:#eee;font-weight:600;font-size:12px}
-canvas{max-width:100%}
 </style>
 </head>
 <body>
 <header class="header">
   <div class="header-top">
     <img src="logo_mantenimiento.jpeg" alt="CDL">
-    <h1>CDL · Panel de Mantenimiento</h1>
+    <h1>CDL · CMMS</h1>
   </div>
   <div class="header-bottom" id="nav">
     <a href="#equipos" class="navbtn active">Equipos</a>
     <a href="#puentes" class="navbtn">Puentes Grúa</a>
+    <a href="#otros" class="navbtn">Otros</a>
     <a href="#incidencias" class="navbtn">Incidencias</a>
     <a href="#indicadores" class="navbtn">Indicadores</a>
-    <a href="#otros" class="navbtn">Otros</a>
+    <a href="#inventario" class="navbtn">Inventario Repuestos</a>
   </div>
 </header>
 
@@ -64,7 +71,7 @@ canvas{max-width:100%}
       <span class="badge">🟠 Restricciones</span>
       <span class="badge">🟢 En marcha</span>
     </div>
-    <button class="btn warn" onclick="mailtoParadaProlongada()">Parada prolongada (aviso correo)</button>
+    <button class="btn warn" onclick="serverParadaProlongada()">Parada prolongada (aviso correo)</button>
     <div id="equiposGroups"></div>
   </section>
 
@@ -73,53 +80,29 @@ canvas{max-width:100%}
     <div id="gruasGroups"></div>
   </section>
 
+  <section id="otrosSec" class="card" style="display:none">
+    <h2 class="section-title">Otros (auxiliares)</h2>
+    <div id="otrosWrap"></div>
+  </section>
+
   <section id="incidenciasSec" class="card" style="display:none">
     <h2 class="section-title">Incidencias</h2>
     <div class="card">
       <h3>Registrar nueva incidencia</h3>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-        <div style="grid-column:1/3">
-          <label>Equipo</label><br>
-          <select id="incEquipo" style="width:100%"></select>
-        </div>
-        <div>
-          <label>Tipo</label><br>
-          <select id="incTipo" style="width:100%">
-            <option>Correctivo</option><option>Preventivo</option><option>Mejora</option>
-          </select>
-        </div>
-        <div>
-          <label>Resultado</label><br>
-          <select id="incResultado" style="width:100%">
-            <option>Solucionado</option><option>Con restricciones</option><option>No solucionado</option>
-          </select>
-        </div>
-        <div>
-          <label>¿Uso de repuestos?</label><br>
-          <select id="incRep" style="width:100%"><option>No</option><option>Sí</option></select>
-        </div>
-        <div>
-          <label>Repuesto usado (opcional)</label><br>
-          <input id="incRepTxt" placeholder="Código o descripción" style="width:100%">
-        </div>
-        <div>
-          <label>Horas de paro (total)</label><br>
-          <input type="number" step="0.01" id="incHorasParo" placeholder="Ej. 2.5" style="width:100%">
-        </div>
-        <div>
-          <label>Horas de reparación</label><br>
-          <input type="number" step="0.01" id="incHorasRepar" placeholder="Ej. 1.3" style="width:100%">
-        </div>
-        <div style="grid-column:1/3">
-          <label>Descripción breve</label><br>
-          <textarea id="incDesc" rows="3" style="width:100%"></textarea>
-        </div>
+        <div style="grid-column:1/3"><label>Equipo</label><br><select id="incEquipo" style="width:100%"></select></div>
+        <div><label>Tipo</label><br><select id="incTipo" style="width:100%"><option>Correctivo</option><option>Preventivo</option><option>Mejora</option></select></div>
+        <div><label>Resultado</label><br><select id="incResultado" style="width:100%"><option>Solucionado</option><option>Con restricciones</option><option>No solucionado</option></select></div>
+        <div><label>¿Uso de repuestos?</label><br><select id="incRep" style="width:100%"><option>No</option><option>Sí</option></select></div>
+        <div><label>Repuesto (opcional)</label><br><input id="incRepTxt" placeholder="Código o descripción" style="width:100%"></div>
+        <div><label>Horas de paro (total)</label><br><input type="number" step="0.01" id="incHorasParo" placeholder="Ej. 2.5" style="width:100%"></div>
+        <div><label>Horas de reparación</label><br><input type="number" step="0.01" id="incHorasRepar" placeholder="Ej. 1.3" style="width:100%"></div>
+        <div><label>Fecha inicio incidencia</label><br><input type="datetime-local" id="incInicio" style="width:100%"></div>
+        <div><label>Reportante</label><br><input id="incReportante" placeholder="Nombre/apellidos" style="width:100%"></div>
+        <div style="grid-column:1/2"><label>Descripción breve</label><br><textarea id="incDesc" rows="3" style="width:100%"></textarea></div>
       </div>
       <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn" onclick="addIncidencia()">Añadir incidencia</button>
-        <button class="btn ghost" onclick="exportBackup()">Exportar backup</button>
-        <input type="file" id="importFile" style="display:none" accept=".json" onchange="importBackup(this.files[0])">
-        <button class="btn ghost" onclick="document.getElementById('importFile').click()">Importar backup</button>
       </div>
     </div>
 
@@ -129,11 +112,13 @@ canvas{max-width:100%}
         <div style="flex:1 1 180px"><label>Equipo</label><br><select id="fEquipo" style="width:100%"><option value="">Todos</option></select></div>
         <div style="flex:1 1 160px"><label>Tipo</label><br><select id="fTipo" style="width:100%"><option value="">Todos</option><option>Correctivo</option><option>Preventivo</option><option>Mejora</option></select></div>
         <div style="flex:1 1 160px"><label>Resultado</label><br><select id="fRes" style="width:100%"><option value="">Todos</option><option>Solucionado</option><option>Con restricciones</option><option>No solucionado</option></select></div>
-        <div style="flex:2 1 240px"><label>Texto</label><br><input id="fTexto" placeholder="Equipo o descripción" style="width:100%"></div>
+        <div style="flex:2 1 240px"><label>Texto</label><br><input id="fTexto" placeholder="Equipo, descripción, repuesto…" style="width:100%"></div>
         <div style="display:flex;gap:8px;align-items:flex-end">
           <button class="btn ghost" onclick="resetFiltros()">Limpiar</button>
           <button class="btn" onclick="aplicarFiltros()">Aplicar</button>
-          <button class="btn ghost" onclick="exportCSV()">Exportar CSV (filtro)</button>
+          <button class="btn ghost" onclick="activarAdmin()">Modo Admin</button>
+          <button id="btnCsv" class="btn ghost" style="display:none" onclick="exportarCSV()">Exportar CSV</button>
+          <button id="btnPdf" class="btn ghost" style="display:none" onclick="exportarPDF()">Exportar PDF</button>
         </div>
       </div>
     </div>
@@ -144,15 +129,25 @@ canvas{max-width:100%}
         <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div style="font-size:12px;color:#666">MTTR medio (h)</div><div id="kpiMttr" style="font-size:22px;font-weight:800">0</div></div>
         <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div style="font-size:12px;color:#666">MTBF (h/avería)</div><div id="kpiMtbf" style="font-size:22px;font-weight:800">0</div></div>
         <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div style="font-size:12px;color:#666">Disponibilidad (%)</div><div id="kpiDisp" style="font-size:22px;font-weight:800">0</div></div>
+        <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div style="font-size:12px;color:#666">OEE (estimado %)</div><div id="kpiOee" style="font-size:22px;font-weight:800">0</div></div>
       </div>
       <div class="card"><b>MTTR por semana</b><canvas id="chartMttr" height="160"></canvas></div>
       <div class="card"><b>Incidencias por semana</b><canvas id="chartCount" height="160"></canvas></div>
+      <div class="card">
+        <b>Leyenda</b>
+        <ul style="margin-top:6px">
+          <li><b>MTTR</b>: tiempo medio de reparación (h).</li>
+          <li><b>MTBF</b>: tiempo medio entre fallos (h); depende de horas/semana.</li>
+          <li><b>Disponibilidad</b>: % de tiempo útil / tiempo total.</li>
+          <li><b>OEE (estimado)</b>: aproximado a Disponibilidad (sin rendimiento/calidad).</li>
+        </ul>
+      </div>
     </div>
 
-    <h3 style="margin-top:10px">Historial (según filtro)</h3>
+    <h3 style="margin-top:10px">Historial (últimas primero)</h3>
     <div class="table-wrap">
       <table class="table" id="incTable"><thead>
-        <tr><th>Fecha</th><th>Equipo</th><th>Tipo</th><th>Resultado</th><th>Descripción</th><th>Paro (h)</th><th>Reparación (h)</th><th>Repuestos</th><th>Acciones</th></tr>
+        <tr><th>Fecha</th><th>Equipo</th><th>Tipo</th><th>Resultado</th><th>Reportante</th><th>Inicio</th><th>Descripción</th><th>Paro (h)</th><th>Reparación (h)</th><th>Repuestos</th></tr>
       </thead><tbody></tbody></table>
     </div>
   </section>
@@ -163,7 +158,8 @@ canvas{max-width:100%}
       <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div style="font-size:12px;color:#666">MTTR global (h)</div><div id="kpiMttrG" style="font-size:22px;font-weight:800">0</div></div>
       <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div style="font-size:12px;color:#666">MTBF global (h/avería)</div><div id="kpiMtbfG" style="font-size:22px;font-weight:800">0</div></div>
       <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div style="font-size:12px;color:#666">Disponibilidad global (%)</div><div id="kpiDispG" style="font-size:22px;font-weight:800">0</div></div>
-      <div class="card" style="flex:1 1 240px">
+      <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div style="font-size:12px;color:#666">OEE global (estimado %)</div><div id="kpiOeeG" style="font-size:22px;font-weight:800">0</div></div>
+      <div class="card" style="flex:1 1 260px">
         <b>Ajustes</b>
         <div style="margin-top:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
           <label for="hoursPerWeek">Horas/semana</label>
@@ -171,254 +167,135 @@ canvas{max-width:100%}
           <button class="btn ghost" onclick="saveHoursPerWeek()">Guardar</button>
           <span id="savedMsg" style="font-size:12px;color:#2e7d32;display:none">Guardado</span>
         </div>
+        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn ghost" onclick="activarAdmin()">Modo Admin</button>
+          <button id="btnKpiCsv" class="btn ghost" style="display:none" onclick="exportarKPIsCSV()">Exportar KPIs (CSV)</button>
+          <button id="btnKpiPdf" class="btn ghost" style="display:none" onclick="exportarKPIsPDF()">Exportar KPIs (PDF)</button>
+        </div>
       </div>
     </div>
     <div class="card"><b>MTTR por semana</b><canvas id="chartMttr2" height="160"></canvas></div>
     <div class="card"><b>Incidencias por semana</b><canvas id="chartCount2" height="160"></canvas></div>
-    <div id="indicEmpty" style="display:none;color:#555;margin-top:8px">Aún no hay incidencias registradas. Añade alguna en la pestaña «Incidencias».</div>
+    <div id="indicEmpty" style="display:none;color:#555;margin-top:8px">Aún no hay incidencias registradas.</div>
   </section>
 
-  <section id="otrosSec" class="card" style="display:none">
-    <h2 class="section-title">Otros (auxiliares)</h2>
-    <div id="otrosWrap"></div>
+  <section id="inventarioSec" class="card" style="display:none">
+    <h2 class="section-title">Inventario de repuestos</h2>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+      <button class="btn ghost" onclick="activarAdmin()">Modo Admin</button>
+      <button id="btnInvCsv" class="btn ghost" style="display:none" onclick="exportarInventarioCSV()">Exportar Inventario (CSV)</button>
+      <button id="btnInvPdf" class="btn ghost" style="display:none" onclick="exportarInventarioPDF()">Exportar Inventario (PDF)</button>
+    </div>
+
+    <div id="invAlert" class="alert" style="display:none">
+      <b>⚠ Repuestos por reponer</b>
+      <div id="invAlertList" style="margin-top:6px"></div>
+    </div>
+
+    <div class="card">
+      <h3>Añadir repuesto</h3>
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:8px">
+        <input id="invNombre" class="inv-cell" placeholder="Nombre (p.ej. Tornillo hex M6x20)">
+        <input id="invRef" class="inv-cell" placeholder="Referencia (p.ej. THM6x20)">
+        <input id="invStock" class="inv-cell" type="number" min="0" placeholder="Stock">
+        <input id="invMin" class="inv-cell" type="number" min="0" placeholder="Stock mínimo">
+        <button class="btn" onclick="invAdd()">Añadir</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Buscar</h3>
+      <input id="invSearch" class="inv-cell" placeholder="Nombre o referencia…" oninput="renderInventario()">
+    </div>
+
+    <div class="card">
+      <div class="inv-grid inv-head">
+        <div>Nombre</div><div>Referencia</div><div>Stock</div><div>Mínimo</div><div>Acciones</div>
+      </div>
+      <div id="invList"></div>
+    </div>
   </section>
 </div>
 
 <div class="toast" id="toast">
   <div class="in">
-    <div id="toastMsg">Incidencia borrada.</div>
+    <div id="toastMsg">Listo.</div>
     <div style="display:flex;gap:8px;align-items:center">
-      <button onclick="deshacerBorrado()">Deshacer</button>
       <span id="toastCountdown" style="font-size:12px"></span>
     </div>
   </div>
 </div>
 
 <script>
-const DATA={"equipos": {"Línea KALTENBACH": ["SIERRA KBS", "KDP1", "KDP3", "ÁREA PINTURA", "TRANSPORTE T13 (Rodillo central)", "VALLADO Y SEGURIDADES", "SALIDA Q8", "SALIDA Q9"], "Máquinas independientes": ["HGG", "SIERRA DE PAQUETES", "TECOI (THOR)", "MAZAK FG-400NEO"], "Láser Trumpf": ["LASER T12-2", "LASER T12-1", "LASER T7-1", "LASER T7-2", "LASER T11-1", "LASER T11-2"], "Maquinaria móvil / transporte": ["CARRETILLA ELEVADORA LINDE 1", "CARRETILLA ELEVADORA LINDE 2", "PLATAFORMA ELEVADORA ARTICULADA", "TRANSPALETAS ELÉCTRICAS", "CARRO DE TRANSPORTE TRANSVERSAL 1", "CARRO DE TRANSPORTE TRANSVERSAL 2"]}, "gruas": {"Nave 1": ["N1 PUENTE GRÚA CON IMANES (SIN INSTALAR)", "N1 DEMAG 5+5T", "N1 DEMAG 6.3+6.3T", "N1 GH 6.3+6.3T"], "Nave 2": ["N2 PUENTE GRÚA CON IMANES (SIN INSTALAR)", "N2 DEMAG 5+5T (PORTADOR IMANES)", "N2 DEMAG 6.3+6.3T", "N2 GH 6.3+6.3T", "N2 GH 5+5T"], "Nave 3": ["N3 ARAEL 3.2+3.2T (IMANES)", "N3 DEMAG 5+5T", "N3 DEMAG 6.3+6.3T", "N3 GH 5+5T (1)", "N3 GH 5+5T (2)", "N3 GH 3.2+3.2T DESCARGA ZONA LÁSER (1)", "N3 GH 3.2+3.2T DESCARGA ZONA LÁSER (2)"], "Nave 4": ["N4 GH 2.2+2.2T (IMANES)", "N4 DEMAG 5+5T", "N4 DEMAG 6.3+6.3T", "N4 GH 10+10T", "N4 GH 5+5T"]}, "otros": ["COMPRESOR ATLAS COPCO", "TRANSFORMADOR GENERAL", "PROTECCIONES ELÉCTRICAS GENERALES (incluye cuarto exterior y subcuadros internos)", "ILUMINACIÓN GENERAL ALMACÉN (incluye focos LED’s y translúcidos tejado)", "REFRIGERACIÓN CUARTO DE SERVIDORES", "PUERTAS DE ACCESO MOTORIZADAS Y COMUNICACIÓN", "SISTEMA CONTRAINCENDIOS", "INFRAESTRUCTURA (techos, paredes, puertas, ventanas, marquesinas y vallados)", "INSTALACIONES DE RIESGO CON AGUA TÉCNICA E HIGIÉNICO-SANITARIA"]};
+/* === CONFIG === */
+const API_BASE = "https://script.google.com/macros/s/AKfycbzZDI2MNxVk-c2CeeJd11pRlQFmz9kqMq_E_sX9pK8rviVnb97wHPrb1mBKtixt9mxk4A/exec";   // <- tu endpoint Apps Script
+const API_KEY  = "";             // <- si activas clave en servidor, pon la misma aquí
+const HOURS_KEY="cdl_hours_per_week";
 
-const KEY_STATE="cdl_state_v1", KEY_INCID="cdl_incid_v1", KEY_HPW="cdl_hours_per_week";
-let _cacheFiltrado=[], _undo=null, _toastTimer=null;
+/* ==== API helper ==== */
+async function apiGet(params){ if(!API_BASE){return {ok:false,offline:true,items:[]}}; const url=new URL(API_BASE); Object.entries(params).forEach(([k,v])=>url.searchParams.set(k,v)); if(API_KEY) url.searchParams.set('key',API_KEY); const r=await fetch(url,{method:'GET'}); return await r.json(); }
+async function apiPost(body){ if(!API_BASE){return {ok:false,offline:true}}; if(API_KEY) body.key=API_KEY; const r=await fetch(API_BASE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}); return await r.json(); }
 const q=s=>document.querySelector(s);
 
-/* Config horas/semana */
-function getHoursPerWeek(){ const v=parseFloat(localStorage.getItem(KEY_HPW)||'120'); return isNaN(v)?120:v; }
-function saveHoursPerWeek(){ const v=parseFloat(q('#hoursPerWeek').value||'120'); localStorage.setItem(KEY_HPW, String(Math.max(1,Math.min(168,v)))); q('#savedMsg').style.display='inline'; setTimeout(()=>q('#savedMsg').style.display='none',1200); renderIndicadoresGlobal(); aplicarFiltros(); }
+/* ==== Navegación ==== */
+function setActive(hash){ document.querySelectorAll('.navbtn').forEach(a=>a.classList.remove('active')); const link=document.querySelector('.navbtn[href="'+hash+'"]'); if(link) link.classList.add('active'); ['equiposSec','puentesSec','otrosSec','incidenciasSec','indicadoresSec','inventarioSec'].forEach(id=>q('#'+id).style.display='none'); if(hash==='#puentes') q('#puentesSec').style.display='block'; else if(hash==='#otros') q('#otrosSec').style.display='block'; else if(hash==='#incidencias') q('#incidenciasSec').style.display='block'; else if(hash==='#indicadores') q('#indicadoresSec').style.display='block'; else if(hash==='#inventario') q('#inventarioSec').style.display='block'; else q('#equiposSec').style.display='block'; }
 
-/* Estado */
-function loadState(){return JSON.parse(localStorage.getItem(KEY_STATE)||'{}')}
-function saveState(s){localStorage.setItem(KEY_STATE,JSON.stringify(s))}
-function loadIncid(){return JSON.parse(localStorage.getItem(KEY_INCID)||'[]')}
-function saveIncid(a){localStorage.setItem(KEY_INCID,JSON.stringify(a))}
+/* ===== ADMIN + visibilidad de botones ===== */
+const ADMIN_CODE = "inventariocsv25";
+let IS_ADMIN=false; let lastExportTs=0; const EXPORT_COOLDOWN_MS=15000;
+function activarAdmin(){ const code=prompt("Introduce clave de administrador:"); if(code===ADMIN_CODE){ IS_ADMIN=true; ['btnCsv','btnPdf','btnKpiCsv','btnKpiPdf','btnInvCsv','btnInvPdf'].forEach(id=>{const el=document.getElementById(id); if(el) el.style.display='inline-block';}); alert("Modo Admin activado"); } else { alert("Clave incorrecta"); } }
+function canExportNow(){ const now=Date.now(); if(now-lastExportTs<EXPORT_COOLDOWN_MS) return confirm("Acabas de exportar hace muy poco.
+¿Seguro que quieres lanzar otra exportación ahora?"); lastExportTs=now; return true; }
+
+/* ==== Estado de equipos (server) ==== */
+let STATE=[];
 function statusDot(s){return s==='Parada'?'r':(s==='Restricciones'?'o':'g')}
+function groupBy(arr,key){return arr.reduce((acc,it)=>{const k=it[key]||'—';(acc[k]=acc[k]||[]).push(it);return acc;},{});}
+function renderItems(list,labelGroup){ const grid=document.createElement('div'); grid.className='grid'; list.forEach(it=>{ const wrap=document.createElement('div'); wrap.className='item'; wrap.innerHTML=`<div class="item-left"><span class="dot ${statusDot(it.estado||'En marcha')}"></span><div><div class="title">${it.nombre}</div><div class="small">${labelGroup}</div></div></div>`; const actions=document.createElement('div'); actions.className='item-actions'; const sel=document.createElement('select'); ['En marcha','Restricciones','Parada'].forEach(t=>{const o=document.createElement('option');o.value=t;o.textContent=t;if((it.estado||'En marcha')===t) o.selected=true; sel.appendChild(o)}); sel.onchange=async()=>{ await apiPost({res:'state',fn:'set',name:it.nombre,estado:sel.value}); await loadState(); }; const btn=document.createElement('button'); btn.className='btn warn'; btn.textContent='Parada prolongada'; btn.onclick=async()=>{ await apiPost({res:'alert',fn:'parada',equipo:it.nombre}); await loadState(); }; actions.appendChild(sel); actions.appendChild(btn); wrap.appendChild(actions); grid.appendChild(wrap); }); return grid; }
+function renderEquipos(){ const host=q('#equiposGroups'); host.innerHTML=''; const grupos=groupBy(STATE.filter(s=>!String(s.grupo||'').startsWith('Puentes Grúa') && s.grupo!=='Otros (auxiliares)'), 'grupo'); Object.keys(grupos).forEach(g=>{ const card=document.createElement('div'); card.className='card'; card.innerHTML=`<h3 class="section-title">${g}</h3>`; card.appendChild(renderItems(grupos[g], g)); host.appendChild(card); }); }
+function renderGruas(){ const host=q('#gruasGroups'); host.innerHTML=''; const grupos=groupBy(STATE.filter(s=>String(s.grupo||'').startsWith('Puentes Grúa')), 'grupo'); Object.keys(grupos).forEach(g=>{ const card=document.createElement('div'); card.className='card'; card.innerHTML=`<h3 class="section-title">${g.replace('Puentes Grúa · ','Nave ')}</h3>`; card.appendChild(renderItems(grupos[g], g)); host.appendChild(card); }); }
+function renderOtros(){ const host=q('#otrosWrap'); host.innerHTML=''; const lista=STATE.filter(s=>s.grupo==='Otros (auxiliares)'); host.appendChild(renderItems(lista,'Auxiliar')); }
+async function loadState(){ let r=await apiGet({res:'state',fn:'list'}); if(!r.ok || (r.items||[]).length===0){ await apiPost({res:'state',fn:'seed'}); r=await apiGet({res:'state',fn:'list'}); } STATE=r.items||[]; renderEquipos(); renderGruas(); renderOtros(); renderAlert(); fillEquipoSelect('#incEquipo'); fillEquipoSelect('#fEquipo'); }
+function renderAlert(){ const items=STATE.filter(s=> s.estado==='Parada' || s.estado==='Restricciones'); const box=q('#alerta'), list=q('#alertaList'); if(items.length===0){ box.style.display='none'; list.innerHTML=''; return; } box.style.display='block'; list.innerHTML= items.map(i=>`${i.nombre} — ${i.estado}`).join('<br>'); }
 
-/* Mailto + fuerza estado rojo */
-function mailtoParadaProlongada(eq='(no especificado)'){
-  const to='mrsmarioruizsola@outlook.es';
-  const subj=encodeURIComponent('🚨 Parada prolongada — '+eq);
-  const body=encodeURIComponent('Se ha marcado PARADA PROLONGADA.\n\nEquipo: '+eq+'\nFecha: '+new Date().toLocaleString());
-  const s=loadState(); s[eq]={estado:'Parada', updated:new Date().toISOString()}; saveState(s);
-  renderAll();
-  location.href=`mailto:${to}?subject=${subj}&body=${body}`;
-}
-
-/* Navegación */
-function setActive(hash){
-  document.querySelectorAll('.navbtn').forEach(a=>a.classList.remove('active'));
-  const link=document.querySelector('.navbtn[href="'+hash+'"]'); if(link) link.classList.add('active');
-  ['equiposSec','puentesSec','incidenciasSec','indicadoresSec','otrosSec'].forEach(id=>q('#'+id).style.display='none');
-  if(hash==='#puentes') q('#puentesSec').style.display='block';
-  else if(hash==='#incidencias') q('#incidenciasSec').style.display='block';
-  else if(hash==='#indicadores') q('#indicadoresSec').style.display='block';
-  else if(hash==='#otros') q('#otrosSec').style.display='block';
-  else q('#equiposSec').style.display='block';
-}
-
-/* Tarjeta equipo */
-function renderItem(name, group){
-  const st=loadState();
-  const wrap=document.createElement('div'); wrap.className='item';
-  wrap.innerHTML=`<div class="item-left"><span class="dot ${statusDot(st[name]?.estado||'En marcha')}"></span><div><div class="title">${name}</div><div class="small">${group}</div></div></div>`;
-  const actions=document.createElement('div'); actions.className='item-actions';
-  const sel=document.createElement('select'); ['En marcha','Restricciones','Parada'].forEach(t=>{const o=document.createElement('option');o.value=t;o.textContent=t;if((st[name]?.estado||'En marcha')===t) o.selected=true; sel.appendChild(o)});
-  sel.onchange=()=>{const s=loadState(); s[name]={estado:sel.value, updated:new Date().toISOString()}; saveState(s); renderAll();};
-  const btn=document.createElement('button'); btn.className='btn warn'; btn.textContent='Parada prolongada';
-  btn.onclick=()=>{ sel.value='Parada'; sel.onchange(); mailtoParadaProlongada(name); };
-  actions.appendChild(sel); actions.appendChild(btn); wrap.appendChild(actions);
-  return wrap;
-}
-
-/* Render secciones */
-function renderEquipos(){
-  const wrap=q('#equiposGroups'); wrap.innerHTML='';
-  Object.entries(DATA.equipos).forEach(([grupo,lista])=>{
-    const card=document.createElement('div'); card.className='card';
-    const h=document.createElement('h3'); h.className='section-title'; h.textContent=grupo; card.appendChild(h);
-    const grid=document.createElement('div'); grid.className='grid';
-    lista.forEach(n=>grid.appendChild(renderItem(n,grupo)));
-    card.appendChild(grid); wrap.appendChild(card);
-  });
-}
-function renderGruas(){
-  const wrap=q('#gruasGroups'); wrap.innerHTML='';
-  Object.entries(DATA.gruas).forEach(([nave,lista])=>{
-    const card=document.createElement('div'); card.className='card';
-    const h=document.createElement('h3'); h.className='section-title'; h.textContent=nave; card.appendChild(h);
-    const grid=document.createElement('div'); grid.className='grid';
-    lista.forEach(n=>grid.appendChild(renderItem(n,nave)));
-    card.appendChild(grid); wrap.appendChild(card);
-  });
-}
-function renderOtros(){
-  const w=q('#otrosWrap'); w.innerHTML='';
-  const grid=document.createElement('div'); grid.className='grid';
-  DATA.otros.forEach(n=>grid.appendChild(renderItem(n,'Auxiliar')));
-  w.appendChild(grid);
-}
-
-/* Selects */
-function fillEquipoSelect(id){
-  const sel=q(id); sel.innerHTML='';
-  ;[...Object.values(DATA.equipos).flat(),...Object.values(DATA.gruas).flat(),...DATA.otros].forEach(n=>{
-    const o=document.createElement('option'); o.value=n; o.textContent=n; sel.appendChild(o);
-  });
-}
-
-/* Incidencias */
-function addIncidencia(){
-  const equipo=q('#incEquipo').value.trim(),
-        tipo=q('#incTipo').value,
-        res=q('#incResultado').value,
-        rep=q('#incRep').value,
-        repTxt=q('#incRepTxt').value.trim(),
-        hParo=parseFloat(q('#incHorasParo').value||'0'),
-        hRep=parseFloat(q('#incHorasRepar').value||'0'),
-        desc=q('#incDesc').value.trim();
-  if(!equipo||!desc){alert('Equipo y descripción son obligatorios');return}
-  const arr=loadIncid();
-  arr.push({id:'INC'+Date.now(),equipo,tipo,res,rep,repTxt,hParo,hRep,desc,created:new Date().toISOString()});
-  saveIncid(arr);
-  // estado según resultado
-  const s=loadState();
-  const nuevo = res==='Solucionado' ? 'En marcha' : (res==='Con restricciones' ? 'Restricciones' : 'Parada');
-  s[equipo]={estado:nuevo,updated:new Date().toISOString()}; saveState(s);
-  // limpiar formulario básico
-  q('#incDesc').value=''; q('#incRepTxt').value=''; q('#incHorasParo').value=''; q('#incHorasRepar').value='';
-  aplicarFiltros(); renderAll();
-}
-
-/* Filtros */
-function getFiltros(){ return {equipo:q('#fEquipo').value,tipo:q('#fTipo').value,res:q('#fRes').value,texto:q('#fTexto').value.trim().toLowerCase()}; }
-function filtrar(arr){
-  const f=getFiltros();
-  return arr.filter(i=>{
-    if(f.equipo && i.equipo!==f.equipo) return false;
-    if(f.tipo && i.tipo!==f.tipo) return false;
-    if(f.res && i.res!==f.res) return false;
-    if(f.texto){ const blob=(i.equipo+' '+(i.desc||'')+' '+(i.repTxt||'')).toLowerCase(); if(!blob.includes(f.texto)) return false; }
-    return true;
-  });
-}
+/* ==== Incidencias ==== */
+let INC=[];
+function fillEquipoSelect(id){ const sel=q(id); sel.innerHTML=''; STATE.forEach(s=>{ const o=document.createElement('option'); o.value=s.nombre; o.textContent=s.nombre; sel.appendChild(o); }); }
+async function loadIncid(){ const r=await apiGet({res:'incid',fn:'list'}); INC=r.items||[]; }
+function getFilters(){ return {equipo:q('#fEquipo').value,tipo:q('#fTipo').value,res:q('#fRes').value,texto:q('#fTexto').value.trim().toLowerCase()}; }
+function aplicarFiltros(){ const f=getFilters(); const arr=INC.filter(i=>{ if(f.equipo && i.equipo!==f.equipo) return false; if(f.tipo && i.tipo!==f.tipo) return false; if(f.res && i.res!==f.res) return false; if(f.texto){ const blob=(i.equipo+' '+(i.desc||'')+' '+(i.repTxt||'')).toLowerCase(); if(!blob.includes(f.texto)) return false; } return true; }); renderIncidTable(arr); renderKPIs(arr); }
+function resetFiltros(){ q('#fEquipo').value=''; q('#fTipo').value=''; q('#fRes').value=''; q('#fTexto').value=''; aplicarFiltros(); }
+function renderIncidTable(arr){ const tbody=q('#incTable tbody'); tbody.innerHTML=''; arr.forEach(it=>{ const tr=document.createElement('tr'); tr.innerHTML='<td>'+new Date(it.created).toLocaleString()+'</td><td><span class="badge">'+it.equipo+'</span></td><td>'+it.tipo+'</td><td>'+it.res+'</td><td>'+(it.reportante||'—')+'</td><td>'+(it.inicio? new Date(it.inicio).toLocaleString():'—')+'</td><td>'+it.desc+'</td><td>'+Number(it.hParo||0).toFixed(2)+'</td><td>'+Number(it.hRep||0).toFixed(2)+'</td><td>'+it.rep+(it.repTxt?(' — '+it.repTxt):'')+'</td>'; tbody.appendChild(tr); }); }
 function isoWeek(d){const dt=new Date(d),t=new Date(dt.valueOf());const dn=(dt.getDay()+6)%7;t.setDate(t.getDate()-dn+3);const ft=new Date(t.getFullYear(),0,4);return 1+Math.round(((t-ft)/86400000-3+((ft.getDay()+6)%7))/7)}
-function drawBars(id,labels,values,unit){
-  const c=q('#'+id),ctx=c.getContext('2d'); const W=c.width=c.clientWidth, H=c.height=c.clientHeight;
-  ctx.clearRect(0,0,W,H);
-  const pad=28, max=Math.max(1,...values), step=(W-pad*2)/Math.max(1,labels.length), bw=step*0.7;
-  ctx.strokeStyle='#ccc'; ctx.beginPath(); ctx.moveTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke();
-  values.forEach((v,i)=>{
-    const x=pad+i*step+(step-bw)/2, h=(H-pad*2)*(v/max), y=H-pad-h;
-    ctx.fillStyle='rgba(198,40,40,.88)'; ctx.fillRect(x,y,bw,h);
-    ctx.fillStyle='#333'; ctx.font='11px system-ui'; ctx.textAlign='center'; ctx.fillText(String(labels[i]), x+bw/2, H-8);
-  });
-}
-
-/* Aplicar filtros + KPIs locales */
-function aplicarFiltros(){
-  const arr=loadIncid().sort((a,b)=>new Date(b.created)-new Date(a.created));
-  const vis=filtrar(arr); _cacheFiltrado=vis;
-  // tabla
-  const tbody=q('#incTable tbody'); tbody.innerHTML='';
-  const fmt=d=>d?new Date(d).toLocaleString():'—';
-  vis.forEach(it=>{
-    const tr=document.createElement('tr');
-    tr.innerHTML='<td>'+fmt(it.created)+'</td><td><span class="badge">'+it.equipo+'</span></td><td>'+it.tipo+'</td><td>'+it.res+'</td><td>'+it.desc+'</td><td>'+((it.hParo||0).toFixed(2))+'</td><td>'+((it.hRep||0).toFixed(2))+'</td><td>'+it.rep+(it.repTxt?(' — '+it.repTxt):'')+'</td><td><button class="btn warn" onclick="borrarIncidencia(\''+it.id+'\')">Borrar</button></td>';
-    tbody.appendChild(tr);
-  });
-  // KPIs locales (semanales)
-  const corr=vis.filter(i=>i.tipo==='Correctivo');
-  const byW={};
-  corr.forEach(i=>{const w=isoWeek(i.created); if(!byW[w]) byW[w]={count:0,rep:0,paro:0}; byW[w].count++; byW[w].rep+=(i.hRep||0); byW[w].paro+=(i.hParo||0); });
-  const weeks=Object.keys(byW).sort((a,b)=>a-b);
-  // MTTR local medio
-  const mttr = corr.length ? corr.reduce((s,i)=>s+(i.hRep||0),0)/corr.length : 0;
-  // MTBF y Disponibilidad (con horas/semana configurables)
-  const HPW=getHoursPerWeek();
-  const mtbfWeeks = weeks.map(w=> byW[w].count ? HPW/byW[w].count : HPW);
-  const dispWeeks = weeks.map((w,i)=>{ const fail=byW[w].count; const mtbf=mtbfWeeks[i]; const mttrW = fail? byW[w].rep/fail : 0; return (mtbf/(mtbf+mttrW))*100; });
-  const meanMtbf = weeks.length ? mtbfWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0;
-  const meanDisp = weeks.length ? dispWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0;
-  q('#kpiMttr').textContent=mttr.toFixed(2);
-  q('#kpiMtbf').textContent=meanMtbf.toFixed(1);
-  q('#kpiDisp').textContent=meanDisp.toFixed(1);
-  drawBars('chartMttr',weeks,weeks.map((w,i)=>{const fail=byW[w].count; return fail? byW[w].rep/fail : 0;}),'h');
-  drawBars('chartCount',weeks,weeks.map(w=>byW[w].count),'');
-}
-
-/* CSV + backup */
-function exportCSV(){
-  const rows=_cacheFiltrado.map(i=>[new Date(i.created).toLocaleString(),i.equipo,i.tipo,i.res,(i.desc||'').replace(/\n/g,' '),(i.hParo||0),(i.hRep||0),i.rep,(i.repTxt||'')]);
-  const header=['Fecha','Equipo','Tipo','Resultado','Descripción','Horas_paro','Horas_reparación','Repuestos','Detalle_repuesto'];
-  const csv=[header].concat(rows).map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n');
-  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='incidencias_filtrado.csv'; a.click();
-}
-function exportBackup(){ const blob=new Blob([localStorage.getItem(KEY_INCID)||'[]'],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='backup_incidencias.json'; a.click(); }
-function importBackup(file){ const r=new FileReader(); r.onload=()=>{ try{ const arr=JSON.parse(r.result||'[]'); if(Array.isArray(arr)){ saveIncid(arr); aplicarFiltros(); alert('Backup importado'); } else alert('Formato no válido'); }catch(e){ alert('Error leyendo backup'); } }; r.readAsText(file); }
-
-/* Borrado + deshacer */
-function borrarIncidencia(id){ const arr=loadIncid(); const i=arr.findIndex(x=>x.id===id); if(i<0)return; const [rm]=arr.splice(i,1); saveIncid(arr); _undo={item:rm}; aplicarFiltros(); showToast('Incidencia borrada.',6,()=>{_undo=null}); }
-function deshacerBorrado(){ if(!_undo) return; const arr=loadIncid(); arr.push(_undo.item); saveIncid(arr); _undo=null; hideToast(); aplicarFiltros(); showToast('Restaurada.',2); }
-function showToast(msg,sec,onExpire){ q('#toastMsg').textContent=msg; let left=sec||4; q('#toastCountdown').textContent=left+'s'; q('#toast').style.display='block'; if(_toastTimer) clearInterval(_toastTimer); _toastTimer=setInterval(()=>{ left--; q('#toastCountdown').textContent=left>0?left+'s':''; if(left<=0){ clearInterval(_toastTimer); hideToast(); if(onExpire) onExpire(); } },1000); }
-function hideToast(){ q('#toast').style.display='none'; }
-
-/* Indicadores globales */
-function renderIndicadoresGlobal(){
-  const arr=loadIncid(); const corr=arr.filter(i=>i.tipo==='Correctivo');
-  const mttr = corr.length ? corr.reduce((s,i)=>s+(i.hRep||0),0)/corr.length : 0;
-  const byW={}; corr.forEach(i=>{const w=isoWeek(i.created); if(!byW[w]) byW[w]={count:0,rep:0}; byW[w].count++; byW[w].rep+=(i.hRep||0);});
-  const weeks=Object.keys(byW).sort((a,b)=>a-b);
-  const HPW=getHoursPerWeek();
-  const mtbfWeeks = weeks.map(w=> byW[w].count ? HPW/byW[w].count : HPW);
-  const meanMtbf = weeks.length ? mtbfWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0;
-  const dispWeeks = weeks.map((w,i)=>{ const fail=byW[w].count; const mtbf=mtbfWeeks[i]; const mttrW = fail? byW[w].rep/fail : 0; return (mtbf/(mtbf+mttrW))*100; });
-  const meanDisp = weeks.length ? dispWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0;
-  q('#kpiMttrG').textContent=mttr.toFixed(2);
-  q('#kpiMtbfG').textContent=meanMtbf.toFixed(1);
-  q('#kpiDispG').textContent=meanDisp.toFixed(1);
-  drawBars('chartMttr2',weeks,weeks.map((w,i)=>{const fail=byW[w].count; return fail? byW[w].rep/fail : 0;}),'h');
-  drawBars('chartCount2',weeks,weeks.map(w=>byW[w].count),'');
-  q('#indicEmpty').style.display = arr.length? 'none':'block';
-  // Sincroniza el control de horas/semana
-  const hpwInput=q('#hoursPerWeek'); if(hpwInput) hpwInput.value=getHoursPerWeek();
-}
-
-/* Alerta top */
-function renderAlert(){
-  const s=loadState(); const all=[...Object.values(DATA.equipos).flat(),...Object.values(DATA.gruas).flat(),...DATA.otros];
-  const items=all.filter(n=> (s[n]?.estado==='Parada' || s[n]?.estado==='Restricciones'));
-  const box=q('#alerta'), list=q('#alertaList');
-  if(items.length===0){ box.style.display='none'; list.innerHTML=''; return; }
-  box.style.display='block'; list.innerHTML='';
-  items.forEach(n=>{ const d=document.createElement('div'); d.textContent=n+' — '+(s[n]?.estado||'En marcha'); list.appendChild(d); });
-}
-
-/* Render general */
-function renderAll(){
-  renderEquipos(); renderGruas(); renderOtros();
-  fillEquipoSelect('#incEquipo'); fillEquipoSelect('#fEquipo');
-  aplicarFiltros(); renderIndicadoresGlobal(); renderAlert();
-  setActive(location.hash || '#equipos');
-}
-window.addEventListener('hashchange',()=>setActive(location.hash||'#equipos'));
-window.addEventListener('load',renderAll);
+function drawBars(id,labels,values){ const c=q('#'+id),ctx=c.getContext('2d'); const W=c.width=c.clientWidth, H=c.height=c.clientHeight; ctx.clearRect(0,0,W,H); const pad=28, max=Math.max(1,...values), step=(W-pad*2)/Math.max(1,labels.length), bw=step*0.7; ctx.strokeStyle='#ccc'; ctx.beginPath(); ctx.moveTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke(); values.forEach((v,i)=>{ const x=pad+i*step+(step-bw)/2, h=(H-pad*2)*(v/max), y=H-pad-h; ctx.fillStyle='rgba(198,40,40,.9)'; ctx.fillRect(x,y,bw,h); ctx.fillStyle='#333'; ctx.font='11px system-ui'; ctx.textAlign='center'; ctx.fillText(String(labels[i]), x+bw/2, H-8); }); }
+function getHoursPerWeek(){ const v=parseFloat(localStorage.getItem(HOURS_KEY)||'120'); return isNaN(v)?120:v; }
+function saveHoursPerWeek(){ const v=parseFloat(q('#hoursPerWeek').value||'120'); localStorage.setItem(HOURS_KEY, String(Math.max(1,Math.min(168,v)))); q('#savedMsg').style.display='inline'; setTimeout(()=>q('#savedMsg').style.display='none',1200); renderGlobalKPIs(); aplicarFiltros(); }
+function renderKPIs(arr){ const corr=arr.filter(i=>i.tipo==='Correctivo'); const byW={}; corr.forEach(i=>{const w=isoWeek(i.created); if(!byW[w]) byW[w]={count:0,rep:0,paro:0}; byW[w].count++; byW[w].rep+=(+i.hRep||0); byW[w].paro+=(+i.hParo||0); }); const weeks=Object.keys(byW).sort((a,b)=>a-b); const mttr=corr.length ? corr.reduce((s,i)=>s+(+i.hRep||0),0)/corr.length : 0; const HPW=getHoursPerWeek(); const mtbfWeeks=weeks.map(w=> byW[w].count ? HPW/byW[w].count : HPW); const dispWeeks=weeks.map((w,i)=>{ const fail=byW[w].count; const mtbf=mtbfWeeks[i]; const mttrW= fail? byW[w].rep/fail : 0; return (mtbf/(mtbf+mttrW))*100; }); const meanMtbf=weeks.length ? mtbfWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0; const meanDisp=weeks.length ? dispWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0; q('#kpiMttr').textContent=mttr.toFixed(2); q('#kpiMtbf').textContent=meanMtbf.toFixed(1); q('#kpiDisp').textContent=meanDisp.toFixed(1); q('#kpiOee').textContent=meanDisp.toFixed(1); drawBars('chartMttr',weeks,weeks.map((w,i)=>{const fail=byW[w].count; return fail? byW[w].rep/fail : 0;})); drawBars('chartCount',weeks,weeks.map(w=>byW[w].count)); }
+function renderGlobalKPIs(){ const corr=INC.filter(i=>i.tipo==='Correctivo'); const byW={}; corr.forEach(i=>{const w=isoWeek(i.created); if(!byW[w]) byW[w]={count:0,rep:0}; byW[w].count++; byW[w].rep+=(+i.hRep||0); }); const weeks=Object.keys(byW).sort((a,b)=>a-b); const HPW=getHoursPerWeek(); const mttr=corr.length ? corr.reduce((s,i)=>s+(+i.hRep||0),0)/corr.length : 0; const mtbfWeeks=weeks.map(w=> byW[w].count ? HPW/byW[w].count : HPW); const meanMtbf=weeks.length ? mtbfWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0; const dispWeeks=weeks.map((w,i)=>{ const fail=byW[w].count; const mtbf=mtbfWeeks[i]; const mttrW= fail? byW[w].rep/fail : 0; return (mtbf/(mtbf+mttrW))*100; }); const meanDisp=weeks.length ? dispWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0; q('#kpiMttrG').textContent=mttr.toFixed(2); q('#kpiMtbfG').textContent=meanMtbf.toFixed(1); q('#kpiDispG').textContent=meanDisp.toFixed(1); q('#kpiOeeG').textContent=meanDisp.toFixed(1); drawBars('chartMttr2',weeks,weeks.map((w,i)=>{const fail=byW[w].count; return fail? byW[w].rep/fail : 0;})); drawBars('chartCount2',weeks,weeks.map(w=>byW[w].count)); q('#indicEmpty').style.display = INC.length? 'none':'block'; const hpwInput=q('#hoursPerWeek'); if(hpwInput) hpwInput.value=getHoursPerWeek(); }
+async function addIncidencia(){ const item={ equipo:q('#incEquipo').value.trim(), tipo:q('#incTipo').value, res:q('#incResultado').value, rep:q('#incRep').value, repTxt:q('#incRepTxt').value.trim(), hParo:parseFloat(q('#incHorasParo').value||'0'), hRep:parseFloat(q('#incHorasRepar').value||'0'), inicio:q('#incInicio').value, reportante:q('#incReportante').value.trim(), desc:q('#incDesc').value.trim() }; if(!item.equipo || !item.desc){ alert('Equipo y descripción obligatorios'); return; } await apiPost({res:'incid',fn:'add',item}); ['incDesc','incRepTxt','incHorasParo','incHorasRepar','incInicio','incReportante'].forEach(id=>q('#'+id).value=''); await loadIncid(); aplicarFiltros(); await loadState(); }
+/* ==== Exportaciones y Auditoría (Incidencias) ==== */
+function getFiltradas(){ const f=getFilters(); return INC.filter(i=>{ if(f.equipo && i.equipo!==f.equipo) return false; if(f.tipo && i.tipo!==f.tipo) return false; if(f.res && i.res!==f.res) return false; if(f.texto){ const blob=(i.equipo+' '+(i.desc||'')+' '+(i.repTxt||'')).toLowerCase(); if(!blob.includes(f.texto)) return false; } return true; }); }
+function toCSV(rows, header){ const all= header ? [header, ...rows] : rows; return all.map(r => r.map(v => '"'+String(v??'').replaceAll('"','""')+'"').join(',')).join('\n'); }
+function downloadBlob(content,mime,filename){ const blob=new Blob([content],{type:mime}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=filename; a.click(); }
+async function logAudit(action){ try{ const who=prompt("Nombre (para el registro del export):","Admin"); await apiPost({res:'audit',fn:'log',action,who,ua:navigator.userAgent}); }catch(e){} }
+async function exportarCSV(){ if(!IS_ADMIN) return alert("Solo admin puede exportar."); if(!canExportNow()) return; const vis=getFiltradas(); const header=['Fecha','Equipo','Tipo','Resultado','Reportante','Inicio','Descripción','Horas_paro','Horas_reparación','Repuestos','Detalle_repuesto']; const rows=vis.map(i=>[ new Date(i.created).toLocaleString(), i.equipo, i.tipo, i.res, (i.reportante||''), i.inicio? new Date(i.inicio).toLocaleString():'', (i.desc||'').replace(/\n/g,' '), (i.hParo||0), (i.hRep||0), i.rep, (i.repTxt||'') ]); downloadBlob(toCSV(rows,header),'text/csv;charset=utf-8;','incidencias_filtrado.csv'); await logAudit('csv_export_incidencias'); }
+async function exportarPDF(){ if(!IS_ADMIN) return alert("Solo admin puede exportar."); if(!canExportNow()) return; const vis=getFiltradas(); const logo='logo_mantenimiento.jpeg'; const mttr=q('#kpiMttrG')?.textContent||''; const mtbf=q('#kpiMtbfG')?.textContent||''; const disp=q('#kpiDispG')?.textContent||''; const oee=q('#kpiOeeG')?.textContent||''; const win=window.open('','_blank'); const html=`<html><head><meta charset="utf-8"><title>Incidencias (PDF)</title><style>body{font-family:Arial,Helvetica,sans-serif;padding:12px}h1{font-size:18px;margin:0 0 10px 0}.head{display:flex;align-items:center;gap:10px;margin-bottom:12px}.head img{height:40px}.kpis{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}.kpis div{border:1px solid #ddd;padding:8px;border-radius:8px;font-size:12px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:6px;font-size:12px;vertical-align:top}th{background:#f1f1f1;text-align:left}</style></head><body><div class="head"><img src="${logo}"><h1>Historial de incidencias (filtro aplicado)</h1></div><div class="kpis"><div><b>MTTR global (h):</b> ${mttr}</div><div><b>MTBF global (h):</b> ${mtbf}</div><div><b>Disponibilidad (%):</b> ${disp}</div><div><b>OEE estimado (%):</b> ${oee}</div></div><table><thead><tr><th>Fecha</th><th>Equipo</th><th>Tipo</th><th>Resultado</th><th>Reportante</th><th>Inicio</th><th>Descripción</th><th>Paro (h)</th><th>Reparación (h)</th><th>Repuestos</th></tr></thead><tbody>` + vis.map(i=>`<tr><td>${new Date(i.created).toLocaleString()}</td><td>${i.equipo}</td><td>${i.tipo}</td><td>${i.res}</td><td>${i.reportante||''}</td><td>${i.inicio? new Date(i.inicio).toLocaleString():''}</td><td>${(i.desc||'').replace(/\n/g,' ')}</td><td>${Number(i.hParo||0).toFixed(2)}</td><td>${Number(i.hRep||0).toFixed(2)}</td><td>${i.rep}${i.repTxt?(' — '+i.repTxt):''}</td></tr>`).join('') + `</tbody></table><script>window.onload=()=>window.print();</script></body></html>`; win.document.write(html); win.document.close(); await logAudit('pdf_export_incidencias'); }
+/* ===== Exportación KPIs (CSV/PDF) ===== */
+function getKPIsGlobales(){ return { mttr:q('#kpiMttrG')?.textContent||'0', mtbf:q('#kpiMtbfG')?.textContent||'0', disp:q('#kpiDispG')?.textContent||'0', oee:q('#kpiOeeG')?.textContent||'0' }; }
+async function exportarKPIsCSV(){ if(!IS_ADMIN) return alert("Solo admin puede exportar."); if(!canExportNow()) return; const k=getKPIsGlobales(); const header=['KPI','Valor']; const rows=[['MTTR (h)',k.mttr],['MTBF (h)',k.mtbf],['Disponibilidad (%)',k.disp],['OEE estimado (%)',k.oee]]; downloadBlob(toCSV(rows,header),'text/csv;charset=utf-8;','kpis_globales.csv'); await logAudit('csv_export_kpis'); }
+async function exportarKPIsPDF(){ if(!IS_ADMIN) return alert("Solo admin puede exportar."); if(!canExportNow()) return; const k=getKPIsGlobales(); const logo='logo_mantenimiento.jpeg'; const win=window.open('','_blank'); const html=`<html><head><meta charset="utf-8"><title>KPIs (PDF)</title><style>body{font-family:Arial,Helvetica,sans-serif;padding:16px}.head{display:flex;align-items:center;gap:10px;margin-bottom:12px}.head img{height:40px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px;font-size:14px}th{background:#f1f1f1;text-align:left}</style></head><body><div class="head"><img src="${logo}"><h1>KPIs globales</h1></div><table><tr><th>KPI</th><th>Valor</th></tr><tr><td>MTTR (h)</td><td>${k.mttr}</td></tr><tr><td>MTBF (h)</td><td>${k.mtbf}</td></tr><tr><td>Disponibilidad (%)</td><td>${k.disp}</td></tr><tr><td>OEE estimado (%)</td><td>${k.oee}</td></tr></table><script>window.onload=()=>window.print();</script></body></html>`; win.document.write(html); win.document.close(); await logAudit('pdf_export_kpis'); }
+/* ===== Inventario ===== */
+async function invList(){ const r=await apiGet({res:'inv',fn:'list'}); return r.items||[]; }
+async function invAdd(){ const item={ nombre:q('#invNombre').value.trim(), ref:q('#invRef').value.trim(), stock:parseInt(q('#invStock').value||'0'), minimo:parseInt(q('#invMin').value||'0') }; if(!item.nombre || !item.ref){ alert('Nombre y referencia son obligatorios'); return; } await apiPost({res:'inv',fn:'add',item}); ['invNombre','invRef','invStock','invMin'].forEach(id=>q('#'+id).value=''); renderInventario(); }
+async function invDelta(ref,delta){ await apiPost({res:'inv',fn:'delta',ref,delta}); renderInventario(); }
+async function renderInventario(){ const list=await invList(); const qtxt=(q('#invSearch').value||'').toLowerCase(); const vis=list.filter(it=> (it.nombre||'').toLowerCase().includes(qtxt) || (it.ref||'').toLowerCase().includes(qtxt) ); const low=vis.filter(it=> (+it.stock||0) < (+it.minimo||0)); const alertBox=q('#invAlert'), alertList=q('#invAlertList'); if(low.length){ alertBox.style.display='block'; alertList.innerHTML= low.map(it=>`• ${it.nombre} [${it.ref}] — stock ${it.stock}/${it.minimo}`).join('<br>'); } else { alertBox.style.display='none'; alertList.innerHTML=''; } const host=q('#invList'); host.innerHTML=''; vis.forEach(it=>{ const row=document.createElement('div'); row.className='inv-grid inv-item'; row.innerHTML=`<div class="inv-cell">${it.nombre}</div><div class="inv-cell">${it.ref}</div><div class="inv-cell">${it.stock||0}</div><div class="inv-cell">${it.minimo||0}</div>`; const act=document.createElement('div'); act.className='qty'; const less=document.createElement('button'); less.textContent='−'; less.onclick=()=>invDelta(it.ref,-1); const more=document.createElement('button'); more.textContent='+'; more.onclick=()=>invDelta(it.ref,1); act.appendChild(less); act.appendChild(more); row.appendChild(act); host.appendChild(row); }); }
+/* ===== Exportación Inventario ===== */
+async function exportarInventarioCSV(){ if(!IS_ADMIN) return alert("Solo admin puede exportar."); if(!canExportNow()) return; const list=await invList(); const header=['Nombre','Referencia','Stock','Mínimo']; const rows=list.map(it=>[it.nombre,it.ref,it.stock,it.minimo]); downloadBlob(toCSV(rows,header),'text/csv;charset=utf-8;','inventario.csv'); await logAudit('csv_export_inventario'); }
+async function exportarInventarioPDF(){ if(!IS_ADMIN) return alert("Solo admin puede exportar."); if(!canExportNow()) return; const list=await invList(); const logo='logo_mantenimiento.jpeg'; const win=window.open('','_blank'); const html=`<html><head><meta charset="utf-8"><title>Inventario (PDF)</title><style>body{font-family:Arial,Helvetica,sans-serif;padding:16px}.head{display:flex;align-items:center;gap:10px;margin-bottom:12px}.head img{height:40px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px;font-size:12px}th{background:#f1f1f1;text-align:left}</style></head><body><div class="head"><img src="${logo}"><h1>Inventario de repuestos</h1></div><table><thead><tr><th>Nombre</th><th>Referencia</th><th>Stock</th><th>Mínimo</th></tr></thead><tbody>` + list.map(it=>`<tr><td>${it.nombre}</td><td>${it.ref}</td><td>${it.stock}</td><td>${it.minimo}</td></tr>`).join('') + `</tbody></table><script>window.onload=()=>window.print();</script></body></html>`; win.document.write(html); win.document.close(); await logAudit('pdf_export_inventario'); }
+/* ==== Aviso de parada (servidor) ==== */
+async function serverParadaProlongada(){ const nombre=prompt('¿Qué equipo está en parada prolongada? (escribe el nombre exacto)'); if(!nombre) return; await apiPost({res:'alert',fn:'parada',equipo:nombre}); await loadState(); }
+/* ==== Inicio ==== */
+async function boot(){ await loadState(); await loadIncid(); aplicarFiltros(); renderGlobalKPIs(); renderInventario(); setActive(location.hash || '#equipos'); }
+window.addEventListener('hashchange',()=>setActive(location.hash||'#equipos')); window.addEventListener('load',boot);
 </script>
 </body></html>
