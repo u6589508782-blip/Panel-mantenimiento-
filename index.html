@@ -1,53 +1,45 @@
 <!doctype html><html lang="es"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CDL · CMMS</title>
+<title>CDL · CMMS v17 (roles)</title>
 <style>
-:root{--c1:#C62828;--c1l:#FBEAEA;--g:#2e7d32;--o:#f57c00;--r:#d32f2f;--soft:#f6f7f9}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--soft)}
-.header{position:sticky;top:0;z-index:30;background:linear-gradient(180deg,var(--c1l),#fff);border-bottom:3px solid var(--c1)}
-.header-top{display:flex;align-items:center;gap:14px;padding:8px 12px}
-.header-top img{height:70px}
-.header-top h1{margin:0;font-size:19px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:900;color:#111}
+:root{--brand:#c62828;--bg:#f6f7f9;--ok:#2e7d32;--warn:#f57c00;--bad:#d32f2f;--mid:#f9a825}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg)}
+.header{position:sticky;top:0;background:linear-gradient(180deg,#ffecec,#fff);border-bottom:3px solid var(--brand);z-index:20}
+.header-top{display:flex;align-items:center;gap:12px;padding:8px 12px}.header-top img{height:70px}
+.header-top h1{margin:0;font-size:20px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.header-right{margin-left:auto;display:flex;gap:8px;align-items:center}
+.chip{background:#eee;border-radius:999px;padding:4px 8px;font-weight:700;font-size:12px}
 .header-bottom{display:flex;gap:8px;overflow-x:auto;padding:8px 10px;border-top:1px solid #eee}
 .navbtn{flex:0 0 auto;text-decoration:none;color:#111;background:#fff;border:1px solid #e2e2e2;padding:8px 12px;border-radius:999px;font-weight:800;font-size:13px}
-.navbtn.active{background:var(--c1);color:#fff;border-color:var(--c1)}
+.navbtn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
 .container{max-width:1100px;margin:12px auto;padding:0 12px}
-.card{background:#fff;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.06);padding:12px;margin:12px 0;border:1px solid #eee}
-.section-title{margin:4px 0 10px 0;font-size:17px;color:#111}
+.card{background:#fff;border:1px solid #eee;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.06);padding:12px;margin:12px 0}
 .grid{display:grid;grid-template-columns:1fr;gap:8px}@media(min-width:720px){.grid{grid-template-columns:1fr 1fr}}
 .item{display:flex;flex-wrap:wrap;gap:10px;border:1px solid #eee;border-radius:12px;padding:10px}
-.item-left{display:flex;align-items:center;gap:10px;flex:1 1 260px;min-width:0}
-.dot{width:12px;height:12px;border-radius:999px}
-.dot.g{background:var(--g)}.dot.o{background:var(--o)}.dot.r{background:var(--r)}
-.title{font-weight:900;line-height:1.15;word-break:break-word}
-.small{color:#666}
-.item-actions{display:flex;gap:8px;flex:1 1 240px;justify-content:flex-end}
+.item-left{display:flex;align-items:center;gap:10px;flex:1 1 260px;min-width:0}.dot{width:12px;height:12px;border-radius:999px}
+.dot.g{background:var(--ok)}.dot.o{background:var(--warn)}.dot.r{background:var(--bad)}
+.title{font-weight:900;line-height:1.15;word-break:break-word}.small{color:#666}
 select,input,textarea{border:1px solid #ddd;border-radius:10px;padding:8px}
-.btn{appearance:none;border:0;background:var(--c1);color:#fff;border-radius:10px;padding:9px 12px;font-weight:800;cursor:pointer}
-.btn.ghost{background:#e8eaed;color:#111}.btn.warn{background:var(--r)}
-.table-wrap{overflow-x:auto;border-radius:12px}
-.table{width:100%;min-width:920px;border-collapse:separate;border-spacing:0 8px}
-.table th{text-align:left;color:#666;font-size:12px;padding:8px;white-space:nowrap}
-.table td{background:#fff;padding:10px;border-radius:10px;vertical-align:top;word-break:break-word}
+.btn{border:0;background:var(--brand);color:#fff;border-radius:10px;padding:9px 12px;font-weight:800;cursor:pointer}
+.btn.ghost{background:#e8eaed;color:#111}.btn.warn{background:var(--bad)}
 .badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 8px;background:#eee;font-weight:700;font-size:12px}
-canvas{max-width:100%}
-.inv-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 160px;gap:8px;align-items:center}
-.inv-item{display:contents}
-.inv-head{font-size:12px;color:#666}
-.inv-cell{background:#fff;border:1px solid #eee;border-radius:10px;padding:8px}
-.qty{display:flex;gap:6px;align-items:center;justify-content:flex-end}
-.qty button{padding:6px 10px;border-radius:8px;border:0;background:#e9e9e9;font-weight:800;cursor:pointer}
-.alert{background:#fff3f3;border-left:6px solid var(--c1);padding:10px;border-radius:10px}
-.toast{position:fixed;left:10px;right:10px;bottom:12px;display:none;z-index:50}
-.toast .in{background:#323232;color:#fff;padding:10px 12px;border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;box-shadow:0 6px 18px rgba(0,0,0,.3)}
-.toast button{background:#ff7043;border:0;color:#fff;border-radius:6px;padding:6px 10px;font-weight:700}
+.table-wrap{overflow-x:auto;border-radius:12px}.table{width:100%;min-width:920px;border-collapse:separate;border-spacing:0 8px}
+.table th{text-align:left;color:#666;font-size:12px;padding:8px}.table td{background:#fff;padding:10px;border-radius:10px;vertical-align:top}
+.ot-tag{font-weight:800;border-radius:999px;padding:4px 8px;color:#fff}
+.prio-R{background:var(--bad)}.prio-N{background:var(--warn)}.prio-A{background:var(--mid);color:#222}.prio-V{background:var(--ok)}
+.ot-card{border-left:6px solid #ddd}.ot-R{border-left-color:var(--bad)}.ot-N{border-left-color:var(--warn)}.ot-A{border-left-color:var(--mid)}.ot-V{border-left-color:var(--ok)}
+.toast{position:fixed;left:10px;right:10px;bottom:12px;display:none;z-index:50}.toast .in{background:#323232;color:#fff;padding:10px 12px;border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:10px}
 </style>
 </head>
 <body>
 <header class="header">
   <div class="header-top">
-    <img src="logo_mantenimiento.jpeg" alt="CDL">
-    <h1>CDL · CMMS</h1>
+    <img src="logo_mantenimiento.jpeg" alt="CDL"><h1>CDL · CMMS</h1>
+    <div class="header-right">
+      <span class="chip" id="userChip">Invitado</span>
+      <button class="btn ghost" onclick="login()">Entrar</button>
+      <button class="btn ghost" onclick="logout()">Salir</button>
+    </div>
   </div>
   <div class="header-bottom" id="nav">
     <a href="#equipos" class="navbtn active">Equipos</a>
@@ -55,64 +47,53 @@ canvas{max-width:100%}
     <a href="#otros" class="navbtn">Otros</a>
     <a href="#incidencias" class="navbtn">Incidencias</a>
     <a href="#indicadores" class="navbtn">Indicadores</a>
-    <a href="#inventario" class="navbtn">Inventario Repuestos</a>
+    <a href="#inventario" class="navbtn">Inventario</a>
+    <a href="#ot" class="navbtn">O.T.</a>
+    <a href="#personal" class="navbtn">Personal</a>
   </div>
 </header>
 
 <div class="container">
-  <div id="alerta" class="card" style="display:none;border-left:6px solid var(--r)">
-    <h3 style="margin:0;color:#d32f2f">Equipos parados o con restricciones por avería</h3>
+  <div id="alerta" class="card" style="display:none;border-left:6px solid var(--bad)">
+    <h3 style="margin:0;color:var(--bad)">Equipos parados o con restricciones por avería</h3>
     <div id="alertaList" style="display:flex;flex-direction:column;gap:6px"></div>
   </div>
 
-  <section id="equiposSec" class="card">
-    <div class="section-title">
-      <span class="badge">🔴 Parada</span>
-      <span class="badge">🟠 Restricciones</span>
-      <span class="badge">🟢 En marcha</span>
-    </div>
-    <button class="btn warn" onclick="serverParadaProlongada()">Parada prolongada (aviso correo)</button>
-    <div id="equiposGroups"></div>
-  </section>
+  <section id="equiposSec" class="card"><div class="badge">🔴 Parada</div> <div class="badge">🟠 Restricciones</div> <div class="badge">🟢 En marcha</div>
+    <div style="margin-top:8px"><button class="btn warn" onclick="serverParadaProlongada()">Parada prolongada (aviso correo)</button></div>
+    <div id="equiposGroups"></div></section>
 
-  <section id="puentesSec" class="card" style="display:none">
-    <h2 class="section-title">Puentes Grúa por nave</h2>
-    <div id="gruasGroups"></div>
-  </section>
-
-  <section id="otrosSec" class="card" style="display:none">
-    <h2 class="section-title">Otros (auxiliares)</h2>
-    <div id="otrosWrap"></div>
-  </section>
+  <section id="puentesSec" class="card" style="display:none"><h2>Puentes Grúa</h2><div id="gruasGroups"></div></section>
+  <section id="otrosSec" class="card" style="display:none"><h2>Otros (auxiliares)</h2><div id="otrosWrap"></div></section>
 
   <section id="incidenciasSec" class="card" style="display:none">
-    <h2 class="section-title">Incidencias</h2>
+    <h2>Incidencias</h2>
     <div class="card">
       <h3>Registrar nueva incidencia</h3>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
         <div style="grid-column:1/3"><label>Equipo</label><br><select id="incEquipo" style="width:100%"></select></div>
         <div><label>Tipo</label><br><select id="incTipo" style="width:100%"><option>Correctivo</option><option>Preventivo</option><option>Mejora</option></select></div>
         <div><label>Resultado</label><br><select id="incResultado" style="width:100%"><option>Solucionado</option><option>Con restricciones</option><option>No solucionado</option></select></div>
+        <div><label>Reportante</label><br><select id="incReportante" style="width:100%"></select></div>
+        <div><label>Asignado a</label><br><select id="incAsignado" style="width:100%"></select></div>
         <div><label>¿Uso de repuestos?</label><br><select id="incRep" style="width:100%"><option>No</option><option>Sí</option></select></div>
-        <div><label>Repuesto (opcional)</label><br><input id="incRepTxt" placeholder="Código o descripción" style="width:100%"></div>
-        <div><label>Horas de paro (total)</label><br><input type="number" step="0.01" id="incHorasParo" placeholder="Ej. 2.5" style="width:100%"></div>
-        <div><label>Horas de reparación</label><br><input type="number" step="0.01" id="incHorasRepar" placeholder="Ej. 1.3" style="width:100%"></div>
-        <div><label>Fecha inicio incidencia</label><br><input type="datetime-local" id="incInicio" style="width:100%"></div>
-        <div><label>Reportante</label><br><input id="incReportante" placeholder="Nombre/apellidos" style="width:100%"></div>
-        <div style="grid-column:1/2"><label>Descripción breve</label><br><textarea id="incDesc" rows="3" style="width:100%"></textarea></div>
+        <div><label>Repuesto (opcional)</label><br><input id="incRepTxt" style="width:100%" placeholder="Código o descripción"></div>
+        <div><label>Horas de paro (total)</label><br><input type="number" step="0.01" id="incHorasParo" style="width:100%"></div>
+        <div><label>Horas de reparación</label><br><input type="number" step="0.01" id="incHorasRepar" style="width:100%"></div>
+        <div><label>Fecha inicio</label><br><input type="datetime-local" id="incInicio" style="width:100%"></div>
+        <div style="grid-column:1/3"><label>Adjunto (URL Drive)</label><br><input id="incAdj" style="width:100%" placeholder="Pega enlace de Drive (opcional)"></div>
+        <div style="grid-column:1/3"><label>Descripción</label><br><textarea id="incDesc" rows="3" style="width:100%"></textarea></div>
       </div>
-      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn" onclick="addIncidencia()">Añadir incidencia</button>
-      </div>
+      <div style="margin-top:8px"><button class="btn" onclick="addIncidencia()">Añadir incidencia</button></div>
     </div>
 
     <div class="card">
       <h3>Filtros / búsqueda</h3>
       <div style="display:flex;flex-wrap:wrap;gap:8px">
-        <div style="flex:1 1 180px"><label>Equipo</label><br><select id="fEquipo" style="width:100%"><option value="">Todos</option></select></div>
-        <div style="flex:1 1 160px"><label>Tipo</label><br><select id="fTipo" style="width:100%"><option value="">Todos</option><option>Correctivo</option><option>Preventivo</option><option>Mejora</option></select></div>
+        <div style="flex:1 1 200px"><label>Equipo</label><br><select id="fEquipo" style="width:100%"><option value="">Todos</option></select></div>
+        <div style="flex:1 1 140px"><label>Tipo</label><br><select id="fTipo" style="width:100%"><option value="">Todos</option><option>Correctivo</option><option>Preventivo</option><option>Mejora</option></select></div>
         <div style="flex:1 1 160px"><label>Resultado</label><br><select id="fRes" style="width:100%"><option value="">Todos</option><option>Solucionado</option><option>Con restricciones</option><option>No solucionado</option></select></div>
-        <div style="flex:2 1 240px"><label>Texto</label><br><input id="fTexto" placeholder="Equipo, descripción, repuesto…" style="width:100%"></div>
+        <div style="flex:2 1 240px"><label>Texto</label><br><input id="fTexto" style="width:100%" placeholder="Equipo, descripción, repuesto…"></div>
         <div style="display:flex;gap:8px;align-items:flex-end">
           <button class="btn ghost" onclick="resetFiltros()">Limpiar</button>
           <button class="btn" onclick="aplicarFiltros()">Aplicar</button>
@@ -123,56 +104,19 @@ canvas{max-width:100%}
       </div>
     </div>
 
-    <div class="card">
-      <h3>KPIs semanales (según filtro)</h3>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div style="font-size:12px;color:#666">MTTR medio (h)</div><div id="kpiMttr" style="font-size:22px;font-weight:800">0</div></div>
-        <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div style="font-size:12px;color:#666">MTBF (h/avería)</div><div id="kpiMtbf" style="font-size:22px;font-weight:800">0</div></div>
-        <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div style="font-size:12px;color:#666">Disponibilidad (%)</div><div id="kpiDisp" style="font-size:22px;font-weight:800">0</div></div>
-        <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div style="font-size:12px;color:#666">OEE (estimado %)</div><div id="kpiOee" style="font-size:22px;font-weight:800">0</div></div>
-      </div>
-      <div class="card"><b>MTTR por semana</b><canvas id="chartMttr" height="160"></canvas></div>
-      <div class="card"><b>Incidencias por semana</b><canvas id="chartCount" height="160"></canvas></div>
-      <div class="card">
-        <b>Leyenda</b>
-        <ul style="margin-top:6px">
-          <li><b>MTTR</b>: tiempo medio de reparación (h).</li>
-          <li><b>MTBF</b>: tiempo medio entre fallos (h); depende de horas/semana.</li>
-          <li><b>Disponibilidad</b>: % de tiempo útil / tiempo total.</li>
-          <li><b>OEE (estimado)</b>: aproximado a Disponibilidad (sin rendimiento/calidad).</li>
-        </ul>
-      </div>
-    </div>
-
-    <h3 style="margin-top:10px">Historial (últimas primero)</h3>
-    <div class="table-wrap">
-      <table class="table" id="incTable"><thead>
-        <tr><th>Fecha</th><th>Equipo</th><th>Tipo</th><th>Resultado</th><th>Reportante</th><th>Inicio</th><th>Descripción</th><th>Paro (h)</th><th>Reparación (h)</th><th>Repuestos</th></tr>
-      </thead><tbody></tbody></table>
-    </div>
+    <h3>Historial (últimas primero)</h3>
+    <div class="table-wrap"><table class="table" id="incTable"><thead>
+      <tr><th>Fecha</th><th>Equipo</th><th>Tipo</th><th>Resultado</th><th>Reportante</th><th>Asignado</th><th>Inicio</th><th>Descripción</th><th>Paro (h)</th><th>Reparación (h)</th><th>Adjunto</th></tr>
+    </thead><tbody></tbody></table></div>
   </section>
 
   <section id="indicadoresSec" class="card" style="display:none">
-    <h2 class="section-title">Indicadores (resumen global)</h2>
+    <h2>Indicadores</h2>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div style="font-size:12px;color:#666">MTTR global (h)</div><div id="kpiMttrG" style="font-size:22px;font-weight:800">0</div></div>
-      <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div style="font-size:12px;color:#666">MTBF global (h/avería)</div><div id="kpiMtbfG" style="font-size:22px;font-weight:800">0</div></div>
-      <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div style="font-size:12px;color:#666">Disponibilidad global (%)</div><div id="kpiDispG" style="font-size:22px;font-weight:800">0</div></div>
-      <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div style="font-size:12px;color:#666">OEE global (estimado %)</div><div id="kpiOeeG" style="font-size:22px;font-weight:800">0</div></div>
-      <div class="card" style="flex:1 1 260px">
-        <b>Ajustes</b>
-        <div style="margin-top:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-          <label for="hoursPerWeek">Horas/semana</label>
-          <input id="hoursPerWeek" type="number" min="1" max="168" step="1" value="120" style="width:120px">
-          <button class="btn ghost" onclick="saveHoursPerWeek()">Guardar</button>
-          <span id="savedMsg" style="font-size:12px;color:#2e7d32;display:none">Guardado</span>
-        </div>
-        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn ghost" onclick="activarAdmin()">Modo Admin</button>
-          <button id="btnKpiCsv" class="btn ghost" style="display:none" onclick="exportarKPIsCSV()">Exportar KPIs (CSV)</button>
-          <button id="btnKpiPdf" class="btn ghost" style="display:none" onclick="exportarKPIsPDF()">Exportar KPIs (PDF)</button>
-        </div>
-      </div>
+      <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div class="small">MTTR global (h)</div><div id="kpiMttrG" style="font-size:22px;font-weight:800">0</div></div>
+      <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div class="small">MTBF global (h)</div><div id="kpiMtbfG" style="font-size:22px;font-weight:800">0</div></div>
+      <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div class="small">Disponibilidad (%)</div><div id="kpiDispG" style="font-size:22px;font-weight:800">0</div></div>
+      <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div class="small">OEE estimado (%)</div><div id="kpiOeeG" style="font-size:22px;font-weight:800">0</div></div>
     </div>
     <div class="card"><b>MTTR por semana</b><canvas id="chartMttr2" height="160"></canvas></div>
     <div class="card"><b>Incidencias por semana</b><canvas id="chartCount2" height="160"></canvas></div>
@@ -180,87 +124,187 @@ canvas{max-width:100%}
   </section>
 
   <section id="inventarioSec" class="card" style="display:none">
-    <h2 class="section-title">Inventario de repuestos</h2>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+    <h2>Inventario</h2>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
       <button class="btn ghost" onclick="activarAdmin()">Modo Admin</button>
       <button id="btnInvCsv" class="btn ghost" style="display:none" onclick="exportarInventarioCSV()">Exportar Inventario (CSV)</button>
       <button id="btnInvPdf" class="btn ghost" style="display:none" onclick="exportarInventarioPDF()">Exportar Inventario (PDF)</button>
     </div>
-
-    <div id="invAlert" class="alert" style="display:none">
-      <b>⚠ Repuestos por reponer</b>
-      <div id="invAlertList" style="margin-top:6px"></div>
-    </div>
-
     <div class="card">
       <h3>Añadir repuesto</h3>
       <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:8px">
-        <input id="invNombre" class="inv-cell" placeholder="Nombre (p.ej. Tornillo hex M6x20)">
-        <input id="invRef" class="inv-cell" placeholder="Referencia (p.ej. THM6x20)">
-        <input id="invStock" class="inv-cell" type="number" min="0" placeholder="Stock">
-        <input id="invMin" class="inv-cell" type="number" min="0" placeholder="Stock mínimo">
+        <input id="invNombre" placeholder="Nombre">
+        <input id="invRef" placeholder="Referencia">
+        <input id="invStock" type="number" min="0" placeholder="Stock">
+        <input id="invMin" type="number" min="0" placeholder="Mínimo">
         <button class="btn" onclick="invAdd()">Añadir</button>
       </div>
     </div>
+    <div class="card"><h3>Buscar</h3><input id="invSearch" style="width:100%" placeholder="Nombre o referencia…" oninput="renderInventario()"></div>
+    <div class="card"><div class="table-wrap"><table class="table" id="invTable"><thead><tr><th>Nombre</th><th>Referencia</th><th>Stock</th><th>Mínimo</th><th>Acciones</th></tr></thead><tbody></tbody></table></div></div>
+  </section>
 
-    <div class="card">
-      <h3>Buscar</h3>
-      <input id="invSearch" class="inv-cell" placeholder="Nombre o referencia…" oninput="renderInventario()">
-    </div>
-
-    <div class="card">
-      <div class="inv-grid inv-head">
-        <div>Nombre</div><div>Referencia</div><div>Stock</div><div>Mínimo</div><div>Acciones</div>
+  <section id="otSec" class="card" style="display:none">
+    <h2>Órdenes de Trabajo</h2>
+    <div class="card" id="otForm">
+      <h3>Nueva O.T.</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="grid-column:1/3"><label>Equipo</label><br><select id="otEquipo" style="width:100%"></select></div>
+        <div><label>Prioridad</label><br><select id="otPrio" style="width:100%">
+          <option value="R">Rojo · Urgente</option><option value="N">Naranja · Alta</option>
+          <option value="A">Amarillo · Preventivo</option><option value="V">Verde · Predictivo</option></select></div>
+        <div><label>Asignado a</label><br><select id="otAsignado" style="width:100%"></select></div>
+        <div><label>Vencimiento</label><br><input id="otDue" type="date" style="width:100%"></div>
+        <div style="grid-column:1/3"><label>Título</label><br><input id="otTitle" style="width:100%" placeholder="Ej. Sustituir filtro…"></div>
+        <div style="grid-column:1/3"><label>Adjunto (URL Drive)</label><br><input id="otAdj" style="width:100%" placeholder="Enlace Drive (opcional)"></div>
+        <div style="grid-column:1/3"><label>Descripción</label><br><textarea id="otDesc" rows="3" style="width:100%"></textarea></div>
       </div>
-      <div id="invList"></div>
+      <div style="margin-top:8px"><button class="btn" onclick="otAdd()">Crear O.T.</button></div>
+    </div>
+    <div class="card">
+      <h3>Cola (más críticas primero)</h3>
+      <div id="otList"></div>
+    </div>
+    <div class="card" id="otExport" style="display:none">
+      <button class="btn ghost" id="btnOtPdf" onclick="exportarOTpdf()">Exportar O.T. (PDF)</button>
+      <button class="btn ghost" id="btnOtCsv" style="display:none" onclick="exportarOTcsv()">Exportar O.T. (CSV)</button>
+    </div>
+  </section>
+
+  <section id="personalSec" class="card" style="display:none">
+    <h2>Personal (solo Admin)</h2>
+    <div class="card">
+      <h3>Alta / edición</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <input id="pId" placeholder="(automático al crear)" disabled>
+        <input id="pNombre" placeholder="Nombre">
+        <input id="pEmail" placeholder="Email">
+        <select id="pRol"><option>Administrador</option><option>Gerente</option><option>Encargado</option><option>Tecnico</option><option>Visor</option></select>
+        <select id="pActivo"><option value="true">Activo</option><option value="false">Inactivo</option></select>
+        <input id="pTelefono" placeholder="Teléfono">
+        <input id="pEsp" placeholder="Especialidad">
+        <input id="pTurno" placeholder="Turno">
+      </div>
+      <div style="margin-top:8px;display:flex;gap:8px">
+        <button class="btn" onclick="pSave()">Guardar</button>
+        <button class="btn ghost" onclick="pClear()">Limpiar</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Listado</h3>
+      <div class="table-wrap"><table class="table" id="pTable"><thead><tr><th>Nombre</th><th>Email</th><th>Rol</th><th>Activo</th><th>Teléfono</th><th>Especialidad</th><th>Turno</th><th>Acciones</th></tr></thead><tbody></tbody></table></div>
     </div>
   </section>
 </div>
 
-<div class="toast" id="toast">
-  <div class="in">
-    <div id="toastMsg">Listo.</div>
-    <div style="display:flex;gap:8px;align-items:center">
-      <span id="toastCountdown" style="font-size:12px"></span>
-    </div>
-  </div>
-</div>
+<div class="toast" id="toast"><div class="in"><div id="toastMsg">Listo.</div></div></div>
 
 <script>
-const API_BASE = "https://script.google.com/macros/s/AKfycbzZDI2MNxVk-c2CeeJd11pRlQFmz9kqMq_E_sX9pK8rviVnb97wHPrb1mBKtixt9mxk4A/exec";
-const API_KEY  = "";
-const HOURS_KEY="cdl_hours_per_week";
-async function apiGet(params){ if(!API_BASE){return {ok:false,offline:true,items:[]}}; const url=new URL(API_BASE); Object.entries(params).forEach(([k,v])=>url.searchParams.set(k,v)); if(API_KEY) url.searchParams.set('key',API_KEY); const r=await fetch(url,{method:'GET'}); return await r.json(); }
-async function apiPost(body){ if(!API_BASE){return {ok:false,offline:true}}; if(API_KEY) body.key=API_KEY; const r=await fetch(API_BASE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}); return await r.json(); }
-const q=s=>document.querySelector(s);
-function setActive(hash){ document.querySelectorAll('.navbtn').forEach(a=>a.classList.remove('active')); const link=document.querySelector('.navbtn[href="'+hash+'"]'); if(link) link.classList.add('active'); ['equiposSec','puentesSec','otrosSec','incidenciasSec','indicadoresSec','inventarioSec'].forEach(id=>q('#'+id).style.display='none'); if(hash==='#puentes') q('#puentesSec').style.display='block'; else if(hash==='#otros') q('#otrosSec').style.display='block'; else if(hash==='#incidencias') q('#incidenciasSec').style.display='block'; else if(hash==='#indicadores') q('#indicadoresSec').style.display='block'; else if(hash==='#inventario') q('#inventarioSec').style.display='block'; else q('#equiposSec').style.display='block'; }
+const API_BASE = "https://script.google.com/macros/s/AKfycbyLYSBz_EIFevl4giJAIr9dQwt2xssHCboAC7GTzOltbxSeSp8KIcUXV4uqheV1z7xeEQ/exec";
 const ADMIN_CODE = "inventariocsv25";
-let IS_ADMIN=false; let lastExportTs=0; const EXPORT_COOLDOWN_MS=15000;
-function activarAdmin(){ const code=prompt("Introduce clave de administrador:"); if(code===ADMIN_CODE){ IS_ADMIN=true; ['btnCsv','btnPdf','btnKpiCsv','btnKpiPdf','btnInvCsv','btnInvPdf'].forEach(id=>{const el=document.getElementById(id); if(el) el.style.display='inline-block';}); alert("Modo Admin activado"); } else { alert("Clave incorrecta"); } }
-function canExportNow(){ const now=Date.now(); if(now-lastExportTs<EXPORT_COOLDOWN_MS) return confirm("Acabas de exportar hace muy poco.\n¿Seguro que quieres lanzar otra exportación ahora?"); lastExportTs=now; return true; }
+let SESSION = {user:null, role:'Visor'};
+const PERM = {
+  'Administrador': {view:true, create_ot:true, export_csv:true, export_pdf:true, export_pdf_ot:true, view_ind:true, manage_roles:true},
+  'Gerente':       {view:true, create_ot:false, export_csv:true, export_pdf:true, export_pdf_ot:true, view_ind:true, manage_roles:false},
+  'Encargado':     {view:true, create_ot:false, export_csv:false, export_pdf:false, export_pdf_ot:false, view_ind:false, manage_roles:false},
+  'Tecnico':       {view:true, create_ot:true, export_csv:false, export_pdf:false, export_pdf_ot:true, view_ind:false, manage_roles:false},
+  'Visor':         {view:true, create_ot:false, export_csv:false, export_pdf:false, export_pdf_ot:false, view_ind:false, manage_roles:false},
+};
+
+const q=s=>document.querySelector(s); const qs=s=>document.querySelectorAll(s);
+function showToast(msg){const t=document.getElementById('toast'); q('#toastMsg').textContent=msg; t.style.display='block'; setTimeout(()=>t.style.display='none',1600);}
+async function apiGet(p){ const url=new URL(API_BASE); Object.entries(p).forEach(([k,v])=>url.searchParams.set(k,v)); if(SESSION.user) url.searchParams.set('who',SESSION.user); const r=await fetch(url); return await r.json(); }
+async function apiPost(b){ if(SESSION.user) b.who=SESSION.user; const r=await fetch(API_BASE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}); return await r.json(); }
+function can(k){ const cfg = PERM[SESSION.role] || PERM['Visor']; if(k==='view.indicadores') return !!cfg.view_ind;
+  if(k==='create.ot') return !!cfg.create_ot; if(k==='export.csv') return !!cfg.export_csv; if(k==='export.pdf') return !!cfg.export_pdf;
+  if(k==='export.pdf.ot') return !!cfg.export_pdf_ot; if(k==='manage.roles') return !!cfg.manage_roles; return !!cfg.view; }
+function applyRoleUI(){ const hideTab = (hash, cond) => {const link = Array.from(qs('#nav .navbtn')).find(a=>a.getAttribute('href')===hash); if(link) link.style.display = cond? 'inline-flex':'none'; if(location.hash===hash && !cond) location.hash='#equipos';};
+  hideTab('#indicadores', can('view.indicadores'));
+  hideTab('#ot', can('create.ot') || can('export.pdf.ot'));
+  q('#otForm').style.display = can('create.ot') ? 'block':'none';
+  q('#otExport').style.display = (can('export.pdf.ot')||can('export.csv')) ? 'block':'none';
+  q('#btnOtPdf').style.display = can('export.pdf.ot') ? 'inline-block':'none';
+  q('#btnOtCsv').style.display = can('export.csv') ? 'inline-block':'none';
+  q('#btnInvCsv').style.display = can('export.csv') ? 'inline-block':'none';
+  q('#btnInvPdf').style.display = can('export.pdf') ? 'inline-block':'none';
+  q('#btnCsv').style.display    = can('export.csv') ? 'inline-block':'none';
+  q('#btnPdf').style.display    = can('export.pdf') ? 'inline-block':'none';
+  const personalLink = Array.from(qs('#nav .navbtn')).find(a=>a.getAttribute('href')==='#personal');
+  if(personalLink) personalLink.style.display = can('manage.roles') ? 'inline-flex':'none';
+  q('#userChip').textContent = SESSION.user? (SESSION.user+' · '+SESSION.role):'Invitado';
+}
+
+function login(){ apiGet({res:'personal',fn:'list'}).then(d=>{ const activos=(d.items||[]).filter(p=>p.activo);
+  const nombres=activos.map(p=> (p.email||'')+' — '+(p.nombre||'')).join('\n'); const pick=prompt('Elige o escribe tu email:\n'+nombres); if(!pick) return;
+  const email=pick.split('—')[0].trim().toLowerCase(); const f=activos.find(p=> (p.email||'').toLowerCase()===email);
+  SESSION.user=email; SESSION.role = f? (f.rol||'Visor') : 'Visor'; applyRoleUI(); showToast('Sesión: '+SESSION.role); }); }
+function logout(){ SESSION = {user:null, role:'Visor'}; applyRoleUI(); showToast('Sesión cerrada'); }
+
+// Estado/equipos
+function statusDot(s){return s==='Parada'?'r':(s==='Restricciones'?'o':'g')} function groupBy(arr,key){return arr.reduce((a,it)=>{const k=it[key]||'—';(a[k]=a[k]||[]).push(it);return a;},{});}
 let STATE=[];
-function statusDot(s){return s==='Parada'?'r':(s==='Restricciones'?'o':'g')}
-function groupBy(arr,key){return arr.reduce((acc,it)=>{const k=it[key]||'—';(acc[k]=acc[k]||[]).push(it);return acc;},{});}
-function renderItems(list,labelGroup){ const grid=document.createElement('div'); grid.className='grid'; list.forEach(it=>{ const wrap=document.createElement('div'); wrap.className='item'; wrap.innerHTML=`<div class="item-left"><span class="dot ${statusDot(it.estado||'En marcha')}"></span><div><div class="title">${it.nombre}</div><div class="small">${labelGroup}</div></div></div>`; const actions=document.createElement('div'); actions.className='item-actions'; const sel=document.createElement('select'); ['En marcha','Restricciones','Parada'].forEach(t=>{const o=document.createElement('option');o.value=t;o.textContent=t;if((it.estado||'En marcha')===t) o.selected=true; sel.appendChild(o)}); sel.onchange=async()=>{ await apiPost({res:'state',fn:'set',name:it.nombre,estado:sel.value}); await loadState(); }; const btn=document.createElement('button'); btn.className='btn warn'; btn.textContent='Parada prolongada'; btn.onclick=async()=>{ await apiPost({res:'alert',fn:'parada',equipo:it.nombre}); await loadState(); }; actions.appendChild(sel); actions.appendChild(btn); wrap.appendChild(actions); grid.appendChild(wrap); }); return grid; }
+function renderItems(list,labelGroup){ const grid=document.createElement('div'); grid.className='grid';
+  list.forEach(it=>{ const wrap=document.createElement('div'); wrap.className='item'; wrap.innerHTML=`<div class="item-left"><span class="dot ${statusDot(it.estado||'En marcha')}"></span><div><div class="title">${it.nombre}</div><div class="small">${labelGroup}</div></div></div>`;
+    const actions=document.createElement('div'); actions.style.marginLeft='auto'; const sel=document.createElement('select');
+    ['En marcha','Restricciones','Parada'].forEach(t=>{const o=document.createElement('option');o.value=t;o.textContent=t;if((it.estado||'En marcha')===t) o.selected=true; sel.appendChild(o)});
+    sel.onchange=async()=>{ await apiPost({res:'state',fn:'set',name:it.nombre,estado:sel.value}); await loadState(); };
+    const btn=document.createElement('button'); btn.className='btn warn'; btn.textContent='Parada prolongada'; btn.onclick=async()=>{ await apiPost({res:'alert',fn:'parada',equipo:it.nombre}); await loadState(); };
+    actions.appendChild(sel); actions.appendChild(btn); wrap.appendChild(actions); grid.appendChild(wrap); });
+  return grid; }
 function renderEquipos(){ const host=q('#equiposGroups'); host.innerHTML=''; const grupos=groupBy(STATE.filter(s=>!String(s.grupo||'').startsWith('Puentes Grúa') && s.grupo!=='Otros (auxiliares)'), 'grupo'); Object.keys(grupos).forEach(g=>{ const card=document.createElement('div'); card.className='card'; card.innerHTML=`<h3 class="section-title">${g}</h3>`; card.appendChild(renderItems(grupos[g], g)); host.appendChild(card); }); }
 function renderGruas(){ const host=q('#gruasGroups'); host.innerHTML=''; const grupos=groupBy(STATE.filter(s=>String(s.grupo||'').startsWith('Puentes Grúa')), 'grupo'); Object.keys(grupos).forEach(g=>{ const card=document.createElement('div'); card.className='card'; card.innerHTML=`<h3 class="section-title">${g.replace('Puentes Grúa · ','Nave ')}</h3>`; card.appendChild(renderItems(grupos[g], g)); host.appendChild(card); }); }
 function renderOtros(){ const host=q('#otrosWrap'); host.innerHTML=''; const lista=STATE.filter(s=>s.grupo==='Otros (auxiliares)'); host.appendChild(renderItems(lista,'Auxiliar')); }
-async function loadState(){ let r=await apiGet({res:'state',fn:'list'}); if(!r.ok || (r.items||[]).length===0){ await apiPost({res:'state',fn:'seed'}); r=await apiGet({res:'state',fn:'list'}); } STATE=r.items||[]; renderEquipos(); renderGruas(); renderOtros(); renderAlert(); fillEquipoSelect('#incEquipo'); fillEquipoSelect('#fEquipo'); }
 function renderAlert(){ const items=STATE.filter(s=> s.estado==='Parada' || s.estado==='Restricciones'); const box=q('#alerta'), list=q('#alertaList'); if(items.length===0){ box.style.display='none'; list.innerHTML=''; return; } box.style.display='block'; list.innerHTML= items.map(i=>`${i.nombre} — ${i.estado}`).join('<br>'); }
-let INC=[];
+async function loadState(){ let r=await apiGet({res:'state',fn:'list'}); if(!r.ok || (r.items||[]).length===0){ await apiPost({res:'state',fn:'seed'}); r=await apiGet({res:'state',fn:'list'}); } STATE=r.items||[]; renderEquipos(); renderGruas(); renderOtros(); renderAlert(); fillEquipoSelect('#incEquipo'); fillEquipoSelect('#fEquipo'); fillEquipoSelect('#otEquipo'); }
 function fillEquipoSelect(id){ const sel=q(id); sel.innerHTML=''; STATE.forEach(s=>{ const o=document.createElement('option'); o.value=s.nombre; o.textContent=s.nombre; sel.appendChild(o); }); }
-async function loadIncid(){ const r=await apiGet({res:'incid',fn:'list'}); INC=r.items||[]; }
-function getFilters(){ return {equipo:q('#fEquipo').value,tipo:q('#fTipo').value,res:q('#fRes').value,texto:q('#fTexto').value.trim().toLowerCase()}; }
-function aplicarFiltros(){ const f=getFilters(); const arr=INC.filter(i=>{ if(f.equipo && i.equipo!==f.equipo) return false; if(f.tipo && i.tipo!==f.tipo) return false; if(f.res && i.res!==f.res) return false; if(f.texto){ const blob=(i.equipo+' '+(i.desc||'')+' '+(i.repTxt||'')).toLowerCase(); if(!blob.includes(f.texto)) return false; } return true; }); renderIncidTable(arr); renderKPIs(arr); }
+
+// Incidencias
+let INC=[];
+async function loadIncid(){ const r=await apiGet({res:'incid',fn:'list'}); INC=r.items||[]; aplicarFiltros(); }
+function aplicarFiltros(){ const f={equipo:q('#fEquipo').value,tipo:q('#fTipo').value,res:q('#fRes').value,texto:q('#fTexto').value.toLowerCase()}; const arr=INC.filter(i=>{ if(f.equipo && i.equipo!==f.equipo) return false; if(f.tipo && i.tipo!==f.tipo) return false; if(f.res && i.res!==f.res) return false; if(f.texto){ const blob=(i.equipo+' '+(i.desc||'')+' '+(i.repTxt||'')).toLowerCase(); if(!blob.includes(f.texto)) return false; } return true; }); renderIncidTable(arr); renderGlobalKPIs(); }
 function resetFiltros(){ q('#fEquipo').value=''; q('#fTipo').value=''; q('#fRes').value=''; q('#fTexto').value=''; aplicarFiltros(); }
-function renderIncidTable(arr){ const tbody=q('#incTable tbody'); tbody.innerHTML=''; arr.forEach(it=>{ const tr=document.createElement('tr'); tr.innerHTML='<td>'+new Date(it.created).toLocaleString()+'</td><td><span class="badge">'+it.equipo+'</span></td><td>'+it.tipo+'</td><td>'+it.res+'</td><td>'+(it.reportante||'—')+'</td><td>'+(it.inicio? new Date(it.inicio).toLocaleString():'—')+'</td><td>'+it.desc+'</td><td>'+Number(it.hParo||0).toFixed(2)+'</td><td>'+Number(it.hRep||0).toFixed(2)+'</td><td>'+it.rep+(it.repTxt?(' — '+it.repTxt):'')+'</td>'; tbody.appendChild(tr); }); }
+function renderIncidTable(arr){ const tb=q('#incTable tbody'); tb.innerHTML=''; arr.forEach(i=>{ const link=i.adj? `<a href="${i.adj}" target="_blank">Abrir</a>`:'—'; const tr=document.createElement('tr'); tr.innerHTML=`<td>${new Date(i.created).toLocaleString()}</td><td><span class="badge">${i.equipo}</span></td><td>${i.tipo}</td><td>${i.res}</td><td>${i.reportante||'—'}</td><td>${i.asignado||'—'}</td><td>${i.inicio? new Date(i.inicio).toLocaleString():'—'}</td><td>${(i.desc||'').replace(/\n/g,' ')}</td><td>${(+i.hParo||0).toFixed(2)}</td><td>${(+i.hRep||0).toFixed(2)}</td><td>${link}</td>`; tb.appendChild(tr); }); }
+
+// KPIs
+function getHoursPerWeek(){ return 120; }
 function isoWeek(d){const dt=new Date(d),t=new Date(dt.valueOf());const dn=(dt.getDay()+6)%7;t.setDate(t.getDate()-dn+3);const ft=new Date(t.getFullYear(),0,4);return 1+Math.round(((t-ft)/86400000-3+((ft.getDay()+6)%7))/7)}
-function drawBars(id,labels,values){ const c=q('#'+id),ctx=c.getContext('2d'); const W=c.width=c.clientWidth, H=c.height=c.clientHeight; ctx.clearRect(0,0,W,H); const pad=28, max=Math.max(1,...values), step=(W-pad*2)/Math.max(1,labels.length), bw=step*0.7; ctx.strokeStyle='#ccc'; ctx.beginPath(); ctx.moveTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke(); values.forEach((v,i)=>{ const x=pad+i*step+(step-bw)/2, h=(H-pad*2)*(v/max), y=H-pad-h; ctx.fillStyle='rgba(198,40,40,.9)'; ctx.fillRect(x,y,bw,h); ctx.fillStyle='#333'; ctx.font='11px system-ui'; ctx.textAlign='center'; ctx.fillText(String(labels[i]), x+bw/2, H-8); }); }
-function getHoursPerWeek(){ const v=parseFloat(localStorage.getItem(HOURS_KEY)||'120'); return isNaN(v)?120:v; }
-function saveHoursPerWeek(){ const v=parseFloat(q('#hoursPerWeek').value||'120'); localStorage.setItem(HOURS_KEY, String(Math.max(1,Math.min(168,v)))); q('#savedMsg').style.display='inline'; setTimeout(()=>q('#savedMsg').style.display='none',1200); renderGlobalKPIs(); aplicarFiltros(); }
-function renderKPIs(arr){ const corr=arr.filter(i=>i.tipo==='Correctivo'); const byW={}; corr.forEach(i=>{const w=isoWeek(i.created); if(!byW[w]) byW[w]={count:0,rep:0,paro:0}; byW[w].count++; byW[w].rep+=(+i.hRep||0); byW[w].paro+=(+i.hParo||0); }); const weeks=Object.keys(byW).sort((a,b)=>a-b); const mttr=corr.length ? corr.reduce((s,i)=>s+(+i.hRep||0),0)/corr.length : 0; const HPW=getHoursPerWeek(); const mtbfWeeks=weeks.map(w=> byW[w].count ? HPW/byW[w].count : HPW); const dispWeeks=weeks.map((w,i)=>{ const fail=byW[w].count; const mtbf=mtbfWeeks[i]; const mttrW= fail? byW[w].rep/fail : 0; return (mtbf/(mtbf+mttrW))*100; }); const meanMtbf=weeks.length ? mtbfWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0; const meanDisp=weeks.length ? dispWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0; q('#kpiMttr').textContent=mttr.toFixed(2); q('#kpiMtbf').textContent=meanMtbf.toFixed(1); q('#kpiDisp').textContent=meanDisp.toFixed(1); q('#kpiOee').textContent=meanDisp.toFixed(1); drawBars('chartMttr',weeks,weeks.map((w,i)=>{const fail=byW[w].count; return fail? byW[w].rep/fail : 0;})); drawBars('chartCount',weeks,weeks.map(w=>byW[w].count)); }
-function renderGlobalKPIs(){ const corr=INC.filter(i=>i.tipo==='Correctivo'); const byW={}; corr.forEach(i=>{const w=isoWeek(i.created); if(!byW[w]) byW[w]={count:0,rep:0}; byW[w].count++; byW[w].rep+=(+i.hRep||0); }); const weeks=Object.keys(byW).sort((a,b)=>a-b); const HPW=getHoursPerWeek(); const mttr=corr.length ? corr.reduce((s,i)=>s+(+i.hRep||0),0)/corr.length : 0; const mtbfWeeks=weeks.map(w=> byW[w].count ? HPW/byW[w].count : HPW); const meanMtbf=weeks.length ? mtbfWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0; const dispWeeks=weeks.map((w,i)=>{ const fail=byW[w].count; const mtbf=mtbfWeeks[i]; const mttrW= fail? byW[w].rep/fail : 0; return (mtbf/(mtbf+mttrW))*100; }); const meanDisp=weeks.length ? dispWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0; q('#kpiMttrG').textContent=mttr.toFixed(2); q('#kpiMtbfG').textContent=meanMtbf.toFixed(1); q('#kpiDispG').textContent=meanDisp.toFixed(1); q('#kpiOeeG').textContent=meanDisp.toFixed(1); drawBars('chartMttr2',weeks,weeks.map((w,i)=>{const fail=byW[w].count; return fail? byW[w].rep/fail : 0;})); drawBars('chartCount2',weeks,weeks.map(w=>byW[w].count)); q('#indicEmpty').style.display = INC.length? 'none':'block'; const hpwInput=q('#hoursPerWeek'); if(hpwInput) hpwInput.value=getHoursPerWeek(); }
-async function addIncidencia(){ const item={ equipo:q('#incEquipo').value.trim(), tipo:q('#incTipo').value, res:q('#incResultado').value, rep:q('#incRep').value, repTxt:q('#incRepTxt').value.trim(), hParo:parseFloat(q('#incHorasParo').value||'0'), hRep:parseFloat(q('#incHorasRepar').value||'0'), inicio:q('#incInicio').value, reportante:q('#incReportante').value.trim(), desc:q('#incDesc').value.trim() }; if(!item.equipo || !item.desc){ alert('Equipo y descripción obligatorios'); return; } await apiPost({res:'incid',fn:'add',item}); ['incDesc','incRepTxt','incHorasParo','incHorasRepar','incInicio','incReportante'].forEach(id=>q('#'+id).value=''); await loadIncid(); aplicarFiltros(); await loadState(); }
-function getFiltradas(){ const f=getFilters(); return INC.filter(i=>{ if(f.equipo && i.equipo!==f.equipo) return false; if(f.tipo && i.tipo!==f.tipo) return false; if(f.res && i.res!==f.res) return false; if(f.texto){ const blob=(i.equipo+' '+(i.desc||'')+' '+(i.repTxt||'')).toLowerCase(); if(!blob.includes(f.texto)) return false; } return true; }); }
-function toCSV(rows, header){ const all= header ? [header, ...rows] : rows; return all.map(r => r.map(v => '"'+String(v if v is not None else '').replace('"','""')+'"').join(',')).join('\n'); }
+function drawBars(id,labels,vals){ const c=q('#'+id),ctx=c.getContext('2d'); const W=c.width=c.clientWidth,H=c.height=c.clientHeight; ctx.clearRect(0,0,W,H); const pad=28,max=Math.max(1,...vals),step=(W-pad*2)/Math.max(1,labels.length),bw=step*0.7; ctx.strokeStyle='#ccc'; ctx.beginPath(); ctx.moveTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke(); vals.forEach((v,i)=>{ const x=pad+i*step+(step-bw)/2, h=(H-pad*2)*(v/max), y=H-pad-h; ctx.fillStyle='rgba(198,40,40,.9)'; ctx.fillRect(x,y,bw,h); ctx.fillStyle='#333'; ctx.font='11px system-ui'; ctx.textAlign='center'; ctx.fillText(String(labels[i]), x+bw/2, H-8); }); }
+function renderGlobalKPIs(){ const corr=INC.filter(i=>i.tipo==='Correctivo'); const byW={}; corr.forEach(i=>{ const w=isoWeek(i.created); if(!byW[w]) byW[w]={count:0,rep:0}; byW[w].count++; byW[w].rep+=(+i.hRep||0); }); const weeks=Object.keys(byW).sort((a,b)=>a-b); const HPW=getHoursPerWeek(); const mttr=corr.length? corr.reduce((s,i)=>s+(+i.hRep||0),0)/corr.length : 0; const mtbfWeeks=weeks.map(w=> byW[w].count? HPW/byW[w].count : HPW); const meanMtbf=weeks.length? mtbfWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0; q('#kpiMttrG').textContent=mttr.toFixed(2); q('#kpiMtbfG').textContent=meanMtbf.toFixed(1); const dispWeeks=weeks.map((w,i)=>{ const f=byW[w].count; const mtbf=mtbfWeeks[i]; const mttrW=f? byW[w].rep/f : 0; return (mtbf/(mtbf+mttrW))*100; }); const meanDisp=weeks.length? dispWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0; q('#kpiDispG').textContent=meanDisp.toFixed(1); q('#kpiOeeG').textContent=meanDisp.toFixed(1); drawBars('chartMttr2',weeks,weeks.map((w,i)=>{ const f=byW[w].count; return f? byW[w].rep/f : 0; })); drawBars('chartCount2',weeks,weeks.map(w=>byW[w].count)); }
+
+// Crear incidencia
+async function addIncidencia(){ const item={ equipo:q('#incEquipo').value, tipo:q('#incTipo').value, res:q('#incResultado').value, reportante:q('#incReportante').value, asignado:q('#incAsignado').value, rep:q('#incRep').value, repTxt:q('#incRepTxt').value, hParo:parseFloat(q('#incHorasParo').value||'0'), hRep:parseFloat(q('#incHorasRepar').value||'0'), inicio:q('#incInicio').value, adj:q('#incAdj').value, desc:q('#incDesc').value }; if(!item.equipo||!item.desc) return alert('Equipo y descripción obligatorios'); const r=await apiPost({res:'incid',fn:'add',item}); if(!r.ok) return alert(r.error||'Error'); await loadIncid(); await loadState(); showToast('Incidencia creada'); }
+
+// Inventario
+async function invList(){ const r=await apiGet({res:'inv',fn:'list'}); return r.items||[]; }
+async function renderInventario(){ const list=await invList(); const qtxt=(q('#invSearch').value||'').toLowerCase(); const vis=list.filter(x=> (x.nombre||'').toLowerCase().includes(qtxt)||(x.ref||'').toLowerCase().includes(qtxt)); const tb=q('#invTable tbody'); tb.innerHTML=''; vis.forEach(it=>{ const tr=document.createElement('tr'); const actions=`<button class='btn ghost' onclick="invDelta('${it.ref}',-1)">−</button> <button class='btn ghost' onclick="invDelta('${it.ref}',1)">+</button>`; tr.innerHTML=`<td>${it.nombre}</td><td>${it.ref}</td><td>${it.stock}</td><td>${it.minimo}</td><td>${actions}</td>`; tb.appendChild(tr); }); }
+async function invAdd(){ const item={nombre:q('#invNombre').value, ref:q('#invRef').value, stock:+(q('#invStock').value||0), minimo:+(q('#invMin').value||0)}; if(!item.nombre||!item.ref) return alert('Nombre y referencia'); await apiPost({res:'inv',fn:'add',item}); ['invNombre','invRef','invStock','invMin'].forEach(id=>q('#'+id).value=''); renderInventario(); }
+async function invDelta(ref,delta){ await apiPost({res:'inv',fn:'delta',ref,delta}); renderInventario(); }
+
+// OT
+let OT=[];
+function prioLabel(p){return p==='R'?'Rojo · Urgente':p==='N'?'Naranja · Alta':p==='A'?'Amarillo · Preventivo':'Verde · Predictivo'}
+function prioOrder(p){return p==='R'?1:p==='N'?2:p==='A'?3:4}
+async function otLoad(){ const r=await apiGet({res:'ot',fn:'list'}); OT=r.items||[]; renderOT(); }
+function renderOT(){ const host=q('#otList'); host.innerHTML=''; const sorted=[...OT].sort((a,b)=> prioOrder(a.prioridad)-prioOrder(b.prioridad) || new Date(a.created)-new Date(b.created)); sorted.forEach(it=>{ const card=document.createElement('div'); card.className='card ot-card ot-'+it.prioridad; const adj = it.adj? `<a href="${it.adj}" target="_blank">Adjunto</a>`:''; card.innerHTML=`<div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><div><span class="ot-tag prio-${it.prioridad}">${prioLabel(it.prioridad)}</span> <b>${it.titulo}</b><div class="small">${it.equipo} • asignado a ${it.asignado||'—'}</div></div><div style="display:flex;gap:6px"><select data-id="${it.id}" onchange="otSetEstado(this.value,this.dataset.id)"><option ${it.estado==='Abierta'?'selected':''}>Abierta</option><option ${it.estado==='En curso'?'selected':''}>En curso</option><option ${it.estado==='Cerrada'?'selected':''}>Cerrada</option></select></div></div><div style="margin-top:6px">${it.desc||''}</div>${it.vencimiento?('<div class="small">Vence: '+it.vencimiento+'</div>'):''} <div>${adj}</div>`; host.appendChild(card); }); }
+async function otAdd(){ if(!can('create.ot')) return alert('No tienes permiso para crear O.T.'); const item={ equipo:q('#otEquipo').value, prioridad:q('#otPrio').value, asignado:q('#otAsignado').value, vencimiento:q('#otDue').value, titulo:q('#otTitle').value, adj:q('#otAdj').value, desc:q('#otDesc').value }; if(!item.titulo) return alert('Título obligatorio'); const r=await apiPost({res:'ot',fn:'add',item}); if(!r.ok) return alert(r.error||'Error'); ['otTitle','otDesc','otDue','otAdj'].forEach(id=>q('#'+id).value=''); await otLoad(); }
+async function otSetEstado(estado,id){ const r=await apiPost({res:'ot',fn:'set',id,estado}); if(!r.ok) return alert(r.error||'Error'); await otLoad(); }
+
+// Personal
+let PERSONAL=[];
+async function pLoad(){ const r=await apiGet({res:'personal',fn:'list'}); PERSONAL=r.items||[]; renderPersonal(); fillPeople('#incReportante'); fillPeople('#incAsignado'); fillPeople('#otAsignado'); }
+function fillPeople(sel){ const el=q(sel); el.innerHTML=''; PERSONAL.filter(p=>p.activo).forEach(p=>{ const o=document.createElement('option'); o.value=p.email; o.textContent=p.nombre; el.appendChild(o); }); }
+function renderPersonal(){ const tb=q('#pTable tbody'); tb.innerHTML=''; PERSONAL.forEach(p=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${p.nombre}</td><td>${p.email}</td><td>${p.rol}</td><td>${p.activo?'Sí':'No'}</td><td>${p.telefono||''}</td><td>${p.especialidad||''}</td><td>${p.turno||''}</td><td><button class='btn ghost' onclick='pEdit("${p.id}")' ${!can('manage.roles')?'disabled':''}>Editar</button> <button class='btn ghost' onclick='pDel("${p.id}")' ${!can('manage.roles')?'disabled':''}>Borrar</button></td>`; tb.appendChild(tr); }); }
+function pEdit(id){ const p=PERSONAL.find(x=>x.id===id); if(!p) return; q('#pId').value=p.id; q('#pNombre').value=p.nombre; q('#pEmail').value=p.email; q('#pRol').value=p.rol; q('#pActivo').value=String(!!p.activo); q('#pTelefono').value=p.telefono||''; q('#pEsp').value=p.especialidad||''; q('#pTurno').value=p.turno||''; }
+function pClear(){ ['pId','pNombre','pEmail','pTelefono','pEsp','pTurno'].forEach(id=>q('#'+id).value=''); q('#pRol').value='Tecnico'; q('#pActivo').value='true'; }
+async function pSave(){ if(!can('manage.roles')) return alert('Solo Admin'); const item={ id:q('#pId').value||null, nombre:q('#pNombre').value, email:q('#pEmail').value, rol:q('#pRol').value, activo:q('#pActivo').value==='true', telefono:q('#pTelefono').value, especialidad:q('#pEsp').value, turno:q('#pTurno').value }; if(!item.nombre||!item.email) return alert('Nombre y email'); const fn=item.id? 'set':'add'; const r=await apiPost({res:'personal',fn, item}); if(!r.ok) return alert(r.error||'Error'); pClear(); await pLoad(); }
+async function pDel(id){ if(!can('manage.roles')) return alert('Solo Admin'); if(!confirm('¿Eliminar persona?')) return; const r=await apiPost({res:'personal',fn:'del',id}); if(!r.ok) return alert(r.error||'Error'); await pLoad(); }
+
+// Parada prolongada
+async function serverParadaProlongada(){ const nombre=prompt('Equipo en parada prolongada'); if(!nombre) return; await apiPost({res:'alert',fn:'parada',equipo:nombre}); await loadState(); }
+
+// Arranque
+function setActive(hash){ ['equiposSec','puentesSec','otrosSec','incidenciasSec','indicadoresSec','inventarioSec','otSec','personalSec'].forEach(id=>q('#'+id).style.display='none'); (q(hash+'Sec')||q('#equiposSec')).style.display='block'; qs('.navbtn').forEach(a=>a.classList.remove('active')); const link=Array.from(qs('.navbtn')).find(a=>a.getAttribute('href')===hash); if(link) link.classList.add('active'); }
+async function boot(){ await loadState(); await loadIncid(); await pLoad(); await otLoad(); applyRoleUI(); setActive(location.hash||'#equipos'); }
+window.addEventListener('hashchange',()=>setActive(location.hash||'#equipos')); window.addEventListener('load',boot);
 </script>
+</body></html>
