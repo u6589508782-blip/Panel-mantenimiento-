@@ -1,23 +1,23 @@
-<!doctype html><html lang="es"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CDL · CMMS</title>
 <style>
 :root{--brand:#e53935;--bg:#f6f7f9;--ok:#2e7d32;--warn:#f57c00;--bad:#d32f2f;--mid:#f9a825}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg)}
-/* CABECERA */
 .header{position:sticky;top:0;background:#fff;border-bottom:2px solid var(--brand);z-index:50}
 .header-top{display:flex;align-items:center;gap:12px;padding:8px 12px}
 .header-logo{height:54px}
 .header-title{font-weight:900;font-size:20px;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .header-right{margin-left:auto;display:flex;align-items:center;gap:8px}
 .icon-btn{border:0;background:#e8eaed;color:#111;border-radius:10px;padding:8px 12px;font-weight:800;cursor:pointer}
-/* Menús desplegables */
 .menu-panel,.session-panel{display:none;position:absolute;right:10px;top:64px;background:#fff;border:1px solid #ddd;border-radius:12px;box-shadow:0 10px 24px rgba(0,0,0,.12);min-width:230px;overflow:hidden}
 .menu-panel a,.session-panel a,.session-panel div{display:block;padding:12px 14px;text-decoration:none;color:#111;border-bottom:1px solid #f2f2f2;font-weight:700}
 .menu-panel a:last-child,.session-panel a:last-child,.session-panel div:last-child{border-bottom:0}
 .menu-panel a:hover,.session-panel a:hover{background:#f8f8f8}
 .session-muted{opacity:.7;font-weight:600}
-/* Contenido */
 .container{max-width:1100px;margin:10px auto;padding:0 12px}
 .card{background:#fff;border:1px solid #eee;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.06);padding:12px;margin:12px 0}
 .grid{display:grid;grid-template-columns:1fr;gap:8px}@media(min-width:720px){.grid{grid-template-columns:1fr 1fr}}
@@ -31,11 +31,9 @@ select,input,textarea{border:1px solid #ddd;border-radius:10px;padding:8px;width
 .badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 8px;background:#eee;font-weight:700;font-size:12px}
 .table-wrap{overflow-x:auto;border-radius:12px}.table{width:100%;min-width:920px;border-collapse:separate;border-spacing:0 8px}
 .table th{text-align:left;color:#666;font-size:12px;padding:8px}.table td{background:#fff;padding:10px;border-radius:10px;vertical-align:top}
-/* OTs */
 .ot-tag{font-weight:800;border-radius:999px;padding:4px 8px;color:#fff}
 .prio-R{background:var(--bad)}.prio-N{background:var(--warn)}.prio-A{background:var(--mid);color:#222}.prio-V{background:var(--ok)}
 .ot-card{border-left:6px solid #ddd}.ot-R{border-left-color:var(--bad)}.ot-N{border-left-color:var(--warn)}.ot-A{border-left-color:var(--mid)}.ot-V{border-left-color:var(--ok)}
-/* Avisos */
 .toast{position:fixed;left:10px;right:10px;bottom:12px;display:none;z-index:60}
 .toast .in{background:#323232;color:#fff;padding:10px 12px;border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:10px}
 </style>
@@ -49,7 +47,6 @@ select,input,textarea{border:1px solid #ddd;border-radius:10px;padding:8px;width
       <button class="icon-btn" id="pagesBtn" onclick="toggleMenu()">☰ Menú</button>
       <button class="icon-btn" id="sessBtn" onclick="toggleSession()">⋮</button>
     </div>
-    <!-- Menú páginas -->
     <nav id="menuPanel" class="menu-panel">
       <a href="#equipos" onclick="go('#equipos')">Equipos</a>
       <a href="#puentes" onclick="go('#puentes')">Puentes Grúa</a>
@@ -60,7 +57,6 @@ select,input,textarea{border:1px solid #ddd;border-radius:10px;padding:8px;width
       <a href="#ot" onclick="go('#ot')">O.T.</a>
       <a href="#personal" onclick="go('#personal')">Personal</a>
     </nav>
-    <!-- Menú sesión -->
     <div id="sessionPanel" class="session-panel">
       <div class="session-muted" id="sessInfo">Usuario: Invitado</div>
       <a href="javascript:void(0)" onclick="login()">Entrar</a>
@@ -247,7 +243,6 @@ function applyRoleUI(){
   };
   linkShow('#indicadores', can('view.indicadores'));
   linkShow('#ot', (can('create.ot') || can('export.pdf.ot')));
-  // exportación
   const expCSV = can('export.csv'); const expPDF = can('export.pdf'); const expOTPDF = can('export.pdf.ot');
   const e=(id)=>q(id);
   if(e('#btnOtPdf')) e('#btnOtPdf').style.display = expOTPDF ? 'inline-block':'none';
@@ -276,35 +271,36 @@ function renderItems(list,labelGroup){ const grid=document.createElement('div');
 function renderEquipos(){ const host=q('#equiposGroups'); host.innerHTML=''; const grupos=groupBy(STATE.filter(s=>!String(s.grupo||'').startsWith('Puentes Grúa') && s.grupo!=='Otros (auxiliares)'), 'grupo'); Object.keys(grupos).forEach(g=>{ const card=document.createElement('div'); card.className='card'; card.innerHTML=`<h3>${g}</h3>`; card.appendChild(renderItems(grupos[g], g)); host.appendChild(card); }); }
 function renderGruas(){ const host=q('#gruasGroups'); host.innerHTML=''; const grupos=groupBy(STATE.filter(s=>String(s.grupo||'').startsWith('Puentes Grúa')), 'grupo'); Object.keys(grupos).forEach(g=>{ const card=document.createElement('div'); card.className='card'; card.innerHTML=`<h3>${g.replace('Puentes Grúa · ','Nave ')}</h3>`; card.appendChild(renderItems(grupos[g], g)); host.appendChild(card); }); }
 function renderOtros(){ const host=q('#otrosWrap'); host.innerHTML=''; const lista=STATE.filter(s=>s.grupo==='Otros (auxiliares)'); host.appendChild(renderItems(lista,'Auxiliar')); }
-function renderAlert(){ const items=STATE.filter(s=> s.estado==='Parada' || s.estado==='Restricciones'); const box=q('#alerta'), list=q('#alertaList'); if(items.length===0){ box.style.display='none'; list.innerHTML=''; return; } box.style.display='block'; list.innerHTML= items.map(i=>`${i.nombre} — ${i.estado}`).join('<br>'); }
+function renderAlert(){ const items=STATE.filter(s=> s.estado==='Parada' || s.estado==='Restricciones'); const box=q('#alerta'), list=q('#alertaList'); if(items.length===0){ box.style.display='none'; list.innerHTML=''; return; } box.style.display='block'; list.innerHTML= items.map(i=>i.nombre+' — '+i.estado).join('<br>'); }
 async function loadState(){ let r=await apiGet({res:'state',fn:'list'}); if(!r.ok || (r.items||[]).length===0){ await apiPost({res:'state',fn:'seed'}); r=await apiGet({res:'state',fn:'list'}); } STATE=r.items||[]; renderEquipos(); renderGruas(); renderOtros(); renderAlert(); fillEquipoSelect('#incEquipo'); fillEquipoSelect('#fEquipo'); fillEquipoSelect('#otEquipo'); }
 function fillEquipoSelect(id){ const sel=q(id); sel.innerHTML=''; STATE.forEach(s=>{ const o=document.createElement('option'); o.value=s.nombre; o.textContent=s.nombre; sel.appendChild(o); }); }
 
 let INC=[]; async function loadIncid(){ const r=await apiGet({res:'incid',fn:'list'}); INC=r.items||[]; aplicarFiltros(); }
-function aplicarFiltros(){ const f={equipo:q('#fEquipo').value,tipo:q('#fTipo').value,res:q('#fRes').value,texto:q('#fTexto').value.toLowerCase()}; const arr=INC.filter(i=>{ if(f.equipo && i.equipo!==f.equipo) return false; if(f.tipo && i.tipo!==f.tipo) return false; if(f.res && i.res!==f.res) return false; if(f.texto){ const blob=(i.equipo+' '+(i.desc||'')+' '+(i.repTxt||'')).toLowerCase(); if(!blob.includes(f.texto)) return false; } return true; }); renderIncidTable(arr); renderGlobalKPIs(); }
+function aplicarFiltros(){ const f={equipo:q('#fEquipo').value,tipo:q('#fTipo').value,res:q('#fRes').value,texto:(q('#fTexto').value||'').toLowerCase()}; const arr=INC.filter(i=>{ if(f.equipo && i.equipo!==f.equipo) return false; if(f.tipo && i.tipo!==f.tipo) return false; if(f.res && i.res!==f.res) return false; if(f.texto){ const blob=(i.equipo+' '+(i.desc||'')+' '+(i.repTxt||'')).toLowerCase(); if(!blob.includes(f.texto)) return false; } return true; }); renderIncidTable(arr); renderGlobalKPIs(); }
 function resetFiltros(){ q('#fEquipo').value=''; q('#fTipo').value=''; q('#fRes').value=''; q('#fTexto').value=''; aplicarFiltros(); }
-function renderIncidTable(arr){ const tb=q('#incTable tbody'); tb.innerHTML=''; arr.forEach(i=>{ const link=i.adj? `<a href="${i.adj}" target="_blank">Abrir</a>`:'—'; const tr=document.createElement('tr'); tr.innerHTML=`<td>${new Date(i.created).toLocaleString()}</td><td><span class="badge">${i.equipo}</span></td><td>${i.tipo}</td><td>${i.res}</td><td>${i.reportante||'—'}</td><td>${i.asignado||'—'}</td><td>${i.inicio? new Date(i.inicio).toLocaleString():'—'}</td><td>${(i.desc||'').replace(/\n/g,' ')}</td><td>${(+i.hParo||0).toFixed(2)}</td><td>${(+i.hRep||0).toFixed(2)}</td><td>${link}</td>`; tb.appendChild(tr); }); }
+function renderIncidTable(arr){ const tb=q('#incTable tbody'); tb.innerHTML=''; arr.forEach(i=>{ const link=i.adj? '<a href="'+i.adj+'" target="_blank">Abrir</a>':'—'; const tr=document.createElement('tr'); const inicio = i.inicio ? new Date(i.inicio).toLocaleString() : '—'; const desc=(i.desc||'').replace(/\n/g,' '); tr.innerHTML='<td>'+new Date(i.created).toLocaleString()+'</td><td><span class="badge">'+i.equipo+'</span></td><td>'+i.tipo+'</td><td>'+i.res+'</td><td>'+(i.reportante||'—')+'</td><td>'+(i.asignado||'—')+'</td><td>'+inicio+'</td><td>'+desc+'</td><td>'+((+i.hParo||0).toFixed(2))+'</td><td>'+((+i.hRep||0).toFixed(2))+'</td><td>'+link+'</td>'; tb.appendChild(tr); }); }
 
 function getHoursPerWeek(){ return 120; }
 function isoWeek(d){const dt=new Date(d),t=new Date(dt.valueOf());const dn=(dt.getDay()+6)%7;t.setDate(t.getDate()-dn+3);const ft=new Date(t.getFullYear(),0,4);return 1+Math.round(((t-ft)/86400000-3+((ft.getDay()+6)%7))/7)}
-function drawBars(id,labels,vals){ const c=q('#'+id),ctx=c.getContext('2d'); const W=c.width=c.clientWidth,H=c.height=c.clientHeight; ctx.clearRect(0,0,W,H); const pad=28,max=Math.max(1,...vals),step=(W-pad*2)/Math.max(1,labels.length),bw=step*0.7; ctx.strokeStyle='#ccc'; ctx.beginPath(); ctx.moveTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke(); vals.forEach((v,i)=>{ const x=pad+i*step+(step-bw)/2, h=(H-pad*2)*(v/max), y=H-pad-h; ctx.fillStyle='rgba(229,57,53,.9)'; ctx.fillRect(x,y,bw,h); ctx.fillStyle='#333'; ctx.font='11px system-ui'; ctx.textAlign='center'; ctx.fillText(String(labels[i]), x+bw/2, H-8); }); }
-function renderGlobalKPIs(){ const corr=INC.filter(i=>i.tipo==='Correctivo'); const byW={}; corr.forEach(i=>{ const w=isoWeek(i.created); if(!byW[w]) byW[w]={count:0,rep:0}; byW[w].count++; byW[w].rep+=(+i.hRep||0); }); const weeks=Object.keys(byW).sort((a,b)=>a-b); const HPW=getHoursPerWeek(); const mttr=corr.length? corr.reduce((s,i)=>s+(+i.hRep||0),0)/corr.length : 0; const mtbfWeeks=weeks.map(w=> byW[w].count? HPW/byW[w].count : HPW); const meanMtbf=weeks.length? mtbfWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0; q('#kpiMttrG').textContent=mttr.toFixed(2); q('#kpiMtbfG').textContent=meanMtbf.toFixed(1); const dispWeeks=weeks.map((w,i)=>{ const f=byW[w].count; const mtbf=mtbfWeeks[i]; const mttrW=f? byW[w].rep/f : 0; return (mtbf/(mtbf+mttrW))*100; }); const meanDisp=weeks.length? dispWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0; q('#kpiDispG').textContent=meanDisp.toFixed(1); q('#kpiOeeG').textContent=meanDisp.toFixed(1); drawBars('chartMttr2',weeks,weeks.map((w,i)=>{ const f=byW[w].count; return f? byW[w].rep/f : 0; })); drawBars('chartCount2',weeks,weeks.map(w=>byW[w].count)); }
+function drawBars(id,labels,vals){ const c=q('#'+id),ctx=c.getContext('2d'); const W=c.width=c.clientWidth,H=c.height=c.clientHeight; ctx.clearRect(0,0,W,H); const pad=28,max=Math.max(1,...vals),step=(W-pad*2)/Math.max(1,labels.length||1),bw=step*0.7; ctx.strokeStyle='#ccc'; ctx.beginPath(); ctx.moveTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke(); vals.forEach((v,i)=>{ const x=pad+i*step+(step-bw)/2, h=(H-pad*2)*(v/max), y=H-pad-h; ctx.fillStyle='rgba(229,57,53,.9)'; ctx.fillRect(x,y,bw,h); ctx.fillStyle='#333'; ctx.font='11px system-ui'; ctx.textAlign='center'; ctx.fillText(String(labels[i]), x+bw/2, H-8); }); }
+function renderGlobalKPIs(){ const corr=INC.filter(i=>i.tipo==='Correctivo'); const byW={}; corr.forEach(i=>{ const w=isoWeek(i.created); if(!byW[w]) byW[w]={count:0,rep:0}; byW[w].count++; byW[w].rep+=(+i.hRep||0); }); const weeks=Object.keys(byW).sort((a,b)=>a-b); const HPW=getHoursPerWeek(); const mttr=corr.length? corr.reduce((s,i)=>s+(+i.hRep||0),0)/corr.length : 0; const mtbfWeeks=weeks.map(w=> byW[w].count? HPW/byW[w].count : HPW); const meanMtbf=weeks.length? mtbfWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0; q('#kpiMttrG').textContent=mttr.toFixed(2); q('#kpiMtbfG').textContent=meanMtbf.toFixed(1); const dispWeeks=weeks.map((w,i)=>{ const f=byW[w].count; const mtbf=mtbfWeeks[i]; const mttrW=f? byW[w].rep/f : 0; return (mtbf/(mtbf+mttrW))*100; }); const meanDisp=weeks.length? dispWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0; q('#kpiDispG').textContent=meanDisp.toFixed(1); q('#kpiOeeG').textContent=meanDisp.toFixed(1); drawBars('chartMttr2',weeks,weeks.map((w,i)=>{ const f=byW[w].count; return f? byW[w].rep/f : 0; })); drawBars('chartCount2',weeks,weeks.map(w=>byW[w].count)); if(corr.length===0) q('#indicEmpty').style.display='block'; else q('#indicEmpty').style.display='none'; }
 
 async function addIncidencia(){ const item={ equipo:q('#incEquipo').value, tipo:q('#incTipo').value, res:q('#incResultado').value, reportante:q('#incReportante').value, asignado:q('#incAsignado').value, rep:q('#incRep').value, repTxt:q('#incRepTxt').value, hParo:parseFloat(q('#incHorasParo').value||'0'), hRep:parseFloat(q('#incHorasRepar').value||'0'), inicio:q('#incInicio').value, adj:q('#incAdj').value, desc:q('#incDesc').value }; if(!item.equipo||!item.desc) return alert('Equipo y descripción obligatorios'); const r=await apiPost({res:'incid',fn:'add',item}); if(!r.ok) return alert(r.error||'Error'); await loadIncid(); await loadState(); showToast('Incidencia creada'); }
+
 async function invList(){ const r=await apiGet({res:'inv',fn:'list'}); return r.items||[]; }
-async function renderInventario(){ const list=await invList(); const qtxt=(q('#invSearch').value||'').toLowerCase(); const vis=list.filter(x=> (x.nombre||'').toLowerCase().includes(qtxt)||(x.ref||'').toLowerCase().includes(qtxt)); const tb=q('#invTable tbody'); tb.innerHTML=''; vis.forEach(it=>{ const actions=`<button class='btn ghost' onclick="invDelta('${it.ref}',-1)">−</button> <button class='btn ghost' onclick="invDelta('${it.ref}',1)">+</button>`; const trEl=document.createElement('tr'); trEl.innerHTML=f"<td>{it.nombre}</td><td>{it.ref}</td><td>{it.stock}</td><td>{it.minimo}</td><td>{actions}</td>"; tb.appendChild(trEl); }); }
+async function renderInventario(){ const list=await invList(); const qtxt=(q('#invSearch').value||'').toLowerCase(); const vis=list.filter(x=> (x.nombre||'').toLowerCase().includes(qtxt)||(x.ref||'').toLowerCase().includes(qtxt)); const tb=q('#invTable tbody'); tb.innerHTML=''; vis.forEach(it=>{ const trEl=document.createElement('tr'); const actions='<button class="btn ghost" onclick="invDelta(\''+it.ref+'\',-1)">−</button> <button class="btn ghost" onclick="invDelta(\''+it.ref+'\',1)">+</button>'; trEl.innerHTML='<td>'+it.nombre+'</td><td>'+it.ref+'</td><td>'+it.stock+'</td><td>'+it.minimo+'</td><td>'+actions+'</td>'; tb.appendChild(trEl); }); }
 async function invAdd(){ const item={nombre:q('#invNombre').value, ref:q('#invRef').value, stock:+(q('#invStock').value||0), minimo:+(q('#invMin').value||0)}; if(!item.nombre||!item.ref) return alert('Nombre y referencia'); await apiPost({res:'inv',fn:'add',item}); ['invNombre','invRef','invStock','invMin'].forEach(id=>q('#'+id).value=''); renderInventario(); }
 async function invDelta(ref,delta){ await apiPost({res:'inv',fn:'delta',ref,delta}); renderInventario(); }
 
 let OT=[]; function prioLabel(p){return p==='R'?'Rojo · Urgente':p==='N'?'Naranja · Alta':p==='A'?'Amarillo · Preventivo':'Verde · Predictivo'} function prioOrder(p){return p==='R'?1:p==='N'?2:p==='A'?3:4}
 async function otLoad(){ const r=await apiGet({res:'ot',fn:'list'}); OT=r.items||[]; renderOT(); }
-function renderOT(){ const host=q('#otList'); host.innerHTML=''; const sorted=[...OT].sort((a,b)=> prioOrder(a.prioridad)-prioOrder(b.prioridad) || new Date(a.created)-new Date(b.created)); sorted.forEach(it=>{ const card=document.createElement('div'); card.className='card ot-card ot-'+it.prioridad; const adj = it.adj? `<a href="${it.adj}" target="_blank">Adjunto</a>`:''; card.innerHTML=`<div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><div><span class="ot-tag prio-${it.prioridad}">${prioLabel(it.prioridad)}</span> <b>${it.titulo}</b><div class="small">${it.equipo} • asignado a ${it.asignado||'—'}</div></div><div style="display:flex;gap:6px"><select data-id="${it.id}" onchange="otSetEstado(this.value,this.dataset.id)"><option ${it.estado==='Abierta'?'selected':''}>Abierta</option><option ${it.estado==='En curso'?'selected':''}>En curso</option><option ${it.estado==='Cerrada'?'selected':''}>Cerrada</option></select></div></div><div style="margin-top:6px">${it.desc||''}</div>${it.vencimiento?('<div class="small">Vence: '+it.vencimiento+'</div>'):''} <div>${adj}</div>`; host.appendChild(card); }); }
+function renderOT(){ const host=q('#otList'); host.innerHTML=''; const sorted=[...OT].sort((a,b)=> prioOrder(a.prioridad)-prioOrder(b.prioridad) || new Date(a.created)-new Date(b.created)); sorted.forEach(it=>{ const card=document.createElement('div'); card.className='card ot-card ot-'+it.prioridad; const adj = it.adj? '<a href="'+it.adj+'" target="_blank">Adjunto</a>':''; const sel = '<select data-id="'+it.id+'" onchange="otSetEstado(this.value,this.dataset.id)"><option '+(it.estado==='Abierta'?'selected':'')+'>Abierta</option><option '+(it.estado==='En curso'?'selected':'')+'>En curso</option><option '+(it.estado==='Cerrada'?'selected':'')+'>Cerrada</option></select>'; card.innerHTML='<div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><div><span class="ot-tag prio-'+it.prioridad+'">'+prioLabel(it.prioridad)+'</span> <b>'+it.titulo+'</b><div class="small">'+it.equipo+' • asignado a '+(it.asignado||'—')+'</div></div><div style="display:flex;gap:6px">'+sel+'</div></div><div style="margin-top:6px">'+(it.desc||'')+'</div>'+(it.vencimiento?('<div class="small">Vence: '+it.vencimiento+'</div>'):'')+' <div>'+adj+'</div>'; host.appendChild(card); }); }
 async function otAdd(){ if(!can('create.ot')) return alert('No tienes permiso para crear O.T.'); const item={ equipo:q('#otEquipo').value, prioridad:q('#otPrio').value, asignado:q('#otAsignado').value, vencimiento:q('#otDue').value, titulo:q('#otTitle').value, adj:q('#otAdj').value, desc:q('#otDesc').value }; if(!item.titulo) return alert('Título obligatorio'); const r=await apiPost({res:'ot',fn:'add',item}); if(!r.ok) return alert(r.error||'Error'); ['otTitle','otDesc','otDue','otAdj'].forEach(id=>q('#'+id).value=''); await otLoad(); }
 async function otSetEstado(estado,id){ const r=await apiPost({res:'ot',fn:'set',id,estado}); if(!r.ok) return alert(r.error||'Error'); await otLoad(); }
 
 let PERSONAL=[]; async function pLoad(){ const r=await apiGet({res:'personal',fn:'list'}); PERSONAL=r.items||[]; renderPersonal(); fillPeople('#incReportante'); fillPeople('#incAsignado'); fillPeople('#otAsignado'); }
 function fillPeople(sel){ const el=q(sel); el.innerHTML=''; PERSONAL.filter(p=>p.activo).forEach(p=>{ const o=document.createElement('option'); o.value=p.email; o.textContent=p.nombre; el.appendChild(o); }); }
-function renderPersonal(){ const tb=q('#pTable tbody'); tb.innerHTML=''; PERSONAL.forEach(p=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${p.nombre}</td><td>${p.email}</td><td>${p.rol}</td><td>${p.activo?'Sí':'No'}</td><td>${p.telefono||''}</td><td>${p.especialidad||''}</td><td>${p.turno||''}</td><td><button class='btn ghost' onclick='pEdit("${p.id}")' ${!can('manage.roles')?'disabled':''}>Editar</button> <button class='btn ghost' onclick='pDel("${p.id}")' ${!can('manage.roles')?'disabled':''}>Borrar</button></td>`; tb.appendChild(tr); }); }
+function renderPersonal(){ const tb=q('#pTable tbody'); tb.innerHTML=''; PERSONAL.forEach(p=>{ const tr=document.createElement('tr'); const dis = can('manage.roles')?'':'disabled'; tr.innerHTML='<td>'+p.nombre+'</td><td>'+p.email+'</td><td>'+p.rol+'</td><td>'+(p.activo?'Sí':'No')+'</td><td>'+(p.telefono||'')+'</td><td>'+(p.especialidad||'')+'</td><td>'+(p.turno||'')+'</td><td><button class="btn ghost" onclick="pEdit(\''+p.id+'\')" '+dis+'>Editar</button> <button class="btn ghost" onclick="pDel(\''+p.id+'\')" '+dis+'>Borrar</button></td>'; tb.appendChild(tr); }); }
 function pEdit(id){ const p=PERSONAL.find(x=>x.id===id); if(!p) return; q('#pId').value=p.id; q('#pNombre').value=p.nombre; q('#pEmail').value=p.email; q('#pRol').value=p.rol; q('#pActivo').value=String(!!p.activo); q('#pTelefono').value=p.telefono||''; q('#pEsp').value=p.especialidad||''; q('#pTurno').value=p.turno||''; }
 function pClear(){ ['pId','pNombre','pEmail','pTelefono','pEsp','pTurno'].forEach(id=>q('#'+id).value=''); q('#pRol').value='Tecnico'; q('#pActivo').value='true'; }
 async function pSave(){ if(!can('manage.roles')) return alert('Solo Admin'); const item={ id:q('#pId').value||null, nombre:q('#pNombre').value, email:q('#pEmail').value, rol:q('#pRol').value, activo:q('#pActivo').value==='true', telefono:q('#pTelefono').value, especialidad:q('#pEsp').value, turno:q('#pTurno').value }; if(!item.nombre||!item.email) return alert('Nombre y email'); const fn=item.id? 'set':'add'; const r=await apiPost({res:'personal',fn, item}); if(!r.ok) return alert(r.error||'Error'); pClear(); await pLoad(); }
@@ -313,8 +309,17 @@ async function pDel(id){ if(!can('manage.roles')) return alert('Solo Admin'); if
 async function serverParadaProlongada(){ const nombre=prompt('Equipo en parada prolongada'); if(!nombre) return; await apiPost({res:'alert',fn:'parada',equipo:nombre}); await loadState(); }
 
 function setActive(hash){ ['equiposSec','puentesSec','otrosSec','incidenciasSec','indicadoresSec','inventarioSec','otSec','personalSec'].forEach(id=>q('#'+id).style.display='none'); (q(hash+'Sec')||q('#equiposSec')).style.display='block'; }
+
+function exportarCSV(){ alert('Exportar CSV (admin)'); }
+function exportarPDF(){ alert('Exportar PDF (admin)'); }
+function exportarInventarioCSV(){ alert('Exportar Inventario CSV (admin)'); }
+function exportarInventarioPDF(){ alert('Exportar Inventario PDF (admin)'); }
+function exportarOTpdf(){ alert('Exportar O.T. PDF (según permisos)'); }
+function exportarOTcsv(){ alert('Exportar O.T. CSV (admin)'); }
+
 async function boot(){ await loadState(); await loadIncid(); await pLoad(); await otLoad(); applyRoleUI(); setActive(location.hash||'#equipos'); }
 window.addEventListener('load',boot);
-window.addEventListener('click',(e)=>{ const inHeader=e.target.closest('.header-top'); if(!inHeader){ closeMenu(); closeSession(); }});
+window.addEventListener('click',(e)=>{ const inHeader=e.target.closest('.header-top'); if(!inHeader){ closeMenu(); closeSession(); } });
 </script>
-</body></html>
+</body>
+</html>
