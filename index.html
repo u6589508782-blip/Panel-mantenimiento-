@@ -1,52 +1,320 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CDL · CMMS</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin:0; background:#f9f9f9; }
-    header { display:flex; align-items:center; justify-content:space-between; background:#fff; padding:8px 16px; border-bottom:2px solid #c00; }
-    header img { height:40px; }
-    header h1 { font-size:18px; margin:0; color:#333; flex:1; }
-    .menu-btn { font-size:20px; background:#c00; color:#fff; border:none; border-radius:4px; padding:6px 10px; cursor:pointer; }
-    nav { display:none; flex-direction:column; background:#eee; padding:10px; }
-    nav a { padding:8px; color:#333; text-decoration:none; }
-    nav a:hover { background:#ddd; }
-    .status { display:flex; gap:10px; margin:20px; }
-    .status span { padding:6px 12px; border-radius:16px; color:#fff; font-size:14px; }
-    .parada { background:#c00; }
-    .restricciones { background:#d90; }
-    .enmarcha { background:#090; }
-  </style>
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CDL · CMMS</title>
+<style>
+:root{--brand:#e53935;--bg:#f6f7f9;--ok:#2e7d32;--warn:#f57c00;--bad:#d32f2f;--mid:#f9a825}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg)}
+/* CABECERA */
+.header{position:sticky;top:0;background:#fff;border-bottom:2px solid var(--brand);z-index:50}
+.header-top{display:flex;align-items:center;gap:12px;padding:8px 12px}
+.header-logo{height:54px}
+.header-title{font-weight:900;font-size:20px;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.icon-btn{border:0;background:#e8eaed;color:#111;border-radius:10px;padding:8px 12px;font-weight:800;cursor:pointer}
+/* Menús desplegables */
+.menu-panel,.session-panel{display:none;position:absolute;right:10px;top:64px;background:#fff;border:1px solid #ddd;border-radius:12px;box-shadow:0 10px 24px rgba(0,0,0,.12);min-width:230px;overflow:hidden}
+.menu-panel a,.session-panel a,.session-panel div{display:block;padding:12px 14px;text-decoration:none;color:#111;border-bottom:1px solid #f2f2f2;font-weight:700}
+.menu-panel a:last-child,.session-panel a:last-child,.session-panel div:last-child{border-bottom:0}
+.menu-panel a:hover,.session-panel a:hover{background:#f8f8f8}
+.session-muted{opacity:.7;font-weight:600}
+/* Contenido */
+.container{max-width:1100px;margin:10px auto;padding:0 12px}
+.card{background:#fff;border:1px solid #eee;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.06);padding:12px;margin:12px 0}
+.grid{display:grid;grid-template-columns:1fr;gap:8px}@media(min-width:720px){.grid{grid-template-columns:1fr 1fr}}
+.item{display:flex;flex-wrap:wrap;gap:10px;border:1px solid #eee;border-radius:12px;padding:10px}
+.item-left{display:flex;align-items:center;gap:10px;flex:1 1 260px;min-width:0}
+.dot{width:12px;height:12px;border-radius:999px}.dot.g{background:var(--ok)}.dot.o{background:var(--warn)}.dot.r{background:var(--bad)}
+.title{font-weight:900;line-height:1.15;word-break:break-word}.small{color:#666}
+select,input,textarea{border:1px solid #ddd;border-radius:10px;padding:8px;width:100%}
+.btn{border:0;background:var(--brand);color:#fff;border-radius:10px;padding:9px 12px;font-weight:800;cursor:pointer}
+.btn.ghost{background:#e8eaed;color:#111}.btn.warn{background:var(--bad)}
+.badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 8px;background:#eee;font-weight:700;font-size:12px}
+.table-wrap{overflow-x:auto;border-radius:12px}.table{width:100%;min-width:920px;border-collapse:separate;border-spacing:0 8px}
+.table th{text-align:left;color:#666;font-size:12px;padding:8px}.table td{background:#fff;padding:10px;border-radius:10px;vertical-align:top}
+/* OTs */
+.ot-tag{font-weight:800;border-radius:999px;padding:4px 8px;color:#fff}
+.prio-R{background:var(--bad)}.prio-N{background:var(--warn)}.prio-A{background:var(--mid);color:#222}.prio-V{background:var(--ok)}
+.ot-card{border-left:6px solid #ddd}.ot-R{border-left-color:var(--bad)}.ot-N{border-left-color:var(--warn)}.ot-A{border-left-color:var(--mid)}.ot-V{border-left-color:var(--ok)}
+/* Avisos */
+.toast{position:fixed;left:10px;right:10px;bottom:12px;display:none;z-index:60}
+.toast .in{background:#323232;color:#fff;padding:10px 12px;border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+</style>
 </head>
 <body>
-<header>
-  <img src="logo_mantenimiento.jpeg" alt="Logo">
-  <h1>CDL · CMMS</h1>
-  <button class="menu-btn" onclick="toggleMenu()">☰ Menú</button>
+<header class="header">
+  <div class="header-top">
+    <img class="header-logo" src="logo_mantenimiento.jpeg" alt="CDL">
+    <h1 class="header-title">CDL · CMMS</h1>
+    <div class="header-right">
+      <button class="icon-btn" id="pagesBtn" onclick="toggleMenu()">☰ Menú</button>
+      <button class="icon-btn" id="sessBtn" onclick="toggleSession()">⋮</button>
+    </div>
+    <!-- Menú páginas -->
+    <nav id="menuPanel" class="menu-panel">
+      <a href="#equipos" onclick="go('#equipos')">Equipos</a>
+      <a href="#puentes" onclick="go('#puentes')">Puentes Grúa</a>
+      <a href="#otros" onclick="go('#otros')">Otros</a>
+      <a href="#incidencias" onclick="go('#incidencias')">Incidencias</a>
+      <a href="#indicadores" onclick="go('#indicadores')">Indicadores</a>
+      <a href="#inventario" onclick="go('#inventario')">Inventario</a>
+      <a href="#ot" onclick="go('#ot')">O.T.</a>
+      <a href="#personal" onclick="go('#personal')">Personal</a>
+    </nav>
+    <!-- Menú sesión -->
+    <div id="sessionPanel" class="session-panel">
+      <div class="session-muted" id="sessInfo">Usuario: Invitado</div>
+      <a href="javascript:void(0)" onclick="login()">Entrar</a>
+      <a href="javascript:void(0)" onclick="logout()">Salir</a>
+    </div>
+  </div>
 </header>
-<nav id="menu">
-  <a href="#">Equipos</a>
-  <a href="#">Puentes Grúa</a>
-  <a href="#">Otros</a>
-  <a href="#">Incidencias</a>
-  <a href="#">Indicadores</a>
-  <a href="#">Inventario</a>
-  <a href="#">Órdenes de trabajo</a>
-</nav>
 
-<div class="status">
-  <span class="parada">Parada</span>
-  <span class="restricciones">Restricciones</span>
-  <span class="enmarcha">En marcha</span>
+<div class="container">
+  <div id="alerta" class="card" style="display:none;border-left:6px solid var(--bad)">
+    <h3 style="margin:0;color:var(--bad)">Equipos parados o con restricciones por avería</h3>
+    <div id="alertaList" style="display:flex;flex-direction:column;gap:6px"></div>
+  </div>
+
+  <section id="equiposSec" class="card"><div class="badge">🔴 Parada</div> <div class="badge">🟠 Restricciones</div> <div class="badge">🟢 En marcha</div>
+    <div style="margin-top:8px"><button class="btn warn" onclick="serverParadaProlongada()">Parada prolongada (aviso correo)</button></div>
+    <div id="equiposGroups"></div></section>
+
+  <section id="puentesSec" class="card" style="display:none"><h2>Puentes Grúa</h2><div id="gruasGroups"></div></section>
+  <section id="otrosSec" class="card" style="display:none"><h2>Otros (auxiliares)</h2><div id="otrosWrap"></div></section>
+
+  <section id="incidenciasSec" class="card" style="display:none">
+    <h2>Incidencias</h2>
+    <div class="card">
+      <h3>Registrar nueva incidencia</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="grid-column:1/3"><label>Equipo</label><br><select id="incEquipo"></select></div>
+        <div><label>Tipo</label><br><select id="incTipo"><option>Correctivo</option><option>Preventivo</option><option>Mejora</option></select></div>
+        <div><label>Resultado</label><br><select id="incResultado"><option>Solucionado</option><option>Con restricciones</option><option>No solucionado</option></select></div>
+        <div><label>Reportante</label><br><select id="incReportante"></select></div>
+        <div><label>Asignado a</label><br><select id="incAsignado"></select></div>
+        <div><label>¿Uso de repuestos?</label><br><select id="incRep"><option>No</option><option>Sí</option></select></div>
+        <div><label>Repuesto (opcional)</label><br><input id="incRepTxt" placeholder="Código o descripción"></div>
+        <div><label>Horas de paro (total)</label><br><input type="number" step="0.01" id="incHorasParo"></div>
+        <div><label>Horas de reparación</label><br><input type="number" step="0.01" id="incHorasRepar"></div>
+        <div><label>Fecha inicio</label><br><input type="datetime-local" id="incInicio"></div>
+        <div style="grid-column:1/3"><label>Adjunto (URL Drive)</label><br><input id="incAdj" placeholder="Pega enlace de Drive (opcional)"></div>
+        <div style="grid-column:1/3"><label>Descripción</label><br><textarea id="incDesc" rows="3"></textarea></div>
+      </div>
+      <div style="margin-top:8px"><button class="btn" onclick="addIncidencia()">Añadir incidencia</button></div>
+    </div>
+
+    <div class="card">
+      <h3>Filtros / búsqueda</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <div style="flex:1 1 200px"><label>Equipo</label><br><select id="fEquipo"><option value="">Todos</option></select></div>
+        <div style="flex:1 1 140px"><label>Tipo</label><br><select id="fTipo"><option value="">Todos</option><option>Correctivo</option><option>Preventivo</option><option>Mejora</option></select></div>
+        <div style="flex:1 1 160px"><label>Resultado</label><br><select id="fRes"><option value="">Todos</option><option>Solucionado</option><option>Con restricciones</option><option>No solucionado</option></select></div>
+        <div style="flex:2 1 240px"><label>Texto</label><br><input id="fTexto" placeholder="Equipo, descripción, repuesto…"></div>
+        <div style="display:flex;gap:8px;align-items:flex-end">
+          <button class="btn ghost" onclick="resetFiltros()">Limpiar</button>
+          <button class="btn" onclick="aplicarFiltros()">Aplicar</button>
+          <button class="btn ghost" onclick="activarAdmin()">Modo Admin</button>
+          <button id="btnCsv" class="btn ghost" style="display:none" onclick="exportarCSV()">Exportar CSV</button>
+          <button id="btnPdf" class="btn ghost" style="display:none" onclick="exportarPDF()">Exportar PDF</button>
+        </div>
+      </div>
+    </div>
+
+    <h3>Historial (últimas primero)</h3>
+    <div class="table-wrap"><table class="table" id="incTable"><thead>
+      <tr><th>Fecha</th><th>Equipo</th><th>Tipo</th><th>Resultado</th><th>Reportante</th><th>Asignado</th><th>Inicio</th><th>Descripción</th><th>Paro (h)</th><th>Reparación (h)</th><th>Adjunto</th></tr>
+    </thead><tbody></tbody></table></div>
+  </section>
+
+  <section id="indicadoresSec" class="card" style="display:none">
+    <h2>Indicadores</h2>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div class="small">MTTR global (h)</div><div id="kpiMttrG" style="font-size:22px;font-weight:800">0</div></div>
+      <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div class="small">MTBF global (h)</div><div id="kpiMtbfG" style="font-size:22px;font-weight:800">0</div></div>
+      <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div class="small">Disponibilidad (%)</div><div id="kpiDispG" style="font-size:22px;font-weight:800">0</div></div>
+      <div style="background:#fff;border-radius:10px;padding:10px;min-width:140px"><div class="small">OEE estimado (%)</div><div id="kpiOeeG" style="font-size:22px;font-weight:800">0</div></div>
+    </div>
+    <div class="card"><b>MTTR por semana</b><canvas id="chartMttr2" height="160"></canvas></div>
+    <div class="card"><b>Incidencias por semana</b><canvas id="chartCount2" height="160"></canvas></div>
+    <div id="indicEmpty" style="display:none;color:#555;margin-top:8px">Aún no hay incidencias registradas.</div>
+  </section>
+
+  <section id="inventarioSec" class="card" style="display:none">
+    <h2>Inventario</h2>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <button class="btn ghost" onclick="activarAdmin()">Modo Admin</button>
+      <button id="btnInvCsv" class="btn ghost" style="display:none" onclick="exportarInventarioCSV()">Exportar Inventario (CSV)</button>
+      <button id="btnInvPdf" class="btn ghost" style="display:none" onclick="exportarInventarioPDF()">Exportar Inventario (PDF)</button>
+    </div>
+    <div class="card">
+      <h3>Añadir repuesto</h3>
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:8px">
+        <input id="invNombre" placeholder="Nombre">
+        <input id="invRef" placeholder="Referencia">
+        <input id="invStock" type="number" min="0" placeholder="Stock">
+        <input id="invMin" type="number" min="0" placeholder="Mínimo">
+        <button class="btn" onclick="invAdd()">Añadir</button>
+      </div>
+    </div>
+    <div class="card"><h3>Buscar</h3><input id="invSearch" placeholder="Nombre o referencia…" oninput="renderInventario()"></div>
+    <div class="card"><div class="table-wrap"><table class="table" id="invTable"><thead><tr><th>Nombre</th><th>Referencia</th><th>Stock</th><th>Mínimo</th><th>Acciones</th></tr></thead><tbody></tbody></table></div></div>
+  </section>
+
+  <section id="otSec" class="card" style="display:none">
+    <h2>Órdenes de Trabajo</h2>
+    <div class="card" id="otForm">
+      <h3>Nueva O.T.</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="grid-column:1/3"><label>Equipo</label><br><select id="otEquipo"></select></div>
+        <div><label>Prioridad</label><br><select id="otPrio">
+          <option value="R">Rojo · Urgente</option><option value="N">Naranja · Alta</option>
+          <option value="A">Amarillo · Preventivo</option><option value="V">Verde · Predictivo</option></select></div>
+        <div><label>Asignado a</label><br><select id="otAsignado"></select></div>
+        <div><label>Vencimiento</label><br><input id="otDue" type="date"></div>
+        <div style="grid-column:1/3"><label>Título</label><br><input id="otTitle" placeholder="Ej. Sustituir filtro…"></div>
+        <div style="grid-column:1/3"><label>Adjunto (URL Drive)</label><br><input id="otAdj" placeholder="Enlace Drive (opcional)"></div>
+        <div style="grid-column:1/3"><label>Descripción</label><br><textarea id="otDesc" rows="3"></textarea></div>
+      </div>
+      <div style="margin-top:8px"><button class="btn" onclick="otAdd()">Crear O.T.</button></div>
+    </div>
+    <div class="card">
+      <h3>Cola (más críticas primero)</h3>
+      <div id="otList"></div>
+    </div>
+    <div class="card" id="otExport" style="display:none">
+      <button class="btn ghost" id="btnOtPdf" onclick="exportarOTpdf()">Exportar O.T. (PDF)</button>
+      <button class="btn ghost" id="btnOtCsv" style="display:none" onclick="exportarOTcsv()">Exportar O.T. (CSV)</button>
+    </div>
+  </section>
+
+  <section id="personalSec" class="card" style="display:none">
+    <h2>Personal (solo Admin)</h2>
+    <div class="card">
+      <h3>Alta / edición</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <input id="pId" placeholder="(automático al crear)" disabled>
+        <input id="pNombre" placeholder="Nombre">
+        <input id="pEmail" placeholder="Email">
+        <select id="pRol"><option>Administrador</option><option>Gerente</option><option>Encargado</option><option>Tecnico</option><option>Visor</option></select>
+        <select id="pActivo"><option value="true">Activo</option><option value="false">Inactivo</option></select>
+        <input id="pTelefono" placeholder="Teléfono">
+        <input id="pEsp" placeholder="Especialidad">
+        <input id="pTurno" placeholder="Turno">
+      </div>
+      <div style="margin-top:8px;display:flex;gap:8px">
+        <button class="btn" onclick="pSave()">Guardar</button>
+        <button class="btn ghost" onclick="pClear()">Limpiar</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Listado</h3>
+      <div class="table-wrap"><table class="table" id="pTable"><thead><tr><th>Nombre</th><th>Email</th><th>Rol</th><th>Activo</th><th>Teléfono</th><th>Especialidad</th><th>Turno</th><th>Acciones</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
 </div>
 
+<div class="toast" id="toast"><div class="in"><div id="toastMsg">Listo.</div></div></div>
+
 <script>
-  function toggleMenu(){
-    var m=document.getElementById('menu');
-    m.style.display=(m.style.display==='flex'?'none':'flex');
-  }
+const API_BASE = "https://script.google.com/macros/s/AKfycbyLYSBz_EIFevl4giJAIr9dQwt2xssHCboAC7GTzOltbxSeSp8KIcUXV4uqheV1z7xeEQ/exec";
+const ADMIN_CODE = "inventariocsv25";
+let SESSION = {user:null, role:'Visor'};
+const PERM = {
+  'Administrador': {view:true, create_ot:true, export_csv:true, export_pdf:true, export_pdf_ot:true, view_ind:true, manage_roles:true},
+  'Gerente':       {view:true, create_ot:false, export_csv:true, export_pdf:true, export_pdf_ot:true, view_ind:true, manage_roles:false},
+  'Encargado':     {view:true, create_ot:false, export_csv:false, export_pdf:false, export_pdf_ot:false, view_ind:false, manage_roles:false},
+  'Tecnico':       {view:true, create_ot:true, export_csv:false, export_pdf:false, export_pdf_ot:true, view_ind:false, manage_roles:false},
+  'Visor':         {view:true, create_ot:false, export_csv:false, export_pdf:false, export_pdf_ot:false, view_ind:false, manage_roles:false},
+};
+const q=s=>document.querySelector(s); const qs=s=>document.querySelectorAll(s);
+function showToast(msg){const t=q('#toast'); q('#toastMsg').textContent=msg; t.style.display='block'; setTimeout(()=>t.style.display='none',1600);}
+async function apiGet(p){ const url=new URL(API_BASE); Object.entries(p).forEach(([k,v])=>url.searchParams.set(k,v)); if(SESSION.user) url.searchParams.set('who',SESSION.user); const r=await fetch(url); return await r.json(); }
+async function apiPost(b){ if(SESSION.user) b.who=SESSION.user; const r=await fetch(API_BASE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}); return await r.json(); }
+
+function toggleMenu(){ const m=q('#menuPanel'); m.style.display=(m.style.display==='block')?'none':'block'; closeSession(); }
+function toggleSession(){ const s=q('#sessionPanel'); s.style.display=(s.style.display==='block')?'none':'block'; closeMenu(); }
+function closeMenu(){ q('#menuPanel').style.display='none'; }
+function closeSession(){ q('#sessionPanel').style.display='none'; }
+function go(hash){ closeMenu(); location.hash=hash; setActive(hash); }
+function can(k){ const cfg = PERM[SESSION.role] || PERM['Visor']; if(k==='view.indicadores') return !!cfg.view_ind;
+  if(k==='create.ot') return !!cfg.create_ot; if(k==='export.csv') return !!cfg.export_csv; if(k==='export.pdf') return !!cfg.export_pdf;
+  if(k==='export.pdf.ot') return !!cfg.export_pdf_ot; if(k==='manage.roles') return !!cfg.manage_roles; return !!cfg.view; }
+function applyRoleUI(){ 
+  const linkShow = (hash, cond) => {
+    const link = Array.from(qs('#menuPanel a')).find(a=>a.getAttribute('href')===hash);
+    if(link) link.style.display = cond? 'block':'none';
+    if(location.hash===hash && !cond) location.hash='#equipos';
+  };
+  linkShow('#indicadores', can('view.indicadores'));
+  linkShow('#ot', (can('create.ot') || can('export.pdf.ot')));
+  // exportación
+  const expCSV = can('export.csv'); const expPDF = can('export.pdf'); const expOTPDF = can('export.pdf.ot');
+  const e=(id)=>q(id);
+  if(e('#btnOtPdf')) e('#btnOtPdf').style.display = expOTPDF ? 'inline-block':'none';
+  if(e('#btnOtCsv')) e('#btnOtCsv').style.display = expCSV ? 'inline-block':'none';
+  if(e('#btnInvCsv')) e('#btnInvCsv').style.display = expCSV ? 'inline-block':'none';
+  if(e('#btnInvPdf')) e('#btnInvPdf').style.display = expPDF ? 'inline-block':'none';
+  if(e('#btnCsv')) e('#btnCsv').style.display    = expCSV ? 'inline-block':'none';
+  if(e('#btnPdf')) e('#btnPdf').style.display    = expPDF ? 'inline-block':'none';
+  q('#sessInfo').textContent = 'Usuario: ' + (SESSION.user? (SESSION.user+' · '+SESSION.role):'Invitado');
+}
+function login(){ apiGet({res:'personal',fn:'list'}).then(d=>{ const activos=(d.items||[]).filter(p=>p.activo); const nombres=activos.map(p=> (p.email||'')+' — '+(p.nombre||'')).join('\n'); const pick=prompt('Elige o escribe tu email:\n'+nombres); if(!pick) return;
+  const email=pick.split('—')[0].trim().toLowerCase(); const f=activos.find(p=> (p.email||'').toLowerCase()===email);
+  SESSION.user=email; SESSION.role = f? (f.rol||'Visor') : 'Visor'; applyRoleUI(); showToast('Sesión: '+SESSION.role); }); }
+function logout(){ SESSION = {user:null, role:'Visor'}; applyRoleUI(); showToast('Sesión cerrada'); }
+
+function statusDot(s){return s==='Parada'?'r':(s==='Restricciones'?'o':'g')}
+function groupBy(arr,key){return arr.reduce((a,it)=>{const k=it[key]||'—';(a[k]=a[k]||[]).push(it);return a;},{});}
+let STATE=[];
+function renderItems(list,labelGroup){ const grid=document.createElement('div'); grid.className='grid';
+  list.forEach(it=>{ const wrap=document.createElement('div'); wrap.className='item'; wrap.innerHTML=`<div class="item-left"><span class="dot ${statusDot(it.estado||'En marcha')}"></span><div><div class="title">${it.nombre}</div><div class="small">${labelGroup}</div></div></div>`;
+    const actions=document.createElement('div'); actions.style.marginLeft='auto'; const sel=document.createElement('select');
+    ['En marcha','Restricciones','Parada'].forEach(t=>{const o=document.createElement('option');o.value=t;o.textContent=t;if((it.estado||'En marcha')===t) o.selected=true; sel.appendChild(o)});
+    sel.onchange=async()=>{ await apiPost({res:'state',fn:'set',name:it.nombre,estado:sel.value}); await loadState(); };
+    const btn=document.createElement('button'); btn.className='btn warn'; btn.textContent='Parada prolongada'; btn.onclick=async()=>{ await apiPost({res:'alert',fn:'parada',equipo:it.nombre}); await loadState(); };
+    actions.appendChild(sel); actions.appendChild(btn); wrap.appendChild(actions); grid.appendChild(wrap); }); return grid; }
+function renderEquipos(){ const host=q('#equiposGroups'); host.innerHTML=''; const grupos=groupBy(STATE.filter(s=>!String(s.grupo||'').startsWith('Puentes Grúa') && s.grupo!=='Otros (auxiliares)'), 'grupo'); Object.keys(grupos).forEach(g=>{ const card=document.createElement('div'); card.className='card'; card.innerHTML=`<h3>${g}</h3>`; card.appendChild(renderItems(grupos[g], g)); host.appendChild(card); }); }
+function renderGruas(){ const host=q('#gruasGroups'); host.innerHTML=''; const grupos=groupBy(STATE.filter(s=>String(s.grupo||'').startsWith('Puentes Grúa')), 'grupo'); Object.keys(grupos).forEach(g=>{ const card=document.createElement('div'); card.className='card'; card.innerHTML=`<h3>${g.replace('Puentes Grúa · ','Nave ')}</h3>`; card.appendChild(renderItems(grupos[g], g)); host.appendChild(card); }); }
+function renderOtros(){ const host=q('#otrosWrap'); host.innerHTML=''; const lista=STATE.filter(s=>s.grupo==='Otros (auxiliares)'); host.appendChild(renderItems(lista,'Auxiliar')); }
+function renderAlert(){ const items=STATE.filter(s=> s.estado==='Parada' || s.estado==='Restricciones'); const box=q('#alerta'), list=q('#alertaList'); if(items.length===0){ box.style.display='none'; list.innerHTML=''; return; } box.style.display='block'; list.innerHTML= items.map(i=>`${i.nombre} — ${i.estado}`).join('<br>'); }
+async function loadState(){ let r=await apiGet({res:'state',fn:'list'}); if(!r.ok || (r.items||[]).length===0){ await apiPost({res:'state',fn:'seed'}); r=await apiGet({res:'state',fn:'list'}); } STATE=r.items||[]; renderEquipos(); renderGruas(); renderOtros(); renderAlert(); fillEquipoSelect('#incEquipo'); fillEquipoSelect('#fEquipo'); fillEquipoSelect('#otEquipo'); }
+function fillEquipoSelect(id){ const sel=q(id); sel.innerHTML=''; STATE.forEach(s=>{ const o=document.createElement('option'); o.value=s.nombre; o.textContent=s.nombre; sel.appendChild(o); }); }
+
+let INC=[]; async function loadIncid(){ const r=await apiGet({res:'incid',fn:'list'}); INC=r.items||[]; aplicarFiltros(); }
+function aplicarFiltros(){ const f={equipo:q('#fEquipo').value,tipo:q('#fTipo').value,res:q('#fRes').value,texto:q('#fTexto').value.toLowerCase()}; const arr=INC.filter(i=>{ if(f.equipo && i.equipo!==f.equipo) return false; if(f.tipo && i.tipo!==f.tipo) return false; if(f.res && i.res!==f.res) return false; if(f.texto){ const blob=(i.equipo+' '+(i.desc||'')+' '+(i.repTxt||'')).toLowerCase(); if(!blob.includes(f.texto)) return false; } return true; }); renderIncidTable(arr); renderGlobalKPIs(); }
+function resetFiltros(){ q('#fEquipo').value=''; q('#fTipo').value=''; q('#fRes').value=''; q('#fTexto').value=''; aplicarFiltros(); }
+function renderIncidTable(arr){ const tb=q('#incTable tbody'); tb.innerHTML=''; arr.forEach(i=>{ const link=i.adj? `<a href="${i.adj}" target="_blank">Abrir</a>`:'—'; const tr=document.createElement('tr'); tr.innerHTML=`<td>${new Date(i.created).toLocaleString()}</td><td><span class="badge">${i.equipo}</span></td><td>${i.tipo}</td><td>${i.res}</td><td>${i.reportante||'—'}</td><td>${i.asignado||'—'}</td><td>${i.inicio? new Date(i.inicio).toLocaleString():'—'}</td><td>${(i.desc||'').replace(/\n/g,' ')}</td><td>${(+i.hParo||0).toFixed(2)}</td><td>${(+i.hRep||0).toFixed(2)}</td><td>${link}</td>`; tb.appendChild(tr); }); }
+
+function getHoursPerWeek(){ return 120; }
+function isoWeek(d){const dt=new Date(d),t=new Date(dt.valueOf());const dn=(dt.getDay()+6)%7;t.setDate(t.getDate()-dn+3);const ft=new Date(t.getFullYear(),0,4);return 1+Math.round(((t-ft)/86400000-3+((ft.getDay()+6)%7))/7)}
+function drawBars(id,labels,vals){ const c=q('#'+id),ctx=c.getContext('2d'); const W=c.width=c.clientWidth,H=c.height=c.clientHeight; ctx.clearRect(0,0,W,H); const pad=28,max=Math.max(1,...vals),step=(W-pad*2)/Math.max(1,labels.length),bw=step*0.7; ctx.strokeStyle='#ccc'; ctx.beginPath(); ctx.moveTo(pad,H-pad); ctx.lineTo(W-pad,H-pad); ctx.stroke(); vals.forEach((v,i)=>{ const x=pad+i*step+(step-bw)/2, h=(H-pad*2)*(v/max), y=H-pad-h; ctx.fillStyle='rgba(229,57,53,.9)'; ctx.fillRect(x,y,bw,h); ctx.fillStyle='#333'; ctx.font='11px system-ui'; ctx.textAlign='center'; ctx.fillText(String(labels[i]), x+bw/2, H-8); }); }
+function renderGlobalKPIs(){ const corr=INC.filter(i=>i.tipo==='Correctivo'); const byW={}; corr.forEach(i=>{ const w=isoWeek(i.created); if(!byW[w]) byW[w]={count:0,rep:0}; byW[w].count++; byW[w].rep+=(+i.hRep||0); }); const weeks=Object.keys(byW).sort((a,b)=>a-b); const HPW=getHoursPerWeek(); const mttr=corr.length? corr.reduce((s,i)=>s+(+i.hRep||0),0)/corr.length : 0; const mtbfWeeks=weeks.map(w=> byW[w].count? HPW/byW[w].count : HPW); const meanMtbf=weeks.length? mtbfWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0; q('#kpiMttrG').textContent=mttr.toFixed(2); q('#kpiMtbfG').textContent=meanMtbf.toFixed(1); const dispWeeks=weeks.map((w,i)=>{ const f=byW[w].count; const mtbf=mtbfWeeks[i]; const mttrW=f? byW[w].rep/f : 0; return (mtbf/(mtbf+mttrW))*100; }); const meanDisp=weeks.length? dispWeeks.reduce((a,b)=>a+b,0)/weeks.length : 0; q('#kpiDispG').textContent=meanDisp.toFixed(1); q('#kpiOeeG').textContent=meanDisp.toFixed(1); drawBars('chartMttr2',weeks,weeks.map((w,i)=>{ const f=byW[w].count; return f? byW[w].rep/f : 0; })); drawBars('chartCount2',weeks,weeks.map(w=>byW[w].count)); }
+
+async function addIncidencia(){ const item={ equipo:q('#incEquipo').value, tipo:q('#incTipo').value, res:q('#incResultado').value, reportante:q('#incReportante').value, asignado:q('#incAsignado').value, rep:q('#incRep').value, repTxt:q('#incRepTxt').value, hParo:parseFloat(q('#incHorasParo').value||'0'), hRep:parseFloat(q('#incHorasRepar').value||'0'), inicio:q('#incInicio').value, adj:q('#incAdj').value, desc:q('#incDesc').value }; if(!item.equipo||!item.desc) return alert('Equipo y descripción obligatorios'); const r=await apiPost({res:'incid',fn:'add',item}); if(!r.ok) return alert(r.error||'Error'); await loadIncid(); await loadState(); showToast('Incidencia creada'); }
+async function invList(){ const r=await apiGet({res:'inv',fn:'list'}); return r.items||[]; }
+async function renderInventario(){ const list=await invList(); const qtxt=(q('#invSearch').value||'').toLowerCase(); const vis=list.filter(x=> (x.nombre||'').toLowerCase().includes(qtxt)||(x.ref||'').toLowerCase().includes(qtxt)); const tb=q('#invTable tbody'); tb.innerHTML=''; vis.forEach(it=>{ const actions=`<button class='btn ghost' onclick="invDelta('${it.ref}',-1)">−</button> <button class='btn ghost' onclick="invDelta('${it.ref}',1)">+</button>`; const trEl=document.createElement('tr'); trEl.innerHTML=f"<td>{it.nombre}</td><td>{it.ref}</td><td>{it.stock}</td><td>{it.minimo}</td><td>{actions}</td>"; tb.appendChild(trEl); }); }
+async function invAdd(){ const item={nombre:q('#invNombre').value, ref:q('#invRef').value, stock:+(q('#invStock').value||0), minimo:+(q('#invMin').value||0)}; if(!item.nombre||!item.ref) return alert('Nombre y referencia'); await apiPost({res:'inv',fn:'add',item}); ['invNombre','invRef','invStock','invMin'].forEach(id=>q('#'+id).value=''); renderInventario(); }
+async function invDelta(ref,delta){ await apiPost({res:'inv',fn:'delta',ref,delta}); renderInventario(); }
+
+let OT=[]; function prioLabel(p){return p==='R'?'Rojo · Urgente':p==='N'?'Naranja · Alta':p==='A'?'Amarillo · Preventivo':'Verde · Predictivo'} function prioOrder(p){return p==='R'?1:p==='N'?2:p==='A'?3:4}
+async function otLoad(){ const r=await apiGet({res:'ot',fn:'list'}); OT=r.items||[]; renderOT(); }
+function renderOT(){ const host=q('#otList'); host.innerHTML=''; const sorted=[...OT].sort((a,b)=> prioOrder(a.prioridad)-prioOrder(b.prioridad) || new Date(a.created)-new Date(b.created)); sorted.forEach(it=>{ const card=document.createElement('div'); card.className='card ot-card ot-'+it.prioridad; const adj = it.adj? `<a href="${it.adj}" target="_blank">Adjunto</a>`:''; card.innerHTML=`<div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><div><span class="ot-tag prio-${it.prioridad}">${prioLabel(it.prioridad)}</span> <b>${it.titulo}</b><div class="small">${it.equipo} • asignado a ${it.asignado||'—'}</div></div><div style="display:flex;gap:6px"><select data-id="${it.id}" onchange="otSetEstado(this.value,this.dataset.id)"><option ${it.estado==='Abierta'?'selected':''}>Abierta</option><option ${it.estado==='En curso'?'selected':''}>En curso</option><option ${it.estado==='Cerrada'?'selected':''}>Cerrada</option></select></div></div><div style="margin-top:6px">${it.desc||''}</div>${it.vencimiento?('<div class="small">Vence: '+it.vencimiento+'</div>'):''} <div>${adj}</div>`; host.appendChild(card); }); }
+async function otAdd(){ if(!can('create.ot')) return alert('No tienes permiso para crear O.T.'); const item={ equipo:q('#otEquipo').value, prioridad:q('#otPrio').value, asignado:q('#otAsignado').value, vencimiento:q('#otDue').value, titulo:q('#otTitle').value, adj:q('#otAdj').value, desc:q('#otDesc').value }; if(!item.titulo) return alert('Título obligatorio'); const r=await apiPost({res:'ot',fn:'add',item}); if(!r.ok) return alert(r.error||'Error'); ['otTitle','otDesc','otDue','otAdj'].forEach(id=>q('#'+id).value=''); await otLoad(); }
+async function otSetEstado(estado,id){ const r=await apiPost({res:'ot',fn:'set',id,estado}); if(!r.ok) return alert(r.error||'Error'); await otLoad(); }
+
+let PERSONAL=[]; async function pLoad(){ const r=await apiGet({res:'personal',fn:'list'}); PERSONAL=r.items||[]; renderPersonal(); fillPeople('#incReportante'); fillPeople('#incAsignado'); fillPeople('#otAsignado'); }
+function fillPeople(sel){ const el=q(sel); el.innerHTML=''; PERSONAL.filter(p=>p.activo).forEach(p=>{ const o=document.createElement('option'); o.value=p.email; o.textContent=p.nombre; el.appendChild(o); }); }
+function renderPersonal(){ const tb=q('#pTable tbody'); tb.innerHTML=''; PERSONAL.forEach(p=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${p.nombre}</td><td>${p.email}</td><td>${p.rol}</td><td>${p.activo?'Sí':'No'}</td><td>${p.telefono||''}</td><td>${p.especialidad||''}</td><td>${p.turno||''}</td><td><button class='btn ghost' onclick='pEdit("${p.id}")' ${!can('manage.roles')?'disabled':''}>Editar</button> <button class='btn ghost' onclick='pDel("${p.id}")' ${!can('manage.roles')?'disabled':''}>Borrar</button></td>`; tb.appendChild(tr); }); }
+function pEdit(id){ const p=PERSONAL.find(x=>x.id===id); if(!p) return; q('#pId').value=p.id; q('#pNombre').value=p.nombre; q('#pEmail').value=p.email; q('#pRol').value=p.rol; q('#pActivo').value=String(!!p.activo); q('#pTelefono').value=p.telefono||''; q('#pEsp').value=p.especialidad||''; q('#pTurno').value=p.turno||''; }
+function pClear(){ ['pId','pNombre','pEmail','pTelefono','pEsp','pTurno'].forEach(id=>q('#'+id).value=''); q('#pRol').value='Tecnico'; q('#pActivo').value='true'; }
+async function pSave(){ if(!can('manage.roles')) return alert('Solo Admin'); const item={ id:q('#pId').value||null, nombre:q('#pNombre').value, email:q('#pEmail').value, rol:q('#pRol').value, activo:q('#pActivo').value==='true', telefono:q('#pTelefono').value, especialidad:q('#pEsp').value, turno:q('#pTurno').value }; if(!item.nombre||!item.email) return alert('Nombre y email'); const fn=item.id? 'set':'add'; const r=await apiPost({res:'personal',fn, item}); if(!r.ok) return alert(r.error||'Error'); pClear(); await pLoad(); }
+async function pDel(id){ if(!can('manage.roles')) return alert('Solo Admin'); if(!confirm('¿Eliminar persona?')) return; const r=await apiPost({res:'personal',fn:'del',id}); if(!r.ok) return alert(r.error||'Error'); await pLoad(); }
+
+async function serverParadaProlongada(){ const nombre=prompt('Equipo en parada prolongada'); if(!nombre) return; await apiPost({res:'alert',fn:'parada',equipo:nombre}); await loadState(); }
+
+function setActive(hash){ ['equiposSec','puentesSec','otrosSec','incidenciasSec','indicadoresSec','inventarioSec','otSec','personalSec'].forEach(id=>q('#'+id).style.display='none'); (q(hash+'Sec')||q('#equiposSec')).style.display='block'; }
+async function boot(){ await loadState(); await loadIncid(); await pLoad(); await otLoad(); applyRoleUI(); setActive(location.hash||'#equipos'); }
+window.addEventListener('load',boot);
+window.addEventListener('click',(e)=>{ const inHeader=e.target.closest('.header-top'); if(!inHeader){ closeMenu(); closeSession(); }});
 </script>
-</body>
-</html>
+</body></html>
