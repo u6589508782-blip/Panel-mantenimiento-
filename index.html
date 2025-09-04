@@ -422,19 +422,15 @@ function setUser(u){
   byId('roleChip').textContent=u.rol;
   applyRoleUI();
 }
-
 async function login(){
   const user = byId('userSelect').value;
-  const pass = byId('userPass').value||"";
-  const r = await apiPost({res:'auth',fn:'login',user,pass});
-  if(!r.ok){
-    alert("Error login: " + (r.error || "desconocido")); // <- antes era genérico
-    return;
-  }
-  const group = ROLE_MAP[r.rol]||"guest";
-  setUser({user,rol:r.rol,group});
+  const pass = byId('userPass').value || "";
+  const r = await apiPost({res:'auth', fn:'login', user, pass});
+  if(!r.ok){ alert("Error login: " + (r.error || "desconocido")); return; }
+  const group = ROLE_MAP[r.rol] || "guest";
+  setUser({user, rol: r.rol, group});
   byId('userPanel').classList.add('hidden');
-  byId('userPass').value="";
+  byId('userPass').value = "";
 }
 function logout(){
   setUser({user:"invitado",rol:"Invitado",group:"guest"});
