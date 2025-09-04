@@ -426,7 +426,7 @@ async function login(){
   const user = byId('userSelect').value;
   const pass = byId('userPass').value||"";
   const r = await apiPost({res:'auth',fn:'login',user,pass});
-  if(!r.ok){ alert("Credenciales incorrectas o usuario inactivo"); return; }
+  if(!r.ok){ alert("Credenciales incorrectas o usuario inactivo"); return; }   // <- ESTA LÍNEA SE CAMBIA
   const group = ROLE_MAP[r.rol]||"guest";
   setUser({user,rol:r.rol,group});
   byId('userPanel').classList.add('hidden');
