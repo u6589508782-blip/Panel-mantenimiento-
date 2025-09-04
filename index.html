@@ -476,8 +476,19 @@ function applyRoleUI(){
 function toggleItem(id, show){ const el=byId(id); if(el) el.classList.toggle('hidden', !show); }
 
 /* ===== API helpers ===== */
-async function apiGet(q){ const r=await fetch(API_BASE+"?"+new URLSearchParams(q)); return r.json(); }
-async function apiPost(o){ const r=await fetch(API_BASE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(o)}); return r.json(); }
+async function apiGet(q){
+  const r = await fetch(API_BASE + "?" + new URLSearchParams(q));
+  return r.json();
+}
+
+async function apiPost(o){
+  const r = await fetch(API_BASE, {
+    method: 'POST',
+    headers: { 'Content-Type':'text/plain;charset=utf-8' }, // <- cambiado
+    body: JSON.stringify(o)
+  });
+  return r.json();
+}
 
 /* ===== Menús ===== */
 byId('userBtn').onclick=()=> byId('userPanel').classList.toggle('hidden');
