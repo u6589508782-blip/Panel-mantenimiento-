@@ -8,18 +8,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --brand1:#a60000; --brand2:#e43b3b; --bg:#f4f7f9; --card:#ffffff;
-  --ok:#16a34a; --warn:#f59e0b; --stop:#dc2626; --muted:#64748b; --ink:#0f172a;
+  --brand1:#A60000; --brand2:#E43B3B; --bg:#F5F7FA; --card:#FFFFFF;
+  --ok:#16a34a; --warn:#f59e0b; --stop:#dc2626; --muted:#5B6673; --ink:#0E1824;
+  --line:#E6ECF1;
   --ring:0 10px 30px rgba(0,0,0,.08);
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);font-family:Inter,system-ui,sans-serif;color:var(--ink)}
+
 /* ===== Header ===== */
-header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,#fff,#fff0);backdrop-filter:saturate(1.2) blur(4px);border-bottom:3px solid #e8ecef}
+header{position:sticky;top:0;z-index:50;background:#fff;backdrop-filter:saturate(1.2) blur(4px);border-bottom:3px solid #e8ecef}
 .nav{display:flex;align-items:center;gap:.75rem;padding:.65rem .9rem}
 .logo{display:flex;align-items:center;gap:.8rem;min-width:0}
-.logo img{height:56px;width:auto;object-fit:contain}
-.logo h1{font-size:1.45rem;margin:0;font-weight:800;white-space:nowrap}
+.logo img{height:48px;width:auto;object-fit:contain;image-rendering:auto}
+.logo h1{font-size:1.3rem;margin:0;font-weight:800;white-space:nowrap;color:#0f172a;overflow:hidden;text-overflow:ellipsis}
 .grow{flex:1 1 auto}
 .rolechip{font-size:.78rem;font-weight:700;border-radius:999px;padding:.32rem .6rem;background:#eef2f7;border:1px solid #e2e8f0;color:#0f172a}
 /* Menús */
@@ -35,54 +37,57 @@ label.small{font-size:.8rem;color:#6b7280;display:block;margin-bottom:.3rem}
 .btn-ghost{background:#f2f4f7} .btn-ghost:hover{background:#e9eef5}
 .btn-danger{background:var(--stop);color:#fff}
 .btn-brand{background:linear-gradient(90deg,var(--brand1),var(--brand2));color:#fff}
+
 /* ===== Contenido ===== */
 .container{max-width:980px;margin:0 auto;padding:1rem}
-/* Chips / leyenda al final */
+
+/* Chips / leyenda */
 .toolbar{background:var(--card);border-radius:18px;box-shadow:var(--ring);padding:.75rem 1rem;margin:1rem 0;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
 .badge-chip{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .75rem;border-radius:999px;background:#fff;border:1px solid #e5e7eb;box-shadow:var(--ring);font-weight:700}
 .dot{width:16px;height:16px;border-radius:50%}
 .dot.ok{background:var(--ok)} .dot.warn{background:var(--warn)} .dot.stop{background:var(--stop)}
+
 /* Grupos y tarjetas */
 .group{margin:1.2rem 0}
 .group h2{margin:.2rem 0 .7rem;font-size:1.1rem}
-.card{background:var(--card);border-radius:18px;box-shadow:var(--ring);padding:1rem;margin:.6rem 0;display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
-.name{font-weight:800;font-size:1.05rem;min-width:220px;max-width:100%}
-.sub{color:var(--muted);font-size:.9rem}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--ring);padding:.85rem .95rem;margin:.45rem 0;display:flex;gap:.85rem;align-items:center;flex-wrap:wrap;border:1px solid var(--line);transition:transform .08s ease, box-shadow .2s ease}
+.card:hover{transform:translateY(-1px);box-shadow:0 12px 26px rgba(15,23,42,.08)}
+.name{font-weight:800;font-size:1rem;min-width:200px;max-width:100%}
+.sub{color:var(--muted);font-size:.88rem}
 .right{margin-left:auto;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
 select,input,textarea{border:1px solid #e3e8ef;border-radius:12px;padding:.55rem .7rem;background:#fff;min-width:0}
-select{min-width:150px}
-.pilot{width:18px;height:18px;border-radius:50%;box-shadow:0 0 0 3px #fff,0 0 0 6px rgba(0,0,0,.05)}
+.pilot{width:22px;height:22px;border-radius:50%;box-shadow:0 0 0 3px #fff,0 0 0 6px rgba(0,0,0,.05),inset 0 -2px 4px rgba(0,0,0,.12)}
 .p-ok{background:var(--ok)} .p-warn{background:var(--warn)} .p-stop{background:var(--stop)}
-.small{font-size:.9rem}
-.btn-mini{padding:.45rem .6rem;border-radius:10px}
+.btn-mini{padding:.38rem .55rem;border-radius:10px;font-weight:700;font-size:.9rem}
 .btn-mail{background:var(--stop);color:#fff}
 .btn-plan{background:#e6eefb;color:#0f3a7f}
 .hidden{display:none!important}
-/* Formularios y tablas */
+
+/* Tablas */
 .kpi{background:var(--card);border-radius:18px;box-shadow:var(--ring);padding:1rem}
 .kpi h3{margin:.2rem 0 .8rem}
-table{width:100%;border-collapse:separate;border-spacing:0 10px}
-th,td{padding:.7rem 1rem;background:#fff}
-th{text-align:left;color:#475569;font-size:.9rem;background:#f8fafc}
+table{width:100%;border-collapse:separate;border-spacing:0 8px}
+th,td{padding:.62rem .85rem;background:#fff;border-bottom:1px solid #F2F5F8}
+th{text-align:left;color:#4B5563;font-size:.9rem;background:#f8fafc}
 tr td:first-child, tr th:first-child{border-top-left-radius:12px;border-bottom-left-radius:12px}
 tr td:last-child, tr th:last-child{border-top-right-radius:12px;border-bottom-right-radius:12px}
+
 /* inventario grid */
 .inv-grid{display:grid;gap:10px;grid-template-columns:1fr 1fr 1fr 1fr}
 @media(max-width:720px){.inv-grid{grid-template-columns:1fr 1fr}.right{justify-content:flex-start}}
-/* Form grid responsive incid/ot */
+
+/* Responsive forms */
 .form-grid{display:grid;gap:10px;grid-template-columns:1fr 1fr}
 @media(max-width:720px){.form-grid{grid-template-columns:1fr}}
-/* iOS select fix */
-label{display:flex;flex-direction:column;gap:6px}
-select{width:100%;max-width:100%;appearance:auto}
-/* ===== TV ===== */
+
+/* TV */
 .tv-wrap{max-width:1400px}
 .tv-grid{display:grid;gap:16px}
 @media(min-width:760px){.tv-grid{grid-template-columns:1fr 1fr}}
 @media(min-width:1180px){.tv-grid{grid-template-columns:1fr 1fr 1fr}}
 .tv-card{background:#fff;border-radius:22px;box-shadow:var(--ring);padding:18px}
 .tv-title{display:flex;align-items:center;gap:.6rem;margin:0 0 10px}
-.tv-title .dot{width:18px;height:18px}
+.tv-title .dot{width:20px;height:20px}
 .tv-list{display:flex;flex-direction:column;gap:8px;max-height:60vh;overflow:auto}
 .tv-item{padding:10px 12px;border-radius:12px;font-weight:700}
 .tv-item.stop{background:#fee2e2;color:#7f1d1d}
@@ -90,8 +95,64 @@ select{width:100%;max-width:100%;appearance:auto}
 .tv-item.stock{background:#e0f2fe;color:#0c4a6e}
 .tv-legend{color:#64748b;font-size:.9rem;margin-left:8px}
 .fullscreen{position:fixed;inset:0;background:var(--bg);padding:14px;z-index:80;overflow:auto}
+
 /* Footer */
 footer{padding:2rem 1rem;color:#9aa7b4;text-align:center}
+
+/* === Extras Bloques === */
+.nowrap{white-space:nowrap}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+
+/* Badges tipo/resultado */
+.tag{display:inline-flex;align-items:center;gap:.35rem;padding:.18rem .5rem;border-radius:999px;font-weight:700;line-height:1;border:1px solid transparent;font-size:.82rem}
+.tag-corr{color:#991B1B;background:#FEE2E2;border-color:#FECACA}
+.tag-prev{color:#0C4A6E;background:#E0F2FE;border-color:#BAE6FD}
+.tag-pred{color:#6B21A8;background:#F3E8FF;border-color:#E9D5FF}
+.tag-mej{color:#065F46;background:#D1FAE5;border-color:#A7F3D0}
+.tag-sol{color:#065F46;background:#D1FAE5;border-color:#A7F3D0}
+.tag-rest{color:#7C2D12;background:#FFEDD5;border-color:#FED7AA}
+.tag-par{color:#7F1D1D;background:#FEE2E2;border-color:#FECACA}
+
+/* Paginación */
+.pager{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;justify-content:flex-end;margin-top:.6rem;font-size:.9rem;color:#4B5563}
+.pager .info{margin-right:auto}
+.page-btn{border:1px solid var(--line);background:#fff;cursor:pointer;border-radius:10px;padding:.35rem .6rem;font-weight:700}
+.page-btn[disabled]{opacity:.5;cursor:not-allowed}
+.page-btn.active{background:#0F172A;color:#fff;border-color:#0F172A}
+.page-size{border:1px solid var(--line);background:#fff;border-radius:10px;padding:.35rem .5rem;font:inherit}
+@media (max-width:640px){.pager{justify-content:center}.pager .info{display:none}}
+
+/* Ordenación columnas */
+.th-sort{display:inline-flex;align-items:center;gap:.35rem;cursor:pointer;user-select:none;border:0;background:transparent;font:inherit;font-weight:700;color:#4B5563;padding:.15rem .25rem;border-radius:8px}
+.th-sort:hover{background:#F3F4F6}
+.th-caret{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent}
+.th-sort.asc .th-caret{border-bottom:7px solid #0F172A}
+.th-sort.desc .th-caret{border-top:7px solid #0F172A}
+
+/* Formularios validados */
+.field-invalid{border-color:#ef4444!important;outline:2px solid color-mix(in srgb,#ef4444 35%,transparent)}
+.field-msg{font-size:.8rem;color:#991b1b;margin-top:.25rem}
+.counter{font-size:.78rem;color:#64748b;margin-left:.35rem}
+.counter.warn{color:#b45309}
+.toast{position:fixed;right:14px;bottom:14px;z-index:90;background:#0f172a;color:#fff;padding:.6rem .8rem;border-radius:12px;box-shadow:0 10px 24px rgba(0,0,0,.18)}
+
+/* Inventario reforzado */
+.row-low{background:#FEF3C7!important}
+.row-low .sub{color:#7C2D12}
+.badge-low{display:inline-flex;align-items:center;gap:.35rem;padding:.15rem .45rem;border-radius:999px;font-weight:700;background:#FFEDD5;color:#7C2D12;border:1px solid #FED7AA;font-size:.78rem;line-height:1}
+
+/* Toggle mostrar/ocultar contraseña */
+.pw{position:relative;display:flex;align-items:center}
+.pw input{padding-right:2.4rem}
+.pw-toggle{
+  position:absolute;right:.5rem;top:50%;transform:translateY(-50%);
+  border:0;background:#f2f4f7;border-radius:8px;padding:.25rem .45rem;
+  font-weight:700;cursor:pointer;line-height:1;
+}
+.pw-toggle:hover{background:#e9eef5}
+.pw-toggle:focus{outline:2px solid #c7d2fe;outline-offset:2px}
+.pw-toggle[data-state="show"]::after{content:"👁"}
+.pw-toggle[data-state="hide"]::after{content:"🙈"}
 </style>
 </head>
 <body>
@@ -102,7 +163,6 @@ footer{padding:2rem 1rem;color:#9aa7b4;text-align:center}
       <h1>CDL · Panel de mantenimiento</h1>
     </div>
     <div class="grow"></div>
-
     <span id="roleChip" class="rolechip">Invitado</span>
 
     <!-- Menú Páginas -->
@@ -142,17 +202,29 @@ footer{padding:2rem 1rem;color:#9aa7b4;text-align:center}
             <option value="tcoint">Tco.INT</option>
             <option value="subc">Subcontrata</option>
           </select>
+
           <label class="small" style="margin-top:.4rem">Contraseña</label>
-          <input id="userPass" type="password" placeholder="••••••••"/>
+          <div class="pw">
+            <input id="userPass" type="password" placeholder="••••••••"/>
+            <button type="button" class="pw-toggle" data-target="userPass" data-state="show" aria-label="Mostrar contraseña"></button>
+          </div>
+
           <div class="actions" style="margin-top:.6rem">
             <button class="btn btn-brand" onclick="login()">Entrar</button>
             <button class="btn btn-ghost" onclick="logout()">Salir</button>
           </div>
         </div>
+
         <div class="row">
           <label class="small">Cambiar contraseña</label>
-          <input id="oldPass" type="password" placeholder="Contraseña actual">
-          <input id="newPass" type="password" placeholder="Nueva contraseña">
+          <div class="pw">
+            <input id="oldPass" type="password" placeholder="Contraseña actual">
+            <button type="button" class="pw-toggle" data-target="oldPass" data-state="show" aria-label="Mostrar contraseña"></button>
+          </div>
+          <div class="pw" style="margin-top:.4rem">
+            <input id="newPass" type="password" placeholder="Nueva contraseña">
+            <button type="button" class="pw-toggle" data-target="newPass" data-state="show" aria-label="Mostrar contraseña"></button>
+          </div>
           <div class="actions" style="margin-top:.6rem">
             <button class="btn btn-ghost" onclick="changePwd()">Cambiar</button>
           </div>
@@ -194,22 +266,22 @@ footer{padding:2rem 1rem;color:#9aa7b4;text-align:center}
     <div class="kpi">
       <h3>Registrar nueva incidencia</h3>
       <div class="form-grid">
-        <label>Equipo <select id="iEquipo"></select></label>
-        <label>Tipo
+        <label class="req">Equipo <select id="iEquipo"></select></label>
+        <label class="req">Tipo
           <select id="iTipo"><option>Correctivo</option><option>Preventivo</option><option>Predictivo</option><option>Mejora</option></select>
         </label>
-        <label>Resultado
+        <label class="req">Resultado
           <select id="iRes"><option>Solucionado</option><option>Con restricciones</option><option>Parada</option></select>
         </label>
         <label>¿Repuesto? <select id="iRep"><option>No</option><option>Sí</option></select></label>
         <label>Repuesto (txt) <input id="iRepTxt" placeholder="p.ej. THM6-20"/></label>
         <label>Horas de parada <input id="iHParo" type="number" value="0"/></label>
         <label>Horas de reparación <input id="iHRep" type="number" value="0"/></label>
-        <label>Fecha inicio <input id="iInicio" type="datetime-local"/></label>
+        <label class="req">Fecha inicio <input id="iInicio" type="datetime-local"/></label>
         <label>Fecha fin <input id="iFin" type="datetime-local"/></label>
         <label>Reportante <input id="iReport" placeholder="Nombre"/></label>
         <label>Intervenido por <input id="iAsignado" placeholder="Nombre técnico"/></label>
-        <label style="grid-column:1/-1">Descripción <textarea id="iDesc" rows="3" placeholder="Breve descripción obligatoria"></textarea></label>
+        <label class="req" style="grid-column:1/-1">Descripción <textarea id="iDesc" rows="3" placeholder="Breve descripción obligatoria"></textarea></label>
       </div>
       <div style="margin-top:.6rem;display:flex;gap:.5rem;flex-wrap:wrap">
         <button class="btn btn-brand" onclick="addIncid()">Añadir incidencia</button>
@@ -218,9 +290,19 @@ footer{padding:2rem 1rem;color:#9aa7b4;text-align:center}
       </div>
     </div>
     <div class="kpi" style="margin-top:12px">
-      <div style="display:flex;gap:.7rem;align-items:center;margin-bottom:.6rem;flex-wrap:wrap">
-        <strong>Historial (últimas primero)</strong>
-        <input id="filtroIncid" placeholder="Buscar…" oninput="renderIncidTable()">
+      <div class="filters" style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-bottom:.6rem">
+        <strong>Historial</strong>
+        <input id="filtroIncid" placeholder="Buscar…">
+        <select id="fEquipo" class="sel">
+          <option value="">Equipo: todos</option>
+        </select>
+        <select id="fTipo" class="sel">
+          <option value="">Tipo: todos</option>
+        </select>
+        <select id="fRes" class="sel">
+          <option value="">Resultado: todos</option>
+        </select>
+        <button class="btn btn-ghost" onclick="resetIncidFilters()">Limpiar</button>
       </div>
       <div id="incidTableWrap"></div>
     </div>
@@ -243,13 +325,11 @@ footer{padding:2rem 1rem;color:#9aa7b4;text-align:center}
       </div>
     </div>
 
-    <!-- Gráfico MTTR semanal -->
     <div class="kpi" style="margin-top:12px">
       <h3>Evolución semanal (MTTR)</h3>
       <canvas id="kpiChart" height="140"></canvas>
     </div>
 
-    <!-- Tablas históricas por KPI -->
     <div class="kpi" style="margin-top:12px">
       <h3>Histórico semanal — MTTR</h3>
       <p class="sub">MTTR: Tiempo medio de reparación por semana. Ayuda a ver si reducimos la duración de las reparaciones.</p>
@@ -296,8 +376,8 @@ footer{padding:2rem 1rem;color:#9aa7b4;text-align:center}
     <div class="kpi">
       <h3>Nueva OT</h3>
       <div class="form-grid">
-        <label>Equipo <select id="otEquipo"></select></label>
-        <label>Prioridad
+        <label class="req">Equipo <select id="otEquipo"></select></label>
+        <label class="req">Prioridad
           <select id="otPri">
             <option value="R">Rojo (Urgente)</option>
             <option value="N">Naranja (Alta)</option>
@@ -305,9 +385,9 @@ footer{padding:2rem 1rem;color:#9aa7b4;text-align:center}
             <option value="V">Verde (Predictivo)</option>
           </select>
         </label>
-        <label>Título <input id="otTitulo" placeholder="Breve título"/></label>
+        <label class="req">Título <input id="otTitulo" placeholder="Breve título"/></label>
         <label>Asignado <input id="otAsign" placeholder="Nombre técnico"/></label>
-        <label>Vencimiento <input id="otDue" type="date"/></label>
+        <label class="req">Vencimiento <input id="otDue" type="date"/></label>
         <label>Adjunto (URL) <input id="otAdj" placeholder="https://…"/></label>
         <label style="grid-column:1/-1">Descripción <textarea id="otDesc" rows="3"></textarea></label>
       </div>
@@ -480,11 +560,10 @@ async function apiGet(q){
   const r = await fetch(API_BASE + "?" + new URLSearchParams(q));
   return r.json();
 }
-
 async function apiPost(o){
   const r = await fetch(API_BASE, {
     method: 'POST',
-    headers: { 'Content-Type':'text/plain;charset=utf-8' }, // <- cambiado
+    headers: { 'Content-Type':'text/plain;charset=utf-8' }, // importante para tu Apps Script
     body: JSON.stringify(o)
   });
   return r.json();
@@ -604,28 +683,264 @@ async function accionParadaProgramada(name){
 
 /* ===== INCIDENCIAS ===== */
 let INCIDS_ALL=[];
+
+/* Paginación / filtros / orden */
+let INCID_PAGE = 1;
+let INCID_PAGE_SIZE = 10;
+let _INCID_LAST_Q = "";
+let INCID_SORT_KEY = 'fecha';   // 'fecha' | 'equipo' | 'tipo' | 'res' | 'hParo' | 'hRep'
+let INCID_SORT_DIR = 'desc';
+
+function uniqSorted(arr){ return [...new Set(arr)].sort((a,b)=> String(a).localeCompare(String(b),'es')); }
+function resetIncidFilters(){
+  byId('fEquipo').value = "";
+  byId('fTipo').value = "";
+  byId('fRes').value = "";
+  byId('filtroIncid').value = "";
+  renderIncidTable();
+}
+function buildIncidFilters(){
+  const equipos = uniqSorted(INCIDS_ALL.map(x=>x.equipo).filter(Boolean));
+  const tipos   = uniqSorted(INCIDS_ALL.map(x=>x.tipo).filter(Boolean));
+  const resul   = uniqSorted(INCIDS_ALL.map(x=>x.res).filter(Boolean));
+
+  if(byId('fEquipo')){
+    byId('fEquipo').innerHTML = `<option value="">Equipo: todos</option>` +
+      equipos.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');
+  }
+  if(byId('fTipo')){
+    const pref = ["Correctivo","Preventivo","Predictivo","Mejora"];
+    const ordTipos = [...new Set([...pref, ...tipos])].filter(Boolean);
+    byId('fTipo').innerHTML = `<option value="">Tipo: todos</option>` +
+      ordTipos.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');
+  }
+  if(byId('fRes')){
+    const prefR = ["Solucionado","Con restricciones","Parada"];
+    const ordRes = [...new Set([...prefR, ...resul])].filter(Boolean);
+    byId('fRes').innerHTML = `<option value="">Resultado: todos</option>` +
+      ordRes.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');
+  }
+}
+
+function setIncidPage(n){ INCID_PAGE = Math.max(1, n); renderIncidTable(); }
+function setIncidPageSize(n){ INCID_PAGE_SIZE = Number(n) || 10; INCID_PAGE = 1; renderIncidTable(); }
+function pagerControls(total, page, size){
+  const pages = Math.max(1, Math.ceil(total / size));
+  const start = (page-1)*size + 1;
+  const end   = Math.min(total, page*size);
+  let from = Math.max(1, page-2), to = Math.min(pages, from+4); from = Math.max(1, to-4);
+  const nums = []; for(let i=from;i<=to;i++){ nums.push(`<button class="page-btn ${i===page?'active':''}" onclick="setIncidPage(${i})">${i}</button>`); }
+  return `
+    <div class="pager">
+      <div class="info">Mostrando ${total?start:0}–${end} de ${total}</div>
+      <label>Filas
+        <select class="page-size" onchange="setIncidPageSize(this.value)">
+          <option ${size===10?'selected':''}>10</option>
+          <option ${size===25?'selected':''}>25</option>
+          <option ${size===50?'selected':''}>50</option>
+        </select>
+      </label>
+      <button class="page-btn" onclick="setIncidPage(${page-1})" ${page<=1?'disabled':''}>‹</button>
+      ${nums.join('')}
+      <button class="page-btn" onclick="setIncidPage(${page+1})" ${page>=pages?'disabled':''}>›</button>
+    </div>`;
+}
+function badgeTipo(t){
+  const k = (t||'').toLowerCase();
+  if(k.startsWith('corre')) return `<span class="tag tag-corr">Correctivo</span>`;
+  if(k.startsWith('preven')) return `<span class="tag tag-prev">Preventivo</span>`;
+  if(k.startsWith('pred'))   return `<span class="tag tag-pred">Predictivo</span>`;
+  if(k.startsWith('mej'))    return `<span class="tag tag-mej">Mejora</span>`;
+  return `<span class="tag">${esc(t||'')}</span>`;
+}
+function badgeRes(r){
+  const k = (r||'').toLowerCase();
+  if(k.startsWith('solu'))        return `<span class="tag tag-sol">Solucionado</span>`;
+  if(k.includes('restr'))         return `<span class="tag tag-rest">Restricciones</span>`;
+  if(k.startsWith('para'))        return `<span class="tag tag-par">Parada</span>`;
+  return `<span class="tag">${esc(r||'')}</span>`;
+}
+function setIncidSort(key){
+  if(INCID_SORT_KEY === key){
+    INCID_SORT_DIR = (INCID_SORT_DIR === 'asc' ? 'desc' : 'asc');
+  }else{
+    INCID_SORT_KEY = key;
+    INCID_SORT_DIR = (key === 'fecha' ? 'desc' : 'asc');
+  }
+  renderIncidTable();
+}
+
 async function loadIncid(){
   const st=await apiGet({res:'state',fn:'list'}); STATE=st.ok?st.items:[];
   const inc=await apiGet({res:'incid',fn:'list'}); INCIDS_ALL=inc.ok?inc.items:[];
   byId('iEquipo').innerHTML=STATE.map(x=>`<option>${esc(x.nombre)}</option>`).join('');
+  buildIncidFilters();
+  // listeners (solo 1 vez)
+  if(!byId('filtroIncid').dataset.bound){ byId('filtroIncid').addEventListener('input',renderIncidTable); byId('filtroIncid').dataset.bound='1'; }
+  if(!byId('fEquipo').dataset.bound){ byId('fEquipo').addEventListener('change',renderIncidTable); byId('fEquipo').dataset.bound='1'; }
+  if(!byId('fTipo').dataset.bound){ byId('fTipo').addEventListener('change',renderIncidTable); byId('fTipo').dataset.bound='1'; }
+  if(!byId('fRes').dataset.bound){ byId('fRes').addEventListener('change',renderIncidTable); byId('fRes').dataset.bound='1'; }
   renderIncidTable();
 }
+
 function renderIncidTable(){
-  const q=(byId('filtroIncid').value||"").toLowerCase();
-  const arr=INCIDS_ALL.filter(x=> JSON.stringify(x).toLowerCase().includes(q));
-  const rows=arr.map(x=>`
-    <tr><td>${fmtDate(x.created)}</td>
+  const q = (byId('filtroIncid')?.value || "").toLowerCase();
+  const fEq  = byId('fEquipo')?.value || "";
+  const fTip = byId('fTipo')?.value || "";
+  const fRes = byId('fRes')?.value || "";
+
+  const key = JSON.stringify({q,fEq,fTip,fRes});
+  if(key !== _INCID_LAST_Q){ INCID_PAGE = 1; _INCID_LAST_Q = key; }
+
+  let filtered = INCIDS_ALL.filter(x=>{
+    const txt = JSON.stringify(x).toLowerCase().includes(q);
+    const eqOk  = !fEq  || (x.equipo === fEq);
+    const tipOk = !fTip || (String(x.tipo||"").toLowerCase().startsWith(fTip.toLowerCase()));
+    const resOk = !fRes || (String(x.res||"").toLowerCase().startsWith(fRes.toLowerCase()));
+    return txt && eqOk && tipOk && resOk;
+  });
+
+  const dir = (INCID_SORT_DIR === 'asc' ? 1 : -1);
+  filtered.sort((a,b)=>{
+    let A,B;
+    switch(INCID_SORT_KEY){
+      case 'fecha': A=new Date(a.created).getTime(); B=new Date(b.created).getTime(); break;
+      case 'equipo': A=String(a.equipo||''); B=String(b.equipo||''); break;
+      case 'tipo': A=String(a.tipo||''); B=String(b.tipo||''); break;
+      case 'res': A=String(a.res||''); B=String(b.res||''); break;
+      case 'hParo': A=+a.hParo||0; B=+b.hParo||0; break;
+      case 'hRep': A=+a.hRep||0; B=+b.hRep||0; break;
+      default: A=0; B=0;
+    }
+    if(typeof A==='string'&&typeof B==='string'){ return A.localeCompare(B,'es')*dir; }
+    return (A===B?0:(A>B?1:-1))*dir;
+  });
+
+  const total = filtered.length;
+  const pages = Math.max(1, Math.ceil(total / INCID_PAGE_SIZE));
+  const page  = Math.min(INCID_PAGE, pages);
+  const startIndex = (page-1)*INCID_PAGE_SIZE;
+  const pageItems  = filtered.slice(startIndex, startIndex + INCID_PAGE_SIZE);
+
+  const rows = pageItems.map(x=>{
+    const desc = String(x.desc || '');
+    const preview = (desc && desc.length>60) ? desc.slice(0,57)+'…' : (desc || 'Ver descripción');
+    return `
+      <tr>
+        <td class="nowrap">${fmtDate(x.created)}</td>
         <td><span class="rolechip">${esc(x.equipo)}</span></td>
-        <td>${esc(x.tipo)}</td>
-        <td>${esc(x.desc||'')}</td>
-        <td>${fmt(x.hParo)}</td>
-        <td>${fmt(x.hRep)}</td>
-    </tr>`).join('');
-  byId('incidTableWrap').innerHTML=
-    `<table><thead><tr><th>Fecha</th><th>Equipo</th><th>Tipo</th><th>Descripción</th><th>Horas parada</th><th>Reparación</th></tr></thead><tbody>${rows}</tbody></table>`;
+        <td>${badgeTipo(x.tipo)}</td>
+        <td>${badgeRes(x.res)}</td>
+        <td>
+          <details class="desc">
+            <summary>${esc(preview)}</summary>
+            <div class="full">${esc(desc)}</div>
+          </details>
+        </td>
+        <td class="num">${fmt(x.hParo)}</td>
+        <td class="num">${fmt(x.hRep)}</td>
+      </tr>`;
+  }).join('');
+
+  const thBtn = (label, key) => {
+    const active = (INCID_SORT_KEY === key);
+    const dirCls = active ? (INCID_SORT_DIR === 'asc' ? 'asc' : 'desc') : '';
+    return `<button class="th-sort ${dirCls}" onclick="setIncidSort('${key}')">${label}<span class="th-caret"></span></button>`;
+  };
+
+  byId('incidTableWrap').innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>${thBtn('Fecha','fecha')}</th>
+          <th>${thBtn('Equipo','equipo')}</th>
+          <th>${thBtn('Tipo','tipo')}</th>
+          <th>${thBtn('Resultado','res')}</th>
+          <th>Descripción</th>
+          <th>${thBtn('Horas parada','hParo')}</th>
+          <th>${thBtn('Reparación','hRep')}</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+    ${pagerControls(total, page, INCID_PAGE_SIZE)}
+  `;
 }
+
+/* ===== Validaciones y UX formularios ===== */
+function msgElFor(input){
+  let next = input.nextElementSibling;
+  if(!next || !next.classList || !next.classList.contains('field-msg')){
+    next = document.createElement('div');
+    next.className = 'field-msg';
+    input.insertAdjacentElement('afterend', next);
+  }
+  return next;
+}
+function setInvalid(id, msg){
+  const el = byId(id); if(!el) return false;
+  el.classList.add('field-invalid');
+  const m = msgElFor(el); m.textContent = msg || 'Campo obligatorio';
+  return false;
+}
+function clearInvalid(id){
+  const el = byId(id); if(!el) return;
+  el.classList.remove('field-invalid');
+  const m = el.nextElementSibling;
+  if(m && m.classList && m.classList.contains('field-msg')) m.textContent='';
+}
+function toast(txt, ms=2200){
+  const t=document.createElement('div'); t.className='toast'; t.textContent=txt;
+  document.body.appendChild(t);
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity .3s'; }, ms);
+  setTimeout(()=> t.remove(), ms+320);
+}
+function bindCounter(inputId, max=300){
+  const el = byId(inputId); if(!el) return;
+  const lab = document.createElement('span'); lab.className='counter'; lab.textContent = `0/${max}`;
+  el.insertAdjacentElement('afterend', lab);
+  const update = ()=>{
+    const n = (el.value||'').length;
+    lab.textContent = `${n}/${max}`;
+    lab.classList.toggle('warn', n > max*0.9);
+  };
+  el.addEventListener('input', update);
+  update();
+}
+function initDateTimeDefaults(inputId, isDateOnly=false){
+  const el = byId(inputId); if(!el) return;
+  const now = new Date();
+  if(isDateOnly){
+    const yyyy=now.getFullYear(), mm=String(now.getMonth()+1).padStart(2,'0'), dd=String(now.getDate()).padStart(2,'0');
+    const today = `${yyyy}-${mm}-${dd}`;
+    if(!el.value) el.value = today;
+    el.min = today;
+  }else{
+    const pad=n=>String(n).padStart(2,'0');
+    const iso = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+    if(!el.value) el.value = iso;
+    el.min = iso;
+  }
+}
+
+/* Incidencias: alta con validación */
 async function addIncid(){
   if(currentUser.group==="guest"){ alert("Inicia sesión para registrar incidencias."); return; }
+
+  ['iEquipo','iTipo','iRes','iDesc','iInicio','iReport'].forEach(clearInvalid);
+
+  let ok = true;
+  if(!val('iEquipo')) ok = setInvalid('iEquipo','Selecciona un equipo');
+  if(!val('iTipo'))   ok = setInvalid('iTipo','Elige un tipo');
+  if(!val('iRes'))    ok = setInvalid('iRes','Indica el resultado');
+
+  const desc = (val('iDesc')||'').trim();
+  if(!desc)           ok = setInvalid('iDesc','Añade una breve descripción');
+  if(desc.length>600) ok = setInvalid('iDesc','Máximo 600 caracteres');
+
+  if(!val('iInicio')) ok = setInvalid('iInicio','Fecha/hora de inicio requerida');
+  if(!ok){ return; }
+
   const item={
     equipo:val('iEquipo'),tipo:val('iTipo'),res:val('iRes'),
     rep:val('iRep'),repTxt:val('iRepTxt'),
@@ -633,9 +948,14 @@ async function addIncid(){
     inicio:val('iInicio')||new Date().toISOString(), fin:val('iFin')||'',
     reportante:val('iReport')||currentUser.user,
     asignado:val('iAsignado')||'',
-    adj:'', desc:val('iDesc')||'(sin descripción)'
+    adj:'', desc
   };
   await apiPost({res:'incid',fn:'add',item,actor:currentUser.user});
+  toast('Incidencia registrada');
+
+  byId('iDesc').value=''; byId('iHParo').value='0'; byId('iHRep').value='0';
+  initDateTimeDefaults('iInicio', false);
+
   await loadIncid(); await loadState();
 }
 
@@ -659,17 +979,13 @@ let _chart=null; function drawBars(id,lab,val,title){const ctx=byId(id).getConte
 /* Tablas históricas por KPI */
 function buildKpiTables(){
   const weeks = groupByWeek(INCIDS_ALL);
-  const labels = Object.keys(weeks).sort(); // YYYY-W##
-  // MTTR
+  const labels = Object.keys(weeks).sort();
   const mttrRows = labels.map(w=>[w, fmt(kpiMTTR(weeks[w]))]);
   byId('tblMttr').innerHTML = buildTableHtml(mttrRows, ['Semana','MTTR (h)']);
-  // MTBF
   const mtbfRows = labels.map(w=>[w, fmt(kpiMTBF(weeks[w]))]);
   byId('tblMtbf').innerHTML = buildTableHtml(mtbfRows, ['Semana','MTBF (h)']);
-  // Disponibilidad
   const dispRows = labels.map(w=>[w, fmt(kpiDisp(weeks[w])*100)]);
   byId('tblDisp').innerHTML = buildTableHtml(dispRows, ['Semana','Disponibilidad (%)']);
-  // OEE
   const oeeRows  = labels.map(w=>[w, fmt(kpiOEE(kpiDisp(weeks[w]))*100)]);
   byId('tblOee').innerHTML  = buildTableHtml(oeeRows,  ['Semana','OEE estimado (%)']);
 }
@@ -680,43 +996,213 @@ function exportKPIsPDF(){ if(!canExport())return; const win=window.open('','_bla
 
 /* ===== OT ===== */
 let OTS=[];
+let OT_PAGE = 1, OT_PAGE_SIZE = 10, OT_SORT_KEY='fecha', OT_SORT_DIR='desc';
+
 async function loadOT(){
   const st=await apiGet({res:'state',fn:'list'}); STATE=st.ok?st.items:[];
   const ot=await apiGet({res:'ot',fn:'list'}); OTS=ot.ok?ot.items:[];
   byId('otEquipo').innerHTML=STATE.map(x=>`<option>${esc(x.nombre)}</option>`).join('');
+  bindCounter('otDesc', 800);
+  initDateTimeDefaults('otDue', true);
+  renderOT();
+}
+function setOTSort(key){
+  if(OT_SORT_KEY===key){ OT_SORT_DIR = (OT_SORT_DIR==='asc'?'desc':'asc'); }
+  else { OT_SORT_KEY=key; OT_SORT_DIR = (key==='fecha'?'desc':'asc'); }
   renderOT();
 }
 function renderOT(){
-  const rows=OTS.map(o=>`<tr><td>${fmtDate(o.created)}</td><td><b>${esc(o.titulo||'')}</b><div class="sub">${esc(o.equipo)}</div></td><td>${priBadge(o.prioridad)}</td><td>${esc(o.asignado||'')}</td><td>${esc(o.vencimiento||'')}</td><td>${esc(o.estado||'')}</td></tr>`).join('');
-  byId('otTableWrap').innerHTML=`<table><thead><tr><th>Fecha</th><th>OT</th><th>Prioridad</th><th>Asignado</th><th>Vence</th><th>Estado</th></tr></thead><tbody>${rows}</tbody></table>`;
+  let arr = [...OTS];
+
+  const dir = (OT_SORT_DIR==='asc'?1:-1);
+  arr.sort((a,b)=>{
+    let A,B;
+    switch(OT_SORT_KEY){
+      case 'fecha':   A=new Date(a.created).getTime(); B=new Date(b.created).getTime(); break;
+      case 'titulo':  A=a.titulo||''; B=b.titulo||''; break;
+      case 'prioridad':A=a.prioridad||''; B=b.prioridad||''; break;
+      case 'asignado':A=a.asignado||''; B=b.asignado||''; break;
+      case 'vence':  A=a.vencimiento||''; B=b.vencimiento||''; break;
+      case 'estado': A=a.estado||''; B=b.estado||''; break;
+      default:A=0;B=0;
+    }
+    if(typeof A==='string'&&typeof B==='string'){ return A.localeCompare(B,'es')*dir; }
+    return (A===B?0:(A>B?1:-1))*dir;
+  });
+
+  const total=arr.length;
+  const pages=Math.max(1,Math.ceil(total/OT_PAGE_SIZE));
+  OT_PAGE=Math.min(OT_PAGE,pages);
+  const start=(OT_PAGE-1)*OT_PAGE_SIZE;
+  arr=arr.slice(start,start+OT_PAGE_SIZE);
+
+  const rows=arr.map(o=>`
+    <tr>
+      <td class="nowrap">${fmtDate(o.created)}</td>
+      <td><b>${esc(o.titulo||'')}</b><div class="sub">${esc(o.equipo)}</div></td>
+      <td>${priBadge(o.prioridad)}</td>
+      <td>${esc(o.asignado||'')}</td>
+      <td class="nowrap">${esc(o.vencimiento||'')}</td>
+      <td>${esc(o.estado||'')}</td>
+    </tr>`).join('');
+
+  const thBtn=(label,key)=>{const act=(OT_SORT_KEY===key);const dirCls=act?(OT_SORT_DIR==='asc'?'asc':'desc'):'';return `<button class="th-sort ${dirCls}" onclick="setOTSort('${key}')">${label}<span class="th-caret"></span></button>`};
+
+  byId('otTableWrap').innerHTML=`
+    <table>
+      <thead>
+        <tr>
+          <th>${thBtn('Fecha','fecha')}</th>
+          <th>${thBtn('OT','titulo')}</th>
+          <th>${thBtn('Prioridad','prioridad')}</th>
+          <th>${thBtn('Asignado','asignado')}</th>
+          <th>${thBtn('Vence','vence')}</th>
+          <th>${thBtn('Estado','estado')}</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+    ${pagerControls(total,OT_PAGE,OT_PAGE_SIZE)}
+  `;
 }
 function priBadge(p){const c=p==="R"?"#dc2626":p==="N"?"#f59e0b":p==="A"?"#eab308":"#16a34a"; return `<span class="rolechip" style="background:${c};color:#fff">${p}</span>`}
 async function addOT(){
   if(!(currentUser.group==="admin"||currentUser.group==="tco")){ alert("Tu rol no puede crear OT."); return; }
-  const item={equipo:val('otEquipo'),prioridad:val('otPri'),titulo:val('otTitulo'),asignado:val('otAsign'),vencimiento:val('otDue'),adj:val('otAdj'),desc:val('otDesc')};
+
+  ['otEquipo','otPri','otTitulo','otDue'].forEach(clearInvalid);
+  let ok = true;
+  if(!val('otEquipo')) ok = setInvalid('otEquipo','Selecciona un equipo');
+  if(!val('otPri'))    ok = setInvalid('otPri','Elige prioridad');
+  if(!val('otTitulo') || val('otTitulo').trim().length<3) ok = setInvalid('otTitulo','Título demasiado corto');
+  if(!val('otDue'))    ok = setInvalid('otDue','Indica fecha de vencimiento');
+  if(!ok){ return; }
+
+  const item={equipo:val('otEquipo'),prioridad:val('otPri'),titulo:val('otTitulo').trim(),asignado:val('otAsign'),vencimiento:val('otDue'),adj:val('otAdj'),desc:(val('otDesc')||'').trim()};
   await apiPost({res:'ot',fn:'add',item,actor:currentUser.user});
+  toast('OT creada');
+
+  byId('otTitulo').value=''; byId('otAsign').value=''; byId('otAdj').value='';
+  byId('otDesc').value='';
   await loadOT();
 }
 function exportOTPDF(){ const g=currentUser.group; if(!(g==="admin"||g==="gerente"||g==="tco")) return alert("No permitido"); const win=window.open('','_blank'); const rows=OTS.map(o=>`<tr><td>${fmtDate(o.created)}</td><td>${esc(o.titulo)}</td><td>${esc(o.equipo)}</td><td>${o.prioridad}</td><td>${esc(o.asignado)}</td><td>${esc(o.vencimiento)}</td></tr>`).join(''); win.document.write(`<!doctype html><meta charset="utf-8"><title>OT</title><style>body{font-family:Inter,sans-serif;padding:16px}table{width:100%;border-collapse:collapse}td,th{border:1px solid #ddd;padding:8px}</style><h2>Órdenes de trabajo</h2><table><tr><th>Fecha</th><th>Título</th><th>Equipo</th><th>Prioridad</th><th>Asignado</th><th>Vence</th></tr>${rows}</table>`); win.document.close();}
 
 /* ===== INVENTARIO ===== */
 let INV=[];
+let INV_PAGE=1, INV_PAGE_SIZE=10, INV_SORT_KEY='ref', INV_SORT_DIR='asc';
+
 async function loadInv(){ const j=await apiGet({res:'inv',fn:'list'}); INV=j.ok?j.items:[]; renderInv(); }
+function setInvSort(key){
+  if(INV_SORT_KEY===key){ INV_SORT_DIR = (INV_SORT_DIR==='asc'?'desc':'asc'); }
+  else { INV_SORT_KEY=key; INV_SORT_DIR = 'asc'; }
+  renderInv();
+}
 function renderInv(){
   const q=(byId('invSearch').value||"").toLowerCase();
-  const arr=INV.filter(x=> (x.nombre+x.ref).toLowerCase().includes(q));
-  const rows=arr.map(x=>`<tr><td><b>${esc(x.ref)}</b><div class="sub">${esc(x.nombre)}</div></td><td>${x.stock}</td><td>${x.minimo}</td><td><button class="btn btn-ghost btn-mini" onclick="delta('${x.ref.replace(/'/g,"\\'")}',-1)">–1</button><button class="btn btn-ghost btn-mini" onclick="delta('${x.ref.replace(/'/g,"\\'")}',+1)">+1</button></td></tr>`).join('');
-  byId('invTableWrap').innerHTML=`<table><thead><tr><th>Repuesto</th><th>Stock</th><th>Mínimo</th><th>Acciones</th></tr></thead><tbody>${rows}</tbody></table>`;
+  let arr=INV.filter(x=> (x.nombre+x.ref).toLowerCase().includes(q));
+
+  const dir=(INV_SORT_DIR==='asc'?1:-1);
+  arr.sort((a,b)=>{
+    let A,B;
+    switch(INV_SORT_KEY){
+      case 'ref':A=a.ref||'';B=b.ref||'';break;
+      case 'nombre':A=a.nombre||'';B=b.nombre||'';break;
+      case 'stock':A=+a.stock||0;B=+b.stock||0;break;
+      case 'minimo':A=+a.minimo||0;B=+b.minimo||0;break;
+      default:A=0;B=0;
+    }
+    if(typeof A==='string'&&typeof B==='string'){ return A.localeCompare(B,'es')*dir; }
+    return (A===B?0:(A>B?1:-1))*dir;
+  });
+
+  const total=arr.length;
+  const pages=Math.max(1,Math.ceil(total/INV_PAGE_SIZE));
+  INV_PAGE=Math.min(INV_PAGE,pages);
+  const start=(INV_PAGE-1)*INV_PAGE_SIZE;
+  arr=arr.slice(start,start+INV_PAGE_SIZE);
+
+  const rows=arr.map(x=>{
+    const low = (+x.stock||0) <= (+x.minimo||0);
+    const refEsc = x.ref.replace(/'/g,"\\'");
+    return `
+      <tr class="${low?'row-low':''}">
+        <td>
+          <b>${esc(x.ref)}</b>
+          ${low?` <span class="badge-low">Bajo mínimo</span>`:''}
+          <div class="sub">${esc(x.nombre||'')}</div>
+        </td>
+        <td class="num">${+x.stock||0}</td>
+        <td class="num">${+x.minimo||0}</td>
+        <td>
+          <button class="btn btn-ghost btn-mini" onclick="delta('${refEsc}',-1)">–1</button>
+          <button class="btn btn-ghost btn-mini" onclick="delta('${refEsc}',+1)">+1</button>
+        </td>
+      </tr>`;
+  }).join('');
+
+  const thBtn=(label,key)=>{const act=(INV_SORT_KEY===key);const dirCls=act?(INV_SORT_DIR==='asc'?'asc':'desc'):'';return `<button class="th-sort ${dirCls}" onclick="setInvSort('${key}')">${label}<span class="th-caret"></span></button>`};
+
+  byId('invTableWrap').innerHTML=`
+    <table>
+      <thead>
+        <tr>
+          <th>${thBtn('Repuesto','ref')}</th>
+          <th>${thBtn('Stock','stock')}</th>
+          <th>${thBtn('Mínimo','minimo')}</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+    ${pagerControls(total,INV_PAGE,INV_PAGE_SIZE)}
+  `;
 }
 async function addInv(){
   if(currentUser.group==="guest"){ alert("Inicia sesión para añadir repuestos."); return; }
-  const item={nombre:val('invNombre'),ref:val('invRef'),stock:+val('invStock')||0,minimo:+val('invMin')||0};
-  if(!item.ref){alert("Referencia requerida");return;}
-  await apiPost({res:'inv',fn:'add',item,actor:currentUser.user}); await loadInv();
+
+  ['invNombre','invRef','invStock','invMin'].forEach(clearInvalid);
+
+  const nombre = (val('invNombre')||'').trim();
+  const ref    = (val('invRef')||'').trim().toUpperCase();
+  const stock  = Number(val('invStock'));
+  const minimo = Number(val('invMin'));
+
+  let ok = true;
+  if(!ref){ ok = setInvalid('invRef','Referencia requerida'); }
+  if(ref && INV.some(x => String(x.ref).toUpperCase() === ref)){ ok = setInvalid('invRef','La referencia ya existe'); }
+  if(!nombre){ ok = setInvalid('invNombre','Nombre requerido'); }
+  if(!Number.isFinite(stock) || stock<0){ ok = setInvalid('invStock','Stock debe ser ≥ 0'); }
+  if(!Number.isFinite(minimo) || minimo<0){ ok = setInvalid('invMin','Mínimo debe ser ≥ 0'); }
+
+  if(!ok){ return; }
+
+  const item={ nombre, ref, stock:Math.floor(stock), minimo:Math.floor(minimo) };
+  await apiPost({res:'inv',fn:'add',item,actor:currentUser.user});
+  toast('Repuesto añadido');
+
+  byId('invNombre').value=''; byId('invRef').value='';
+  byId('invStock').value='';  byId('invMin').value='';
+  await loadInv();
 }
 async function delta(ref,d){
   if(currentUser.group==="guest"){ alert("Inicia sesión para modificar stock."); return; }
-  await apiPost({res:'inv',fn:'delta',ref,delta:d,actor:currentUser.user}); await loadInv();
+  const item = INV.find(x => String(x.ref).toUpperCase() === String(ref).toUpperCase());
+  if(!item) return;
+
+  const current = +item.stock || 0;
+  const next = current + (+d||0);
+  if(next < 0){ toast('No se permiten stocks negativos'); return; }
+
+  await apiPost({res:'inv',fn:'delta',ref,delta:(+d||0),actor:currentUser.user});
+  await loadInv();
+
+  const updated = INV.find(x => String(x.ref).toUpperCase() === String(ref).toUpperCase());
+  if(updated){
+    const wasLow = current <= (+updated.minimo||0);
+    const isLow  = (+updated.stock||0) <= (+updated.minimo||0);
+    if(!wasLow && isLow && d<0){ toast(`⚠️ ${updated.ref}: stock en o por debajo del mínimo (${updated.stock}/${updated.minimo})`); }
+    else if(wasLow && !isLow && d>0){ toast(`✅ ${updated.ref}: stock recuperado (${updated.stock}/${updated.minimo})`); }
+  }
 }
 function exportInvCSV(){ if(!canExport())return; const header=["Ref","Nombre","Stock","Minimo"]; const rows=INV.map(x=>[x.ref,x.nombre,x.stock,x.minimo]); downloadBlob(toCSV(rows,header),'text/csv;charset=utf-8;','inventario.csv'); }
 function canExport(){ const g=currentUser.group; const ok=(g==="admin"||g==="gerente"); if(!ok) alert("Solo Gerente/Admin pueden exportar aquí."); return ok; }
@@ -744,11 +1230,29 @@ function tvFull(){
   clone.appendChild(close);
 }
 
+/* ===== Toggle mostrar/ocultar contraseña ===== */
+document.addEventListener('click', (e)=>{
+  const bt = e.target.closest('.pw-toggle');
+  if(!bt) return;
+  const id = bt.getAttribute('data-target');
+  const inp = document.getElementById(id);
+  if(!inp) return;
+  const isPwd = inp.type === 'password';
+  inp.type = isPwd ? 'text' : 'password';
+  bt.setAttribute('data-state', isPwd ? 'hide' : 'show');
+  bt.setAttribute('aria-label', isPwd ? 'Ocultar contraseña' : 'Mostrar contraseña');
+});
+
 /* ===== Arranque ===== */
 setUser(currentUser);
 nav('equipos');   // Home
 loadState();
-let _once=false; // para construir tablas una vez cargadas incidencias en Indicadores
+bindCounter('iDesc', 600);
+initDateTimeDefaults('iInicio', false);
+['invNombre','invRef','invStock','invMin'].forEach(id=>{
+  const el = byId(id);
+  if(el){ el.addEventListener('input', ()=> clearInvalid(id)); }
+});
 </script>
 </body>
 </html>
