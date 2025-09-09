@@ -503,7 +503,6 @@ async function apiPost(o){const r=await fetch(API_BASE,{method:'POST',headers:{'
 ========================= */
 let CURRENT_PAGE='equipos';
 function nav(id){
-function nav(id){
   hide('pagesPanel'); hide('userPanel');   // autocerrar al navegar
   CURRENT_PAGE=id;
   ['equipos','gruas','otros','incidencias','indicadores','ot','inventario','tv','equipo','repuesto'].forEach(s=>byId('page-'+s).classList.add('hidden'));
