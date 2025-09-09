@@ -36,7 +36,6 @@ header::before{content:"";position:absolute;inset:0;background:radial-gradient(e
 .btn{border:0;border-radius:12px;padding:.6rem .9rem;font-weight:800;cursor:pointer}
 .mbtn{border-radius:14px;background:linear-gradient(180deg,#131a23,#0e151d);border:1px solid #1f2a37;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 6px 18px rgba(0,0,0,.35);color:#fff}
 #pagesPanel .btn{border-radius:999px;background:#0b0f15;color:#fff;border:1px solid #202a36;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 6px 18px rgba(0,0,0,.35)}
-.hidden{display:none!important}
 
 .container{max-width:980px;margin:0 auto;padding:1rem}
 
@@ -132,7 +131,7 @@ tr td:last-child,tr th:last-child{border-top-right-radius:12px;border-bottom-rig
             <option value="rt11">RT1.1</option><option value="rt12">RT1.2</option>
             <option value="rt21">RT2.1</option><option value="rt22">RT2.2</option>
             <option value="rt31">RT3.1</option><option value="rt32">RT3.2</option>
-            <option value="tco">Tco.INT</option>
+            <option value="tcoint">Tco.INT</option>
             <option value="subc">Subcontrata</option>
           </select>
 
@@ -217,7 +216,7 @@ tr td:last-child,tr th:last-child{border-top-right-radius:12px;border-bottom-rig
         <label style="grid-column:1/-1">Descripción <textarea id="iDesc" rows="3" placeholder="Breve descripción"></textarea></label>
       </div>
       <div style="margin-top:.6rem;display:flex;gap:.5rem;flex-wrap:wrap">
-        <button class="btn gloss" onclick="addIncid()"><span class="dot"></span>Añadir</button>
+        <button id="btnAddIncid" class="btn gloss" onclick="addIncid()"><span class="dot"></span>Añadir</button>
         <button class="btn gloss" onclick="exportIncidCSV()" id="btnExportIncidCSV">Exportar CSV</button>
         <button class="btn gloss" onclick="exportIncidPDF()" id="btnExportIncidPDF">Exportar PDF</button>
       </div>
@@ -348,7 +347,7 @@ function show(id){const n=byId(id);if(n)n.classList.remove("hidden")}
 function hide(id){const n=byId(id);if(n)n.classList.add("hidden")}
 function toggle(id){const n=byId(id);if(n)n.classList.toggle("hidden")}
 
-const ROLE_MAP={"Administrador":"admin","Gerente":"gerente","Encargado":"encargado","Producción":"produccion","RT":"rt","Tco.INT":"tco","Subcontrata":"subc","Invitado":"guest"};
+const ROLE_MAP={"Administrador":"admin","Gerente":"gerente","Encargado":"encargado","Producción":"produccion","RT":"rt","Tco.INT":"tcoint","Subcontrata":"subc","Invitado":"guest"};
 let currentUser=JSON.parse(localStorage.getItem("CDL_USER")||'{"user":"invitado","rol":"Invitado","group":"guest"}');
 function setUser(u){currentUser=u;localStorage.setItem("CDL_USER",JSON.stringify(u));byId('roleChip').textContent=u.rol;applyRoleUI()}
 async function login(){const user=byId('userSelect').value;const pass=byId('userPass').value||"";const r=await apiPost({res:'auth',fn:'login',user,pass});if(!r.ok){alert("Error login: "+(r.error||"desconocido"));return}const group=ROLE_MAP[r.rol]||"guest";setUser({user,rol:r.rol,group});byId('userPanel').classList.add('hidden');byId('userPass').value=""}
@@ -443,7 +442,6 @@ async function accionParadaProlongada(name){
 function openFicha(name){openEquipoByName(name)}
 
 let INCIDS_ALL=[];let INCID_PAGE=1,INCID_PAGE_SIZE=10,INCID_SORT_KEY='fecha',INCID_SORT_DIR='desc',_INCID_LAST_Q="";
-function uniqSorted(arr){return[...new Set(arr)].sort((a,b)=>String(a).localeCompare(String(b),'es'))}
 function resetIncidFilters(){['fEquipo','fTipo','fRes','filtroIncid'].forEach(id=>{const el=byId(id);if(el)el.value=""});renderIncidTable()}
 /* === BLOQUE INCIDENCIAS: sustituir todo tu código roto por este === */
 
@@ -455,8 +453,8 @@ async function addIncid(){
   }
 
   // (Opcional) desactivar botón para evitar doble envío
-  const btn = document.querySelector('#page-incidencias .btn.gloss');
-  if (btn) btn.disabled = true;
+const btn = document.getElementById('btnAddIncid');
+if (btn) btn.disabled = true;
 
   const item = {
     equipo:      val('iEquipo'),
