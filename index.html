@@ -27,7 +27,7 @@ header {
   z-index: 60;
   background: #fff;
   color: #000;
-  overflow: hidden;
+  overflow: visible;
   min-height: 100px; /* altura estable */
 }
 
@@ -42,6 +42,13 @@ header::before {
   pointer-events: none;
 }
 .nav{
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+  padding:.6rem .9rem;
+  position:relative;
+  z-index:1; /* asegura que el menú quede por encima del logo */
+}
   display:flex;
   align-items:center;
   gap:.8rem;
@@ -206,7 +213,16 @@ button:focus, .linkish:focus, .page-btn:focus, select:focus, input:focus, textar
         </div>
       </div>
     </div>
-
+    <!-- Logo/Título -->
+    <div class="logo" aria-label="Inicio">
+      <div class="hero-title">
+        <div class="hero-row">
+          <span class="hero-cdl">CDL</span>
+          <span class="hero-fade">·</span>
+          <span class="hero-panel">Panel de control</span>
+        </div>
+      </div>
+    </div>
     <div class="grow"></div>
     <span id="roleChip" class="rolechip">Invitado</span>
 
