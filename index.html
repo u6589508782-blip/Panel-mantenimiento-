@@ -21,40 +21,34 @@ body{
 a{color:#9ec1ff;text-decoration:none}
 img{max-width:100%;display:block}
 
-header {
-  position: sticky;
-  top: 0;
-  z-index: 60;
-  background: #fff;
-  color: #000;
-  overflow: visible;
-  min-height: 100px; /* altura estable */
+header{
+  position:sticky;
+  top:0;
+  z-index:60;
+  background:#fff;
+  color:#000;
+  overflow:visible;       /* deja salir los paneles */
+  min-height:100px;       /* altura estable */
 }
-
-header::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url('logo_mantenimiento.png') center no-repeat;
-  background-size: 70%; /* ajusta tamaño del logo */
-  opacity: 0.12;        /* difuminado */
-  z-index: 0;
-  pointer-events: none;
+header::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url('logo_mantenimiento.png') center no-repeat;
+  background-size:70%;
+  opacity:.12;
+  z-index:0;
+  pointer-events:none;
 }
+/* Barra superior: pegada abajo */
 .nav{
   display:flex;
-  align-items:center;
+  align-items:flex-end;   /* ↓ pegas el contenido al borde inferior */
   gap:.8rem;
-  padding:.6rem .9rem;
+  padding:.6rem .9rem .4rem;  /* un poco menos abajo */
+  min-height:100px;       /* misma altura que el header */
   position:relative;
-  z-index:1; /* asegura que el menú quede por encima del logo */
-}
-  display:flex;
-  align-items:center;
-  gap:.8rem;
-  padding:.6rem .9rem;
-  position:relative;
-  z-index:1; /* asegura que el menú quede por encima del logo */
+  z-index:1;              /* por encima del logo difuminado */
 }
 .grow{flex:1 1 auto}
 .rolechip{font-size:.72rem;font-weight:800;color:#000;opacity:.9}
@@ -71,7 +65,7 @@ header::before {
 .panel{
   position:absolute;
   right:0;
-  top:120%;
+  top:calc(100% + 8px);
   z-index:1000;                /* que no se pierda */
   background:#0f141c;
   border:1px solid #1e2a38;
