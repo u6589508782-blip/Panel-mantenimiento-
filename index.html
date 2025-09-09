@@ -21,10 +21,34 @@ body{
 a{color:#9ec1ff;text-decoration:none}
 img{max-width:100%;display:block}
 
-/* Header (claro sobre fondo oscuro) */
-header{position:sticky;top:0;z-index:60;background:#fff;color:#000}
-header::before{display:none}
-.nav{display:flex;align-items:center;gap:.8rem;padding:.6rem .9rem;position:relative}
+/* Header (logo desvanecido de fondo) */
+header{
+  position:sticky;
+  top:0;
+  z-index:60;
+  background:#fff;
+  color:#000;
+  overflow:hidden; /* evita que el logo sobresalga */
+}
+
+header::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url('logo_mantenimiento.png') center no-repeat;
+  background-size:contain; /* asegura que el logo mantenga proporción */
+  opacity:.07;   /* ajusta transparencia: 0.05 muy tenue · 0.15 más visible */
+  z-index:0;
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+  padding:.6rem .9rem;
+  position:relative;
+  z-index:1; /* asegura que el menú quede por encima del logo */
+}
 .grow{flex:1 1 auto}
 .rolechip{font-size:.72rem;font-weight:800;color:#000;opacity:.9}
 .logo{display:flex;align-items:center;gap:.8rem}
@@ -435,22 +459,34 @@ function applyRoleUI(){
   if(byId('btnAddOT')) byId('btnAddOT').disabled = (g==="guest");
 }
 
-/* Menús desplegables */
-const userBtn=byId('userBtn'),pagesBtn=byId('pagesBtn');
-const userPanel=byId('userPanel'),pagesPanel=byId('pagesPanel');
-userBtn.addEventListener('click',e=>{e.stopPropagation();pagesPanel&&pagesPanel.classList.add('hidden');userPanel&&userPanel.classList.toggle('hidden')});
-pagesBtn.addEventListener('click',e=>{e.stopPropagation();userPanel&&userPanel.classList.add('hidden');pagesPanel&&pagesPanel.classList.toggle('hidden')});
-userPanel&&userPanel.addEventListener('click',e=>e.stopPropagation());
-pagesPanel&&pagesPanel.addEventListener('click',e=>e.stopPropagation());
-document.addEventListener('click',e=>{
-  if(userPanel&&e.target!==userBtn&&!userPanel.contains(e.target))userPanel.classList.add('hidden');
-  if(pagesPanel&&e.target!==pagesBtn&&!pagesPanel.contains(e.target))pagesPanel.classList.add('hidden')
-});
-document.addEventListener('click',e=>{
-  const bt=e.target.closest('.pw-toggle');if(!bt)return;
-  const id=bt.getAttribute('data-target');const inp=document.getElementById(id);if(!inp)return;
-  const isPwd=inp.type==='password';inp.type=isPwd?'text':'password';bt.setAttribute('aria-pressed',isPwd?'true':'false')
-});
+function bindMenus(){
+  const userBtn=byId('userBtn'), pagesBtn=byId('pagesBtn');
+  const userPanel=byId('userPanel'), pagesPanel=byId('pagesPanel');
+  if(!userBtn || !pagesBtn || !userPanel || !pagesPanel) return;
+
+  userBtn.addEventListener('click',e=>{
+    e.stopPropagation();
+    pagesPanel.classList.add('hidden');
+    userPanel.classList.toggle('hidden');
+  });
+
+  pagesBtn.addEventListener('click',e=>{
+    e.stopPropagation();
+    userPanel.classList.add('hidden');
+    pagesPanel.classList.toggle('hidden');
+  });
+
+  userPanel.addEventListener('click',e=>e.stopPropagation());
+  pagesPanel.addEventListener('click',e=>e.stopPropagation());
+
+  document.addEventListener('click',e=>{
+    if(e.target!==userBtn && !userPanel.contains(e.target)) userPanel.classList.add('hidden');
+    if(e.target!==pagesBtn && !pagesPanel.contains(e.target)) pagesPanel.classList.add('hidden');
+  });
+}
+
+// Ejecuta cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', bindMenus);
 
 /* API helpers */
 async function apiGet(q){const r=await fetch(API_BASE+"?"+new URLSearchParams(q));return r.json()}
