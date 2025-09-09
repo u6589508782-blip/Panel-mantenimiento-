@@ -21,26 +21,26 @@ body{
 a{color:#9ec1ff;text-decoration:none}
 img{max-width:100%;display:block}
 
-/* Header (logo desvanecido de fondo) */
-header{
-  position:sticky;
-  top:0;
-  z-index:60;
-  background:#fff;
-  color:#000;
-  overflow:visible; /* deja salir los paneles */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: #fff;
+  color: #000;
+  overflow: hidden;
+  min-height: 100px; /* altura estable */
 }
 
-header::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:url('logo_mantenimiento.png') center no-repeat;
-  background-size:contain; /* asegura que el logo mantenga proporción */
-  opacity:.07;   /* ajusta transparencia: 0.05 muy tenue · 0.15 más visible */
-  z-index:0;
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('logo_mantenimiento.png') center no-repeat;
+  background-size: 70%; /* ajusta tamaño del logo */
+  opacity: 0.12;        /* difuminado */
+  z-index: 0;
+  pointer-events: none;
 }
-
 .nav{
   display:flex;
   align-items:center;
@@ -188,17 +188,29 @@ button:focus, .linkish:focus, .page-btn:focus, select:focus, input:focus, textar
 
 <header>
   <div class="nav" id="navBar">
-    <button id="pagesBtn" class="mbtn" aria-label="Menú">☰</button>
-    <div class="logo">
-      <img src="logo_mantenimiento.png" alt="CDL" onerror="this.src='logo_mantenimiento.PNG'">
-      <div class="hero-title">
-        <div class="hero-row"><div class="hero-cdl">CDL</div></div>
-        <div class="hero-panel hero-fade">Panel de control</div>
+    <!-- Menú de páginas -->
+    <div class="menu">
+      <button id="pagesBtn" class="mbtn" aria-label="Menú">☰</button>
+      <div id="pagesPanel" class="panel hidden" style="min-width:260px">
+        <div class="row">
+          <div class="actions">
+            <button class="btn" onclick="nav('equipos')">Equipos</button>
+            <button class="btn" id="mGruas" onclick="nav('gruas')">Puentes Grúa</button>
+            <button class="btn" id="mOtros" onclick="nav('otros')">Otros</button>
+            <button class="btn" id="mIncid" onclick="nav('incidencias')">Incidencias</button>
+            <button class="btn" id="mIndic" onclick="nav('indicadores')">Indicadores</button>
+            <button class="btn" id="mOT" onclick="nav('ot')">OT</button>
+            <button class="btn" id="mInv" onclick="nav('inventario')">Inventario</button>
+            <button class="btn" id="mTV" onclick="nav('tv')">Dashboard TV</button>
+          </div>
+        </div>
       </div>
     </div>
+
     <div class="grow"></div>
     <span id="roleChip" class="rolechip">Invitado</span>
 
+    <!-- Menú de usuario -->
     <div class="menu">
       <button id="userBtn" class="mbtn" aria-label="Usuario">⋮</button>
       <div id="userPanel" class="panel hidden">
@@ -246,27 +258,8 @@ button:focus, .linkish:focus, .page-btn:focus, select:focus, input:focus, textar
         </div>
       </div>
     </div>
-
-    <div class="menu">
-      <div id="pagesPanel" class="panel hidden" style="min-width:260px">
-        <div class="row">
-          <div class="actions">
-            <button class="btn" onclick="nav('equipos')">Equipos</button>
-            <button class="btn" id="mGruas" onclick="nav('gruas')">Puentes Grúa</button>
-            <button class="btn" id="mOtros" onclick="nav('otros')">Otros</button>
-            <button class="btn" id="mIncid" onclick="nav('incidencias')">Incidencias</button>
-            <button class="btn" id="mIndic" onclick="nav('indicadores')">Indicadores</button>
-            <button class="btn" id="mOT" onclick="nav('ot')">OT</button>
-            <button class="btn" id="mInv" onclick="nav('inventario')">Inventario</button>
-            <button class="btn" id="mTV" onclick="nav('tv')">Dashboard TV</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
 </header>
-
 <main class="container">
   <section id="page-equipos">
     <div class="kpi" style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;justify-content:center">
@@ -494,7 +487,18 @@ console.log("✅ bindMenus ejecutado");
     if(e.target!==pagesBtn && !pagesPanel.contains(e.target)) pagesPanel.classList.add('hidden');
   });
 }
-document.addEventListener('DOMContentLoaded', bindMenus);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bindMenus);
+} else {
+  bindMenus();
+}
+console.log({
+  userBtn: !!document.getElementById('userBtn'),
+  pagesBtn: !!document.getElementById('pagesBtn'),
+  userPanel: !!document.getElementById('userPanel'),
+  pagesPanel: !!document.getElementById('pagesPanel')
+});
+
 
 /* API helpers */
 async function apiGet(q){const r=await fetch(API_BASE+"?"+new URLSearchParams(q));return r.json()}
