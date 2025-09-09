@@ -1,4 +1,4 @@
-<!doctype html>
+        <!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
@@ -7,99 +7,148 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--brand1:#A60000;--brand2:#E43B3B;--ok:#16a34a;--warn:#f59e0b;--stop:#dc2626;--ink:#e8eef7;--muted:#9aa7b4;--line:#232b36}
+:root{
+  --brand1:#A60000;--brand2:#E43B3B;
+  --ok:#16a34a;--warn:#f59e0b;--stop:#dc2626;
+  --ink:#e8eef7;--muted:#9aa7b4;--line:#232b36
+}
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;background:#0c0f14;color:var(--ink);font-family:Inter,system-ui,sans-serif}
+body{
+  margin:0;background:#0c0f14;color:var(--ink);
+  font-family:Inter,system-ui,sans-serif
+}
 a{color:#9ec1ff;text-decoration:none}
 img{max-width:100%;display:block}
 
-header{position:sticky;top:0;z-index:60;background:linear-gradient(180deg,#0c0f14 0%,#0c0f14 70%,#0c0f1400)}
-header::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.28),rgba(255,255,255,0) 60%),url("logo_mantenimiento.png") center/contain no-repeat;opacity:.9;filter:opacity(.85) blur(.2px);pointer-events:none}
-
+/* Header (claro sobre fondo oscuro) */
+header{position:sticky;top:0;z-index:60;background:#fff;color:#000}
+header::before{display:none}
 .nav{display:flex;align-items:center;gap:.8rem;padding:.6rem .9rem;position:relative}
 .grow{flex:1 1 auto}
-.rolechip{font-size:.72rem;font-weight:800;color:#cbd5e1;opacity:.9}
+.rolechip{font-size:.72rem;font-weight:800;color:#000;opacity:.9}
 .logo{display:flex;align-items:center;gap:.8rem}
-.logo img{height:44px;filter:drop-shadow(0 2px 2px rgba(0,0,0,.4))}
+.logo img{height:44px;filter:drop-shadow(0 2px 2px rgba(0,0,0,.1))}
 .hero-title{display:flex;flex-direction:column}
 .hero-row{display:flex;align-items:baseline;gap:.6rem}
-.hero-cdl{font-weight:800;font-size:1.55rem;letter-spacing:.02em;text-shadow:0 2px 10px rgba(255,255,255,.06)}
-.hero-panel{font-weight:700;color:#c9d4e3;opacity:.9;margin-top:2px}
-.hero-fade{background:linear-gradient(90deg,#ffffff60,#ffffff30,#ffffff00);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-cdl{font-weight:800;font-size:1.55rem;letter-spacing:.02em}
+.hero-panel{font-weight:700;color:#000;opacity:.9;margin-top:2px}
+.hero-fade{color:#000}
 
+/* Menús */
 .menu{position:relative}
-.panel{position:absolute;right:0;top:120%;background:#0f141c;border:1px solid #1e2a38;border-radius:16px;box-shadow:0 18px 36px rgba(0,0,0,.5);min-width:280px;overflow:hidden}
+.panel{position:absolute;right:0;top:120%;
+  background:#0f141c;border:1px solid #1e2a38;border-radius:16px;
+  box-shadow:0 18px 36px rgba(0,0,0,.5);min-width:280px;overflow:hidden}
 .row{padding:.85rem 1rem;border-bottom:1px solid #1e2a38}
 .row:last-child{border-bottom:0}
 .actions{display:flex;gap:.55rem;flex-direction:column}
 .btn{border:0;border-radius:12px;padding:.6rem .9rem;font-weight:800;cursor:pointer}
-.mbtn{border-radius:14px;background:linear-gradient(180deg,#131a23,#0e151d);border:1px solid #1f2a37;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 6px 18px rgba(0,0,0,.35);color:#fff}
-#pagesPanel .btn{border-radius:999px;background:#0b0f15;color:#fff;border:1px solid #202a36;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 6px 18px rgba(0,0,0,.35)}
+.mbtn{
+  border-radius:14px;background:#f1f1f1;color:#000;
+  border:1px solid #ccc;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 2px 8px rgba(0,0,0,.06)
+}
+#pagesPanel .btn{
+  border-radius:999px;background:#0b0f15;color:#fff;border:1px solid #202a36;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 6px 18px rgba(0,0,0,.35)
+}
 
+/* Layout */
 .container{max-width:980px;margin:0 auto;padding:1rem}
 
-.card{background:#141922;border-radius:20px;border:1px solid var(--line);box-shadow:0 12px 26px rgba(0,0,0,.45);padding:1rem;margin:.55rem 0;display:flex;gap:.9rem;flex-wrap:wrap;align-items:flex-start}
+/* Cards claras sobre fondo oscuro */
+.card,.kpi,.tv-card{
+  background:#fff;color:#000;border:1px solid #ddd;
+  border-radius:20px;box-shadow:0 4px 12px rgba(0,0,0,.1);
+  padding:1rem;margin:.55rem 0
+}
 .name{font-weight:800;font-size:1.14rem;display:flex;align-items:center;gap:.4rem}
-.name .qr-s{font-size:0;line-height:0;display:inline-block;border:1px solid #2a3442;border-radius:4px;background:#0f141c;width:16px;height:16px;position:relative}
+.name .qr-s{
+  font-size:0;line-height:0;display:inline-block;border:1px solid #2a3442;border-radius:4px;
+  background:#0f141c;width:16px;height:16px;position:relative;margin-left:.35rem
+}
 .name .qr-s:before,.name .qr-s:after{content:"";position:absolute;background:#cbd5e1}
 .name .qr-s:before{inset:3px 3px auto auto;width:4px;height:4px}
 .name .qr-s:after{left:3px;bottom:3px;width:4px;height:4px}
-.sub{color:var(--muted)}
-.pilot{width:18px;height:18px;border-radius:50%;box-shadow:0 0 0 3px #141922,0 0 0 6px rgba(0,0,0,.35),inset 0 -3px 6px rgba(0,0,0,.25)}
+.sub{color:#475569}
+.pilot{width:18px;height:18px;border-radius:50%;
+  box-shadow:0 0 0 3px #fff,0 0 0 6px rgba(0,0,0,.06),inset 0 -3px 6px rgba(0,0,0,.15)}
 .p-ok{background:#22c55e}
 .p-warn{background:#f59e0b}
 .p-stop{background:#ef4444}
 .right{margin-left:auto;display:flex;gap:.55rem;flex-wrap:wrap}
 
-.gloss{display:inline-flex;align-items:center;gap:.55rem;padding:.6rem 1rem;border-radius:999px;border:1px solid #232b36;background:linear-gradient(180deg,#121820,#0b1016);color:#eaf2ff;font-weight:800;box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 10px 24px rgba(0,0,0,.45)}
-.gloss .dot{width:12px;height:12px;border-radius:999px;box-shadow:inset 0 0 0 2px rgba(0,0,0,.25),0 2px 6px rgba(0,0,0,.35)}
+/* Botones “gloss” */
+.gloss{
+  display:inline-flex;align-items:center;gap:.55rem;padding:.6rem 1rem;border-radius:999px;
+  border:1px solid #d1d5db;background:linear-gradient(180deg,#f9fafb,#eef2f7);color:#111827;font-weight:800;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 2px 10px rgba(0,0,0,.06)
+}
+.gloss .dot{width:12px;height:12px;border-radius:999px;box-shadow:inset 0 0 0 2px rgba(0,0,0,.12),0 2px 6px rgba(0,0,0,.08)}
 .gloss.green .dot{background:radial-gradient(circle at 35% 30%,#6df49a,#22c55e 55%,#0e7a3a)}
 .gloss.yellow .dot{background:radial-gradient(circle at 35% 30%,#ffd56a,#f59e0b 55%,#8a4b00)}
 .gloss.red .dot{background:radial-gradient(circle at 35% 30%,#ff9e9e,#ef4444 55%,#7a1616)}
-.btn-mail.gloss{background:linear-gradient(180deg,#611818,#530f0f);border-color:#5d1b1b}
+.btn-mail.gloss{background:linear-gradient(180deg,#f7d4d4,#f1c3c3);border-color:#e5b4b4}
 
-.semaforo{display:flex;align-items:center;gap:.8rem;background:linear-gradient(180deg,#141b24,#0e141b);border:1px solid #232b36;border-radius:26px;padding:.5rem .6rem;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 16px 36px rgba(0,0,0,.5)}
-.semaforo .opt{position:relative;flex:1;display:flex;justify-content:center;align-items:center;height:44px;border-radius:22px;color:#e5edf9;font-weight:800;cursor:pointer;user-select:none}
+/* Semáforo */
+.semaforo{
+  display:flex;align-items:center;gap:.8rem;
+  background:#f8fafc;border:1px solid #e2e8f0;border-radius:26px;padding:.5rem .6rem;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 8px rgba(0,0,0,.05)
+}
+.semaforo .opt{position:relative;flex:1;display:flex;justify-content:center;align-items:center;height:44px;border-radius:22px;color:#0f172a;font-weight:800;cursor:pointer;user-select:none}
 .semaforo .opt .led{width:14px;height:14px;border-radius:999px;margin-right:.5rem}
 .semaforo .opt[data-k=ok] .led{background:radial-gradient(circle at 35% 30%,#6df49a,#22c55e 55%,#0e7a3a)}
 .semaforo .opt[data-k=warn] .led{background:radial-gradient(circle at 35% 30%,#ffd56a,#f59e0b 55%,#8a4b00)}
 .semaforo .opt[data-k=stop] .led{background:radial-gradient(circle at 35% 30%,#ff9e9e,#ef4444 55%,#7a1616)}
-.semaforo .opt.active{background:linear-gradient(180deg,#1b2430,#121821);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 8px 22px rgba(0,0,0,.45)}
+.semaforo .opt.active{background:#e5ecf6;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 2px 8px rgba(0,0,0,.05)}
 
-.kpi{background:#141922;border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 24px rgba(0,0,0,.45);padding:1rem}
-
+/* Tablas dentro de tarjetas claras */
 table{width:100%;border-collapse:separate;border-spacing:0 8px}
-th,td{padding:.62rem .85rem;background:#0f141c;border-bottom:1px solid #18212b}
-th{color:#c3cfde}
+th,td{padding:.62rem .85rem;background:#fff;border-bottom:1px solid #e5e7eb}
+th{color:#111827}
 tr td:first-child,tr th:first-child{border-top-left-radius:12px;border-bottom-left-radius:12px}
 tr td:last-child,tr th:last-child{border-top-right-radius:12px;border-bottom-right-radius:12px}
-.pager{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;justify-content:flex-end;margin-top:.6rem;color:#c3cfde}
-.page-btn{border:1px solid #223043;background:#0f141c;color:#c3cfde;cursor:pointer;border-radius:10px;padding:.35rem .6rem;font-weight:700}
-.page-btn.active{background:#1e2a39}
-.badge-chip{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .75rem;border-radius:999px;background:#0f141c;border:1px solid #253246;box-shadow:inset 0 1px 0 rgba(255,255,255,.05);font-weight:800}
 
-.row-low{background:#2a1b1b!important}
-.badge-low{background:#3a1c1c;color:#fca5a5;border:1px solid #7f1d1d}
+/* Paginación */
+.pager{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;justify-content:flex-end;margin-top:.6rem;color:#111827}
+.page-btn{border:1px solid #d6d6d6;background:#f7f7f7;color:#000;cursor:pointer;border-radius:10px;padding:.35rem .6rem;font-weight:700}
+.page-btn.active{background:#e9e9e9}
 
-.inv-grid input,.form-grid input,.form-grid select,.form-grid textarea{background:#0f141c;border:1px solid #253246;color:#e8eef7;border-radius:12px;padding:.55rem .7rem}
-.pw-toggle{background:#0f141c;border:1px solid #253246}
+/* Badges e inventario */
+.badge-chip{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .75rem;border-radius:999px;background:#f8fafc;border:1px solid #e2e8f0;box-shadow:inset 0 1px 0 rgba(255,255,255,.7);font-weight:800}
+.row-low{background:#fff0f0!important}
+.badge-low{background:#fde2e2;color:#b91c1c;border:1px solid #fecaca}
+
+/* Inputs */
+.inv-grid input,.form-grid input,.form-grid select,.form-grid textarea{
+  background:#f9fafb;border:1px solid #d1d5db;color:#111827;border-radius:12px;padding:.55rem .7rem
+}
+.pw-toggle{background:#f9fafb;border:1px solid #d1d5db}
+
+/* Toast */
 .toast{position:fixed;right:14px;bottom:14px;z-index:90;background:#0f172a;color:#fff;padding:.6rem .8rem;border-radius:12px;box-shadow:0 10px 24px rgba(0,0,0,.6)}
 
-.tv-card{background:#141922;border:1px solid #232b36;border-radius:20px;box-shadow:0 10px 24px rgba(0,0,0,.5);padding:18px}
+/* TV */
+.tv-card{border:1px solid #e5e7eb}
 .tv-title{display:flex;align-items:center;gap:.6rem;margin:0 0 10px}
 .tv-title .dot{width:16px;height:16px;border-radius:50%}
 .tv-list{display:flex;flex-direction:column;gap:8px;max-height:60vh;overflow:auto}
-.tv-item{padding:10px 12px;border-radius:12px;font-weight:700;background:#0f141c;border:1px solid #1e2a38}
-.tv-item.stop{border-color:#4c1d1d}
-.tv-item.warn{border-color:#4a3113}
-.tv-item.stock{border-color:#11324e}
-.tv-legend{color:#cbd5e1;font-size:.9rem;margin-left:8px}
+.tv-item{padding:10px 12px;border-radius:12px;font-weight:700;background:#f8fafc;border:1px solid #e5e7eb}
+.tv-item.stop{border-color:#fecaca}
+.tv-item.warn{border-color:#fde68a}
+.tv-item.stock{border-color:#bfdbfe}
+.tv-legend{color:#334155;font-size:.9rem;margin-left:8px}
 
 .nowrap{white-space:nowrap}
 .num{text-align:right;font-variant-numeric:tabular-nums}
 .linkish{cursor:pointer}
 .hidden{display:none!important}
+
+/* Accesibilidad foco */
+button:focus, .linkish:focus, .page-btn:focus, select:focus, input:focus, textarea:focus {
+  outline:2px solid #60a5fa; outline-offset:2px
+}
 </style>
 </head>
 <body>
@@ -136,8 +185,8 @@ tr td:last-child,tr th:last-child{border-top-right-radius:12px;border-bottom-rig
           </select>
 
           <label class="small" style="margin-top:.4rem">Contraseña</label>
-          <div class="pw">
-            <input id="userPass" type="password" placeholder="••••••••">
+          <div class="pw" style="display:flex;gap:.4rem;align-items:center">
+            <input id="userPass" type="password" placeholder="••••••••" style="flex:1">
             <button type="button" class="pw-toggle" data-target="userPass" aria-label="Mostrar contraseña" aria-pressed="false">👁</button>
           </div>
 
@@ -149,12 +198,12 @@ tr td:last-child,tr th:last-child{border-top-right-radius:12px;border-bottom-rig
 
         <div class="row">
           <label class="small">Cambiar contraseña</label>
-          <div class="pw">
-            <input id="oldPass" type="password" placeholder="Actual">
+          <div class="pw" style="display:flex;gap:.4rem;align-items:center">
+            <input id="oldPass" type="password" placeholder="Actual" style="flex:1">
             <button type="button" class="pw-toggle" data-target="oldPass" aria-label="Mostrar contraseña" aria-pressed="false">👁</button>
           </div>
-          <div class="pw" style="margin-top:.4rem">
-            <input id="newPass" type="password" placeholder="Nueva">
+          <div class="pw" style="margin-top:.4rem;display:flex;gap:.4rem;align-items:center">
+            <input id="newPass" type="password" placeholder="Nueva" style="flex:1">
             <button type="button" class="pw-toggle" data-target="newPass" aria-label="Mostrar contraseña" aria-pressed="false">👁</button>
           </div>
           <div class="actions" style="margin-top:.6rem">
@@ -276,7 +325,7 @@ tr td:last-child,tr th:last-child{border-top-right-radius:12px;border-bottom-rig
       </div>
       <div style="margin-top:.6rem;display:flex;gap:.5rem;flex-wrap:wrap">
         <button id="btnAddOT" class="btn gloss" onclick="addOT()">Crear OT</button>
-        <button class="btn gloss" onclick="exportOTPDF()">Exportar listado (PDF)</button>
+        <button class="btn gloss" id="btnExportOTPDF" onclick="exportOTPDF()">Exportar listado (PDF)</button>
       </div>
     </div>
 
@@ -290,7 +339,7 @@ tr td:last-child,tr th:last-child{border-top-right-radius:12px;border-bottom-rig
     <div class="kpi">
       <div style="display:flex;align-items:center;gap:.8rem;flex-wrap:wrap">
         <h3 style="margin:0">Inventario de repuestos</h3>
-        <div id="invAlertWrap" class="badge-chip hidden" style="background:#3a1c1c;border-color:#7f1d1d;color:#fecaca;cursor:pointer" onclick="toggleInvAlerts()">Alertas</div>
+        <div id="invAlertWrap" class="badge-chip hidden" style="background:#fde2e2;border-color:#fecaca;color:#7f1d1d;cursor:pointer" onclick="toggleInvAlerts()">Alertas</div>
       </div>
       <div id="invAlerts" class="hidden" style="margin:.6rem 0"></div>
 
@@ -334,10 +383,15 @@ tr td:last-child,tr th:last-child{border-top-right-radius:12px;border-bottom-rig
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
+/* =========================
+   Config & utilidades
+========================= */
 const API_BASE="https://script.google.com/macros/s/AKfycbyf9lBLIXXKIBOCuERaVaNb8lUkASiYFblFX8_OHS7KMU7tBg0hgtOTfmtAOV59zUAQ/exec";
 
 const byId=id=>document.getElementById(id),
-      esc=s=>(s||"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m])).replace(/"/g,"&quot;"),
+     esc=s=>String(s||"").replace(/[&<>"']/g, m => ({
+  "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"
+}[m])),
       fmt=n=>(Math.round((+n||0)*100)/100).toFixed(2),
       fmtDate=d=>new Date(d).toLocaleString(),
       val=id=>byId(id).value,
@@ -347,28 +401,64 @@ function show(id){const n=byId(id);if(n)n.classList.remove("hidden")}
 function hide(id){const n=byId(id);if(n)n.classList.add("hidden")}
 function toggle(id){const n=byId(id);if(n)n.classList.toggle("hidden")}
 
+/* =========================
+   Roles
+========================= */
 const ROLE_MAP={"Administrador":"admin","Gerente":"gerente","Encargado":"encargado","Producción":"produccion","RT":"rt","Tco.INT":"tcoint","Subcontrata":"subc","Invitado":"guest"};
 let currentUser=JSON.parse(localStorage.getItem("CDL_USER")||'{"user":"invitado","rol":"Invitado","group":"guest"}');
 function setUser(u){currentUser=u;localStorage.setItem("CDL_USER",JSON.stringify(u));byId('roleChip').textContent=u.rol;applyRoleUI()}
-async function login(){const user=byId('userSelect').value;const pass=byId('userPass').value||"";const r=await apiPost({res:'auth',fn:'login',user,pass});if(!r.ok){alert("Error login: "+(r.error||"desconocido"));return}const group=ROLE_MAP[r.rol]||"guest";setUser({user,rol:r.rol,group});byId('userPanel').classList.add('hidden');byId('userPass').value=""}
+async function login(){
+  const user=byId('userSelect').value;const pass=byId('userPass').value||"";
+  const r=await apiPost({res:'auth',fn:'login',user,pass});
+  if(!r.ok){alert("Error login: "+(r.error||"desconocido"));return}
+  const group=ROLE_MAP[r.rol]||"guest";
+  setUser({user,rol:r.rol,group});
+  byId('userPanel').classList.add('hidden');byId('userPass').value="";
+}
 function logout(){setUser({user:"invitado",rol:"Invitado",group:"guest"})}
-async function changePwd(){const user=byId('userSelect').value,old=byId('oldPass').value||"",nu=byId('newPass').value||"";if(!old||!nu){byId('pwdMsg').textContent="Rellena ambas contraseñas.";return}const r=await apiPost({res:'auth',fn:'changepwd',user,old,nu});byId('pwdMsg').textContent=r.ok?"Contraseña cambiada.":"Error al cambiar (credenciales).";if(r.ok){byId('oldPass').value="";byId('newPass').value=""}}
+async function changePwd(){
+  const user=byId('userSelect').value,old=byId('oldPass').value||"",nu=byId('newPass').value||"";
+  if(!old||!nu){byId('pwdMsg').textContent="Rellena ambas contraseñas.";return}
+  const r=await apiPost({res:'auth',fn:'changepwd',user,old,nu});
+  byId('pwdMsg').textContent=r.ok?"Contraseña cambiada.":"Error al cambiar (credenciales).";
+  if(r.ok){byId('oldPass').value="";byId('newPass').value=""}
+}
 function applyRoleUI(){
   const g=currentUser.group;
   const showIf=(id,cond)=>{const el=byId(id);if(!el)return;el.classList.toggle('hidden',!cond)};
+  // Menú (ocultar a invitados)
   ['mIndic','mOT','mIncid','mInv','mGruas','mOtros','mTV'].forEach(id=>showIf(id,g!=="guest"));
-  ['btnExportIncidCSV','btnExportIncidPDF','btnExportKPIPCSV','btnExportKPIPDF','btnExportInvCSV'].forEach(id=>showIf(id,(g==="admin"||g==="gerente")));
-  if(byId('btnAddOT'))byId('btnAddOT').disabled=(g==="guest")
+  // Exportaciones permitidas a Admin/Gerente
+  ['btnExportIncidCSV','btnExportIncidPDF','btnExportKPIPCSV','btnExportKPIPDF','btnExportInvCSV','btnExportOTPDF']
+    .forEach(id=>showIf(id,(g==="admin"||g==="gerente")));
+  // Crear OT deshabilitado para invitados
+  if(byId('btnAddOT')) byId('btnAddOT').disabled = (g==="guest");
 }
-const userBtn=byId('userBtn'),pagesBtn=byId('pagesBtn');const userPanel=byId('userPanel'),pagesPanel=byId('pagesPanel');
+
+/* Menús desplegables */
+const userBtn=byId('userBtn'),pagesBtn=byId('pagesBtn');
+const userPanel=byId('userPanel'),pagesPanel=byId('pagesPanel');
 userBtn.addEventListener('click',e=>{e.stopPropagation();pagesPanel&&pagesPanel.classList.add('hidden');userPanel&&userPanel.classList.toggle('hidden')});
 pagesBtn.addEventListener('click',e=>{e.stopPropagation();userPanel&&userPanel.classList.add('hidden');pagesPanel&&pagesPanel.classList.toggle('hidden')});
-userPanel&&userPanel.addEventListener('click',e=>e.stopPropagation());pagesPanel&&pagesPanel.addEventListener('click',e=>e.stopPropagation());
-document.addEventListener('click',e=>{if(userPanel&&e.target!==userBtn&&!userPanel.contains(e.target))userPanel.classList.add('hidden');if(pagesPanel&&e.target!==pagesBtn&&!pagesPanel.contains(e.target))pagesPanel.classList.add('hidden')});
+userPanel&&userPanel.addEventListener('click',e=>e.stopPropagation());
+pagesPanel&&pagesPanel.addEventListener('click',e=>e.stopPropagation());
+document.addEventListener('click',e=>{
+  if(userPanel&&e.target!==userBtn&&!userPanel.contains(e.target))userPanel.classList.add('hidden');
+  if(pagesPanel&&e.target!==pagesBtn&&!pagesPanel.contains(e.target))pagesPanel.classList.add('hidden')
+});
+document.addEventListener('click',e=>{
+  const bt=e.target.closest('.pw-toggle');if(!bt)return;
+  const id=bt.getAttribute('data-target');const inp=document.getElementById(id);if(!inp)return;
+  const isPwd=inp.type==='password';inp.type=isPwd?'text':'password';bt.setAttribute('aria-pressed',isPwd?'true':'false')
+});
 
+/* API helpers */
 async function apiGet(q){const r=await fetch(API_BASE+"?"+new URLSearchParams(q));return r.json()}
 async function apiPost(o){const r=await fetch(API_BASE,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)});return r.json()}
 
+/* =========================
+   Navegación
+========================= */
 let CURRENT_PAGE='equipos';
 function nav(id){
   CURRENT_PAGE=id;
@@ -381,10 +471,13 @@ function nav(id){
   if(id==='indicadores'){calcKPIs();drawAllCharts()}
   if(id==='ot')loadOT();
   if(id==='inventario')loadInv();
-  if(id==='tv')loadTV();
+  if(id==='tv')initTV();
   window.scrollTo({top:0,behavior:"smooth"})
 }
 
+/* =========================
+   Estado equipos
+========================= */
 let STATE=[];
 function statusKey(s){return s==="Parada"?"stop":(s==="Restricciones"?"warn":"ok")}
 async function loadState(){
@@ -408,7 +501,7 @@ function renderState(){
 }
 function groupBlock(title,items){
   const d=document.createElement('div');
-  d.innerHTML=`<h3 style="margin:10px 0;color:#cbd5e1">${esc(title)}</h3>`;
+  d.innerHTML=`<h3 style="margin:10px 0;color:#0f172a">${esc(title)}</h3>`;
   items.forEach(eq=>d.appendChild(cardEquipo(eq)));
   return d
 }
@@ -419,10 +512,39 @@ function renderSubGroup(match,target){
   for(const[g,arr] of Object.entries(groups)) wrap.appendChild(groupBlock(g,arr))
 }
 function cardEquipo(eq){
-  const safeName=eq.nombre.replace(/'/g,"\\'");
+  const safeName = JSON.stringify(eq.nombre).slice(1,-1);
   const el=document.createElement('div');el.className='card';
-  el.innerHTML=`<div style="display:flex;gap:.7rem;align-items:center;min-width:240px"><span class="pilot ${'p-'+statusKey(eq.estado)}"></span><div><div class="name link" onclick="openEquipoByName('${safeName}')">${esc(eq.nombre)} <span class="qr-s" title="QR"></span></div><div class="sub">${esc(eq.grupo)}</div></div></div><div class="semaforo" data-name="${esc(eq.nombre)}"><div class="opt ${statusKey(eq.estado)==='ok'?'active':''}" data-k="ok"><span class="led"></span>En marcha</div><div class="opt ${statusKey(eq.estado)==='warn'?'active':''}" data-k="warn"><span class="led"></span>Restricciones</div><div class="opt ${statusKey(eq.estado)==='stop'?'active':''}" data-k="stop"><span class="led"></span>Parada</div></div><div class="right"><button class="btn gloss" onclick="estadoConIncid('${safeName}','Parada','programada')"><span class="dot"></span>Parada programada</button><button class="btn gloss btn-mail" onclick="accionParadaProlongada('${safeName}')"><span class="dot"></span>Parada prolongada</button><button class="btn gloss" onclick="openFicha('${safeName}')">Ficha</button><button class="btn gloss" onclick="estadoConIncid('${safeName}','Nueva')">Nueva incidencia</button></div>`;
-  setTimeout(()=>{el.querySelectorAll('.semaforo .opt').forEach(o=>o.addEventListener('click',async e=>{const name=el.querySelector('.semaforo').dataset.name;const k=e.currentTarget.getAttribute('data-k');const estado=k==='ok'?'En marcha':k==='warn'?'Restricciones':'Parada';await setEstado(name,estado);el.querySelectorAll('.semaforo .opt').forEach(x=>x.classList.remove('active'));e.currentTarget.classList.add('active')}))},0);
+  el.innerHTML=`
+    <div style="display:flex;gap:.7rem;align-items:center;min-width:240px">
+      <span class="pilot ${'p-'+statusKey(eq.estado)}"></span>
+      <div>
+        <div class="name link" onclick="openEquipoByName('${safeName}')">
+          ${esc(eq.nombre)} <span class="qr-s" title="QR"></span>
+        </div>
+        <div class="sub">${esc(eq.grupo)}</div>
+      </div>
+    </div>
+    <div class="semaforo" data-name="${esc(eq.nombre)}">
+      <div class="opt ${statusKey(eq.estado)==='ok'?'active':''}" data-k="ok"><span class="led"></span>En marcha</div>
+      <div class="opt ${statusKey(eq.estado)==='warn'?'active':''}" data-k="warn"><span class="led"></span>Restricciones</div>
+      <div class="opt ${statusKey(eq.estado)==='stop'?'active':''}" data-k="stop"><span class="led"></span>Parada</div>
+    </div>
+    <div class="right">
+      <button class="btn gloss" onclick="estadoConIncid('${safeName}','Parada','programada')"><span class="dot"></span>Parada programada</button>
+      <button class="btn gloss btn-mail" onclick="accionParadaProlongada('${safeName}')"><span class="dot"></span>Parada prolongada</button>
+      <button class="btn gloss" onclick="openFicha('${safeName}')">Ficha</button>
+      <button class="btn gloss" onclick="estadoConIncid('${safeName}','Nueva')">Nueva incidencia</button>
+    </div>`;
+  setTimeout(()=>{
+    el.querySelectorAll('.semaforo .opt').forEach(o=>o.addEventListener('click',async e=>{
+      const name=el.querySelector('.semaforo').dataset.name;
+      const k=e.currentTarget.getAttribute('data-k');
+      const estado=k==='ok'?'En marcha':k==='warn'?'Restricciones':'Parada';
+      await setEstado(name,estado);
+      el.querySelectorAll('.semaforo .opt').forEach(x=>x.classList.remove('active'));
+      e.currentTarget.classList.add('active')
+    }))
+  },0);
   return el
 }
 async function setEstado(name,estado){
@@ -433,28 +555,32 @@ async function setEstado(name,estado){
 function estadoConIncid(name,estado,modo){
   if(estado!=="Nueva"){setEstado(name,estado==="Parada"&&modo==="programada"?"Parada":estado)}
   nav('incidencias');
-  setTimeout(()=>{byId('iEquipo').value=name;byId('iTipo').value=modo==="programada"?"Preventivo":"Correctivo";byId('iRes').value=estado==="Restricciones"?"Con restricciones":(estado==="Nueva"?"Solucionado":"Parada");byId('iDesc').focus()},120)
+  setTimeout(()=>{
+    byId('iEquipo').value=name;
+    byId('iTipo').value=modo==="programada"?"Preventivo":"Correctivo";
+    byId('iRes').value=estado==="Restricciones"?"Con restricciones":(estado==="Nueva"?"Solucionado":"Parada");
+    byId('iDesc').focus()
+  },120)
 }
 async function accionParadaProlongada(name){
   if(currentUser.group==="guest"){alert("Inicia sesión para marcar paradas.");return}
-  await apiPost({res:'alert',fn:'parada',equipo:name,actor:currentUser.user});await loadState()
+  await apiPost({res:'alert',fn:'parada',equipo:name,actor:currentUser.user});
+  await loadState()
 }
 function openFicha(name){openEquipoByName(name)}
 
+/* =========================
+   Incidencias
+========================= */
 let INCIDS_ALL=[];let INCID_PAGE=1,INCID_PAGE_SIZE=10,INCID_SORT_KEY='fecha',INCID_SORT_DIR='desc',_INCID_LAST_Q="";
 function resetIncidFilters(){['fEquipo','fTipo','fRes','filtroIncid'].forEach(id=>{const el=byId(id);if(el)el.value=""});renderIncidTable()}
-/* === BLOQUE INCIDENCIAS: sustituir todo tu código roto por este === */
 
-// Registrar incidencia
 async function addIncid(){
   if(currentUser.group==="guest"){
     alert("Inicia sesión para registrar incidencias.");
     return;
   }
-
-  // (Opcional) desactivar botón para evitar doble envío
-const btn = document.getElementById('btnAddIncid');
-if (btn) btn.disabled = true;
+  const btn = byId('btnAddIncid'); if (btn) btn.disabled = true;
 
   const item = {
     equipo:      val('iEquipo'),
@@ -468,7 +594,7 @@ if (btn) btn.disabled = true;
     fin:         val('iFin')||'',
     reportante:  (val('iReport')||'').trim(),
     asignado:    (val('iAsignado')||'').trim(),
-    adj:         '', // de momento no usamos adjuntos
+    adj:         '',
     desc:        (val('iDesc')||'').trim()
   };
 
@@ -481,17 +607,12 @@ if (btn) btn.disabled = true;
   try{
     const r = await apiPost({res:'incid', fn:'add', item, actor: currentUser.user});
     if(!r?.ok){ throw new Error('No se pudo guardar'); }
-
     toast('Incidencia registrada');
-
-    // Limpieza rápida del formulario
     ['iRepTxt','iHParo','iHRep','iInicio','iFin','iReport','iAsignado','iDesc']
       .forEach(id => { const el=byId(id); if(el){ el.value = (id==='iHParo'||id==='iHRep') ? 0 : '' }});
     byId('iRep').value='No';
     byId('iTipo').value='Correctivo';
     byId('iRes').value='Solucionado';
-
-    // Refrescar listado y estados
     await loadIncid();
     await loadState();
   }catch(err){
@@ -502,7 +623,6 @@ if (btn) btn.disabled = true;
   }
 }
 
-// Cargar incidencias + combos + filtros
 async function loadIncid(){
   const st = await apiGet({res:'state',fn:'list'}); 
   STATE = st.ok ? st.items : [];
@@ -520,7 +640,6 @@ async function loadIncid(){
   renderIncidTable();
 }
 
-// Rellena los combos de filtros
 function buildIncidFilters(){
   const equipos = [...new Set(INCIDS_ALL.map(x=>x.equipo).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
   const tipos   = [...new Set(INCIDS_ALL.map(x=>x.tipo).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
@@ -530,36 +649,59 @@ function buildIncidFilters(){
   byId('fTipo').innerHTML   = `<option value="">Tipo: todos</option>` + ["Correctivo","Preventivo","Predictivo","Mejora",...tipos].map(n=>`<option>${esc(n)}</option>`).join('');
   byId('fRes').innerHTML    = `<option value="">Resultado: todos</option>` + ["Solucionado","Con restricciones","Parada",...resul].map(n=>`<option>${esc(n)}</option>`).join('');
 }
-
-/* === FIN BLOQUE INCIDENCIAS === */
 function setIncidPage(n){INCID_PAGE=Math.max(1,n);renderIncidTable()}
 function setIncidPageSize(n){INCID_PAGE_SIZE=+n||10;INCID_PAGE=1;renderIncidTable()}
-function thBtn(label,key){const act=(INCID_SORT_KEY===key);const dirCls=act?(INCID_SORT_DIR==='asc'?'▲':'▼'):'↕';return `<button class="page-btn" onclick="setIncidSort('${key}')">${label} ${dirCls}</button>`}
-function setIncidSort(key){if(INCID_SORT_KEY===key){INCID_SORT_DIR=INCID_SORT_DIR==='asc'?'desc':'asc'}else{INCID_SORT_KEY=key;INCID_SORT_DIR=(key==='fecha'?'desc':'asc')}renderIncidTable()}
-function pagerControls(total,page,size){
+
+/* Encabezados con flechas */
+function thBtn(label,key,isIncid=true){
+  const act=(isIncid?INCID_SORT_KEY:OT_SORT_KEY)===key;
+  const dir=(isIncid?INCID_SORT_DIR:OT_SORT_DIR);
+  const dirCls=act?(dir==='asc'?'▲':'▼'):'↕';
+  const fn=isIncid?`setIncidSort('${key}')`:`setOTSort('${key}')`;
+  return `<button class="page-btn" onclick="${fn}">${label} ${dirCls}</button>`
+}
+function setIncidSort(key){
+  if(INCID_SORT_KEY===key){INCID_SORT_DIR=INCID_SORT_DIR==='asc'?'desc':'asc'}
+  else{INCID_SORT_KEY=key;INCID_SORT_DIR=(key==='fecha'?'desc':'asc')}
+  renderIncidTable()
+}
+
+function pagerControls(total,page,size,setter='setIncidPage',sizeSetter='setIncidPageSize'){
   const pages=Math.max(1,Math.ceil(total/size));
   const start=(page-1)*size+1;const end=Math.min(total,page*size);
   let from=Math.max(1,page-2),to=Math.min(pages,from+4);from=Math.max(1,to-4);
-  const nums=[];for(let i=from;i<=to;i++)nums.push(`<button class="page-btn ${i===page?'active':''}" onclick="setIncidPage(${i})">${i}</button>`);
-  return `<div class="pager"><div class="info">Mostrando ${total?start:0}–${end} de ${total}</div><label>Filas <select class="page-btn" onchange="setIncidPageSize(this.value)"><option ${size===10?'selected':''}>10</option><option ${size===25?'selected':''}>25</option><option ${size===50?'selected':''}>50</option></select></label><button class="page-btn" onclick="setIncidPage(${page-1})" ${page<=1?'disabled':''}>‹</button>${nums.join('')}<button class="page-btn" onclick="setIncidPage(${page+1})" ${page>=pages?'disabled':''}>›</button></div>`
+  const nums=[];for(let i=from;i<=to;i++)nums.push(`<button class="page-btn ${i===page?'active':''}" onclick="${setter}(${i})">${i}</button>`);
+  return `<div class="pager">
+    <div class="info">Mostrando ${total?start:0}–${end} de ${total}</div>
+    <label>Filas <select class="page-btn" onchange="${sizeSetter}(this.value)">
+      <option ${size===10?'selected':''}>10</option>
+      <option ${size===25?'selected':''}>25</option>
+      <option ${size===50?'selected':''}>50</option>
+    </select></label>
+    <button class="page-btn" onclick="${setter}(${page-1})" ${page<=1?'disabled':''}>‹</button>
+    ${nums.join('')}
+    <button class="page-btn" onclick="${setter}(${page+1})" ${page>=pages?'disabled':''}>›</button>
+  </div>`
 }
 function badgeTipo(t){
   const k=(t||'').toLowerCase();
-  if(k.startsWith('corre'))return`<span class="badge-chip" style="background:#2a1b1b;border-color:#7f1d1d">Correctivo</span>`;
-  if(k.startsWith('preven'))return`<span class="badge-chip" style="background:#11283e;border-color:#134e8e">Preventivo</span>`;
-  if(k.startsWith('pred'))return`<span class="badge-chip" style="background:#2d1b3a;border-color:#5b21b6">Predictivo</span>`;
-  if(k.startsWith('mej'))return`<span class="badge-chip" style="background:#0f2f28;border-color:#065f46">Mejora</span>`;
+  if(k.startsWith('corre'))return`<span class="badge-chip" style="background:#fff5f5;border-color:#fecaca">Correctivo</span>`;
+  if(k.startsWith('preven'))return`<span class="badge-chip" style="background:#eff6ff;border-color:#bfdbfe">Preventivo</span>`;
+  if(k.startsWith('pred'))return`<span class="badge-chip" style="background:#f5f3ff;border-color:#ddd6fe">Predictivo</span>`;
+  if(k.startsWith('mej'))return`<span class="badge-chip" style="background:#ecfdf5;border-color:#a7f3d0">Mejora</span>`;
   return`<span class="badge-chip">${esc(t||'')}</span>`
 }
 function badgeRes(r){
   const k=(r||'').toLowerCase();
-  if(k.startsWith('solu'))return`<span class="badge-chip" style="background:#0f2f28;border-color:#065f46">Solucionado</span>`;
-  if(k.includes('restr'))return`<span class="badge-chip" style="background:#3b2a14;border-color:#92400e">Restricciones</span>`;
-  if(k.startsWith('para'))return`<span class="badge-chip" style="background:#2a1b1b;border-color:#7f1d1d">Parada</span>`;
+  if(k.startsWith('solu'))return`<span class="badge-chip" style="background:#ecfdf5;border-color:#a7f3d0">Solucionado</span>`;
+  if(k.includes('restr'))return`<span class="badge-chip" style="background:#fff7ed;border-color:#fed7aa">Restricciones</span>`;
+  if(k.startsWith('para'))return`<span class="badge-chip" style="background:#fff5f5;border-color:#fecaca">Parada</span>`;
   return`<span class="badge-chip">${esc(r||'')}</span>`
 }
 function renderIncidTable(){
-  const q=(byId('filtroIncid')?.value||"").toLowerCase(),fEq=byId('fEquipo')?.value||"",fTip=byId('fTipo')?.value||"",fRes=byId('fRes')?.value||"";
+  var _f = byId('filtroIncid');
+  const q=((_f && _f.value) ? _f.value : "").toLowerCase(),
+        fEq=byId('fEquipo')?.value||"",fTip=byId('fTipo')?.value||"",fRes=byId('fRes')?.value||"";
   const key=JSON.stringify({q,fEq,fTip,fRes});if(key!==_INCID_LAST_Q){INCID_PAGE=1;_INCID_LAST_Q=key}
   let filtered=INCIDS_ALL.filter(x=>{
     const txt=JSON.stringify(x).toLowerCase().includes(q);
@@ -583,17 +725,50 @@ function renderIncidTable(){
     if(typeof A==='string'&&typeof B==='string')return A.localeCompare(B,'es')*dir;
     return (A===B?0:(A>B?1:-1))*dir
   });
-  const total=filtered.length;const pages=Math.max(1,Math.ceil(total/INCID_PAGE_SIZE));const page=Math.min(INCID_PAGE,pages);
+  const total=filtered.length;const pages=Math.max(1,Math.ceil(total/INCID_PAGE_SIZE));
+  const page=Math.min(INCID_PAGE,pages);
   const startIndex=(page-1)*INCID_PAGE_SIZE;const pageItems=filtered.slice(startIndex,startIndex+INCID_PAGE_SIZE);
   const rows=pageItems.map(x=>{
     const desc=String(x.desc||"");const preview=desc&&desc.length>60?desc.slice(0,57)+"…":(desc||"Ver descripción");
-    return`<tr><td class="nowrap">${fmtDate(x.created)}</td><td><b>${esc(x.equipo)}</b></td><td>${badgeTipo(x.tipo)}</td><td>${badgeRes(x.res)}</td><td><details><summary>${esc(preview)}</summary><div>${esc(desc)}</div></details></td><td class="num">${fmt(x.hParo)}</td><td class="num">${fmt(x.hRep)}</td></tr>`
+    return`<tr>
+      <td class="nowrap">${fmtDate(x.created)}</td>
+      <td><b>${esc(x.equipo)}</b></td>
+      <td>${badgeTipo(x.tipo)}</td>
+      <td>${badgeRes(x.res)}</td>
+      <td><details><summary>${esc(preview)}</summary><div>${esc(desc)}</div></details></td>
+      <td class="num">${fmt(x.hParo)}</td>
+      <td class="num">${fmt(x.hRep)}</td>
+    </tr>`
   }).join('');
-  byId('incidTableWrap').innerHTML=`<table><thead><tr><th>${thBtn('Fecha','fecha')}</th><th>${thBtn('Equipo','equipo')}</th><th>${thBtn('Tipo','tipo')}</th><th>${thBtn('Resultado','res')}</th><th>Descripción</th><th>${thBtn('Parada (h)','hParo')}</th><th>${thBtn('Reparación (h)','hRep')}</th></tr></thead><tbody>${rows}</tbody></table>${pagerControls(total,page,INCID_PAGE_SIZE)}`
+  byId('incidTableWrap').innerHTML=`
+    <table>
+      <thead>
+        <tr>
+          <th>${thBtn('Fecha','fecha',true)}</th>
+          <th>${thBtn('Equipo','equipo',true)}</th>
+          <th>${thBtn('Tipo','tipo',true)}</th>
+          <th>${thBtn('Resultado','res',true)}</th>
+          <th>Descripción</th>
+          <th>${thBtn('Parada (h)','hParo',true)}</th>
+          <th>${thBtn('Reparación (h)','hRep',true)}</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+    ${pagerControls(total,page,INCID_PAGE_SIZE,'setIncidPage','setIncidPageSize')}
+  `;
 }
 
+/* =========================
+   KPIs + Gráficos
+========================= */
 function groupByWeek(arr){
-  const g={};for(const x of arr){const d=new Date(x.created);const a=new Date(Date.UTC(d.getFullYear(),0,1));const n=Math.floor((d-a)/86400000)+a.getUTCDay();const w=`${d.getFullYear()}-W${Math.floor(n/7)+1}`;(g[w]??=[]).push(x)}return g
+  const g={};for(const x of arr){
+    const d=new Date(x.created);
+    const a=new Date(Date.UTC(d.getFullYear(),0,1));
+    const n=Math.floor((d-a)/86400000)+a.getUTCDay();
+    const w=`${d.getFullYear()}-W${Math.floor(n/7)+1}`;(g[w]??=[]).push(x)}
+  return g
 }
 function kpiMTTR(list){const s=list.reduce((p,x)=>p+(+x.hRep||0),0);const n=list.length||1;return s/n}
 function kpiMTBF(list){const horas=4*30*24;const fallas=list.length||1;return horas/fallas}
@@ -606,7 +781,7 @@ function calcKPIs(){
 let charts={};
 function draw(id,labels,data,label){
   const ctx=byId(id).getContext('2d');if(charts[id])charts[id].destroy();
-  charts[id]=new Chart(ctx,{type:'line',data:{labels,datasets:[{label,borderWidth:2,pointRadius:0,data}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#cbd5e1'}},y:{ticks:{color:'#cbd5e1'}}}})}
+  charts[id]=new Chart(ctx,{type:'line',data:{labels,datasets:[{label,borderWidth:2,pointRadius:0,data}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#0f172a'}},y:{ticks:{color:'#0f172a'}}}})}
 function drawAllCharts(){
   const weeks=groupByWeek(INCIDS_ALL),labels=Object.keys(weeks).sort();
   draw('chartMttr',labels,labels.map(w=>kpiMTTR(weeks[w])),'MTTR');
@@ -615,6 +790,9 @@ function drawAllCharts(){
   draw('chartOee',labels,labels.map(w=>kpiOEE(kpiDisp(weeks[w]))*100),'OEE %')
 }
 
+/* =========================
+   OT
+========================= */
 let OTS=[];let OT_PAGE=1,OT_PAGE_SIZE=10,OT_SORT_KEY='fecha',OT_SORT_DIR='desc';
 async function loadOT(){
   const st=await apiGet({res:'state',fn:'list'});STATE=st.ok?st.items:[];
@@ -622,7 +800,13 @@ async function loadOT(){
   byId('otEquipo').innerHTML=STATE.map(x=>`<option>${esc(x.nombre)}</option>`).join('');
   renderOT()
 }
-function setOTSort(key){if(OT_SORT_KEY===key){OT_SORT_DIR=(OT_SORT_DIR==='asc'?'desc':'asc')}else{OT_SORT_KEY=key;OT_SORT_DIR=(key==='fecha'?'desc':'asc')}renderOT()}
+function setOTSort(key){
+  if(OT_SORT_KEY===key){OT_SORT_DIR=(OT_SORT_DIR==='asc'?'desc':'asc')}
+  else{OT_SORT_KEY=key;OT_SORT_DIR=(key==='fecha'?'desc':'asc')}
+  renderOT()
+}
+function setOTPage(n){OT_PAGE=Math.max(1,n);renderOT()}
+function setOTPageSize(n){OT_PAGE_SIZE=+n||10;OT_PAGE=1;renderOT()}
 function renderOT(){
   let arr=[...OTS];const dir=(OT_SORT_DIR==='asc'?1:-1);
   arr.sort((a,b)=>{
@@ -640,25 +824,67 @@ function renderOT(){
   });
   const total=arr.length;const pages=Math.max(1,Math.ceil(total/OT_PAGE_SIZE));OT_PAGE=Math.min(OT_PAGE,pages);
   const start=(OT_PAGE-1)*OT_PAGE_SIZE;arr=arr.slice(start,start+OT_PAGE_SIZE);
-  const rows=arr.map(o=>`<tr><td class="nowrap">${fmtDate(o.created)}</td><td><b>${esc(o.titulo||'')}</b><div class="sub">${esc(o.equipo)}</div></td><td>${esc(o.prioridad||'')}</td><td>${esc(o.asignado||'')}</td><td class="nowrap">${esc(o.vencimiento||'')}</td><td>${esc(o.estado||'')}</td></tr>`).join('');
-  byId('otTableWrap').innerHTML=`<table><thead><tr><th>${tblBtn('Fecha','fecha')}</th><th>${tblBtn('OT','titulo')}</th><th>${tblBtn('Prioridad','prioridad')}</th><th>${tblBtn('Asignado','asignado')}</th><th>${tblBtn('Vence','vence')}</th><th>${tblBtn('Estado','estado')}</th></tr></thead><tbody>${rows}</tbody></table>${pagerControls(total,OT_PAGE,OT_PAGE_SIZE)}`
+  const rows=arr.map(o=>`<tr>
+    <td class="nowrap">${fmtDate(o.created)}</td>
+    <td><b>${esc(o.titulo||'')}</b><div class="sub">${esc(o.equipo)}</div></td>
+    <td>${esc(o.prioridad||'')}</td>
+    <td>${esc(o.asignado||'')}</td>
+    <td class="nowrap">${esc(o.vencimiento||'')}</td>
+    <td>${esc(o.estado||'')}</td>
+  </tr>`).join('');
+  byId('otTableWrap').innerHTML=`
+    <table>
+      <thead>
+        <tr>
+          <th>${thBtn('Fecha','fecha',false)}</th>
+          <th>${thBtn('OT','titulo',false)}</th>
+          <th>${thBtn('Prioridad','prioridad',false)}</th>
+          <th>${thBtn('Asignado','asignado',false)}</th>
+          <th>${thBtn('Vence','vence',false)}</th>
+          <th>${thBtn('Estado','estado',false)}</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+    ${pagerControls(total,OT_PAGE,OT_PAGE_SIZE,'setOTPage','setOTPageSize')}
+  `;
 }
-function tblBtn(l,k){return`<button class="page-btn" onclick="setOTSort('${k}')">${l}</button>`}
 async function addOT(){
   if(currentUser.group==="guest"){alert("Tu rol no puede crear OT.");return}
-  if(!val('otEquipo')||!val('otPri')||!(val('otTitulo')||'').trim()||!val('otDue')){alert('Completa los campos obligatorios');return}
+  if(!val('otEquipo')||!val('otPri')||!(val('otTitulo')||'').trim()||!val('otDue')){
+    alert('Completa los campos obligatorios');return}
   const item={equipo:val('otEquipo'),prioridad:val('otPri'),titulo:val('otTitulo').trim(),asignado:val('otAsign'),vencimiento:val('otDue'),adj:val('otAdj'),desc:(val('otDesc')||'').trim()};
   await apiPost({res:'ot',fn:'add',item,actor:currentUser.user});
   toast('OT creada');['otTitulo','otAsign','otAdj','otDesc'].forEach(id=>byId(id).value='');await loadOT()
 }
 function exportOTPDF(){
-  const g=currentUser.group;if(!(g==="admin"||g==="gerente"||g==="tco"))return alert("No permitido");
-  const win=window.open('','_blank');
-  const rows=OTS.map(o=>`<tr><td>${fmtDate(o.created)}</td><td>${esc(o.titulo)}</td><td>${esc(o.equipo)}</td><td>${o.prioridad}</td><td>${esc(o.asignado)}</td><td>${esc(o.vencimiento)}</td></tr>`).join('');
-  win.document.write(`<!doctype html><meta charset="utf-8"><title>OT</title><style>body{font-family:Inter,sans-serif;padding:16px}table{width:100%;border-collapse:collapse}td,th{border:1px solid #ddd;padding:8px}</style><h2>Órdenes de trabajo</h2><table><tr><th>Fecha</th><th>Título</th><th>Equipo</th><th>Prioridad</th><th>Asignado</th><th>Vence</th></tr>${rows}</table>`);
-  win.document.close()
+  const g=currentUser.group;
+  if(!(g==="admin"||g==="gerente"||g==="tcoint")){ alert("No permitido"); return; }
+
+  const w=window.open('','_blank','noopener,noreferrer');
+  if(!w){ alert('La ventana emergente fue bloqueada por el navegador.'); return; }
+  w.opener = null;
+
+  const rows=OTS.map(o=>`<tr>
+    <td>${fmtDate(o.created)}</td>
+    <td>${esc(o.titulo||'')}</td>
+    <td>${esc(o.equipo||'')}</td>
+    <td>${esc(o.prioridad||'')}</td>
+    <td>${esc(o.asignado||'')}</td>
+    <td>${esc(o.vencimiento||'')}</td>
+  </tr>`).join('');
+
+  w.document.write(`<!doctype html><meta charset="utf-8"><title>OT</title>
+  <style>body{font-family:Inter,sans-serif;padding:16px}
+  table{width:100%;border-collapse:collapse}td,th{border:1px solid #ddd;padding:8px}</style>
+  <h2>Órdenes de trabajo</h2>
+  <table><tr><th>Fecha</th><th>Título</th><th>Equipo</th><th>Prioridad</th><th>Asignado</th><th>Vence</th></tr>${rows}</table>`);
+  w.document.close();
 }
 
+/* =========================
+   Inventario
+========================= */
 let INV=[];let INV_PAGE=1,INV_PAGE_SIZE=10,INV_SORT_KEY='ref',INV_SORT_DIR='asc';
 async function loadInv(){const j=await apiGet({res:'inv',fn:'list'});INV=j.ok?j.items:[];renderInv();renderInvAlerts()}
 function toggleInvAlerts(){byId('invAlerts').classList.toggle('hidden')}
@@ -668,9 +894,11 @@ function renderInvAlerts(){
   else{wrap.classList.add('hidden');byId('invAlerts').innerHTML=''}
 }
 function setInvSort(key){if(INV_SORT_KEY===key){INV_SORT_DIR=INV_SORT_DIR==='asc'?'desc':'asc'}else{INV_SORT_KEY=key;INV_SORT_DIR='asc'}renderInv()}
+function setInvPage(n){INV_PAGE=Math.max(1,n);renderInv()}
+function setInvPageSize(n){INV_PAGE_SIZE=+n||10;INV_PAGE=1;renderInv()}
 function renderInv(){
   const q=(byId('invSearch').value||"").toLowerCase();
-  let arr=INV.filter(x=>(x.nombre+x.ref).toLowerCase().includes(q));
+  let arr=INV.filter(x=>(String(x.nombre||'')+String(x.ref||'')).toLowerCase().includes(q));
   const dir=(INV_SORT_DIR==='asc'?1:-1);
   arr.sort((a,b)=>{
     let A,B;switch(INV_SORT_KEY){
@@ -686,19 +914,31 @@ function renderInv(){
   const total=arr.length;const pages=Math.max(1,Math.ceil(total/INV_PAGE_SIZE));INV_PAGE=Math.min(INV_PAGE,pages);
   const start=(INV_PAGE-1)*INV_PAGE_SIZE;arr=arr.slice(start,start+INV_PAGE_SIZE);
   const rows=arr.map(x=>{
-    const low=(+x.stock||0)<= (+x.minimo||0);const refEsc=String(x.ref||'').replace(/'/g,"\\'");
+    const low=(+x.stock||0)<= (+x.minimo||0);const refEsc = JSON.stringify(String(x.ref||'')).slice(1,-1);
     return `<tr class="${low?'row-low':''}">
-      <td><b>${esc(x.ref)}</b> <span class="qr-s" title="QR" onclick="openRepuestoByRef('${refEsc}')"></span>
+      <td><b>${esc(x.ref||'')}</b> <span class="qr-s" title="QR" onclick="openRepuestoByRef('${refEsc}')"></span>
         <div class="sub">${esc(x.nombre||'')}</div>
         ${low?`<div class="badge-low" style="display:inline-flex;gap:.35rem;padding:.18rem .5rem;border-radius:999px;font-weight:800">Bajo mínimo</div>`:''}
       </td>
-      <td class="num"><span class="linkish" onclick="editStock('${refEsc}',${+x.stock||0})">${+x.stock||0}</span></td>
+      <td class="num"><span class="linkish" tabindex="0" onclick="editStock('${refEsc}',${+x.stock||0})">${+x.stock||0}</span></td>
       <td class="num">${+x.minimo||0}</td>
-      <td><button class="btn gloss" onclick="delta('${refEsc}',-1)">–1</button> <button class="btn gloss" onclick="delta('${refEsc}',+1)">+1</button> <button class="btn gloss" onclick="openRepuestoByRef('${refEsc}')">QR</button></td>
+      <td>
+        <button class="btn gloss" onclick="delta('${refEsc}',-1)">–1</button>
+        <button class="btn gloss" onclick="delta('${refEsc}',+1)">+1</button>
+        <button class="btn gloss" onclick="openRepuestoByRef('${refEsc}')">QR</button>
+      </td>
     </tr>`
   }).join('');
-  const thBtn=(label,key)=>`<button class="page-btn" onclick="setInvSort('${key}')">${label}</button>`;
-  byId('invTableWrap').innerHTML=`<table><thead><tr><th>${thBtn('Repuesto','ref')}</th><th>${thBtn('Stock','stock')}</th><th>${thBtn('Mínimo','minimo')}</th><th>Acciones</th></tr></thead><tbody>${rows}</tbody></table>${pagerControls(total,INV_PAGE,INV_PAGE_SIZE)}`;
+  const th=(label,key)=>`<button class="page-btn" onclick="setInvSort('${key}')">${label} ${INV_SORT_KEY===key?(INV_SORT_DIR==='asc'?'▲':'▼'):'↕'}</button>`;
+  byId('invTableWrap').innerHTML=`
+    <table><thead><tr>
+      <th>${th('Repuesto','ref')}</th>
+      <th>${th('Stock','stock')}</th>
+      <th>${th('Mínimo','minimo')}</th>
+      <th>Acciones</th>
+    </tr></thead><tbody>${rows}</tbody></table>
+    ${pagerControls(total,INV_PAGE,INV_PAGE_SIZE,'setInvPage','setInvPageSize')}
+  `;
   renderInvAlerts()
 }
 async function addInv(){
@@ -708,7 +948,10 @@ async function addInv(){
   await apiPost({res:'inv',fn:'add',item:{nombre,ref,stock:Math.floor(stock),minimo:Math.floor(minimo)},actor:currentUser.user});
   toast('Repuesto añadido');['invNombre','invRef','invStock','invMin'].forEach(id=>byId(id).value='');await loadInv()
 }
-async function delta(ref,d){if(currentUser.group==="guest"){alert("Inicia sesión para modificar stock.");return}await apiPost({res:'inv',fn:'delta',ref,delta:+d||0,actor:currentUser.user});await loadInv()}
+async function delta(ref,d){
+  if(currentUser.group==="guest"){alert("Inicia sesión para modificar stock.");return}
+  await apiPost({res:'inv',fn:'delta',ref,delta:+d||0,actor:currentUser.user});await loadInv()
+}
 async function editStock(ref,cur){
   if(currentUser.group==="guest"){alert("Inicia sesión para modificar stock.");return}
   const nv=prompt("Nuevo stock para "+ref,cur);if(nv===null)return;
@@ -718,11 +961,14 @@ async function editStock(ref,cur){
   await apiPost({res:'inv',fn:'delta',ref,delta:change,actor:currentUser.user});await loadInv()
 }
 
+/* =========================
+   Dashboard TV
+========================= */
 let TV_TIMER=null;
-async function loadTV(){
+async function loadTVOnce(){
   const st=await apiGet({res:'state',fn:'list'});STATE=st.ok?st.items:[];
   const inv=await apiGet({res:'inv',fn:'list'});INV=inv.ok?inv.items:[];
-  renderTV();if(TV_TIMER)clearInterval(TV_TIMER);TV_TIMER=setInterval(()=>loadTV(),10000)
+  renderTV();
 }
 function renderTV(){
   const par=STATE.filter(x=>x.estado==='Parada');const res=STATE.filter(x=>x.estado==='Restricciones');const low=INV.filter(x=>+x.stock<=+x.minimo);
@@ -730,7 +976,15 @@ function renderTV(){
   byId('tvRestr').innerHTML=res.length?res.map(x=>`<div class="tv-item warn">RESTRICCIONES — ${esc(x.nombre)}</div>`).join(''):`<div class="tv-item">Sin restricciones</div>`;
   byId('tvStock').innerHTML=low.length?low.map(x=>`<div class="tv-item stock">BAJO MÍNIMO — ${esc(x.ref)} · ${esc(x.nombre)} (${x.stock}/${x.minimo})</div>`).join(''):`<div class="tv-item">Stock correcto</div>`
 }
+function initTV(){
+  loadTVOnce();
+  if(TV_TIMER) clearInterval(TV_TIMER);
+  TV_TIMER=setInterval(loadTVOnce,10000);
+}
 
+/* =========================
+   Detalles (QR / routing)
+========================= */
 function slugify(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'')}
 function baseURL(){return location.origin+location.pathname}
 function ensureSectionsHidden(){['equipos','gruas','otros','incidencias','indicadores','ot','inventario','tv','equipo','repuesto'].forEach(s=>{const el=byId('page-'+s);if(el)el.classList.add('hidden')})}
@@ -743,7 +997,7 @@ function renderEquipoBySlug(slug){
   const inc=INCIDS_ALL.filter(i=>i.equipo===eq.nombre).sort((a,b)=>new Date(b.created)-new Date(a.created));
   const qrText=`${baseURL()}#/equipo/${slug}`;
   const htmlInc=inc.length?inc.map(i=>`<tr><td class="nowrap">${fmtDate(i.created)}</td><td>${esc(i.tipo||'')}</td><td>${esc(i.res||'')}</td><td>${esc(i.desc||'')}</td><td class="num">${fmt(i.hParo||0)}</td><td class="num">${fmt(i.hRep||0)}</td></tr>`).join(''):`<tr><td colspan="6">Sin incidencias registradas.</td></tr>`;
-  const safeTitle=(eq.nombre||'').replace(/["']/g,m=>m=='"'?'&quot;':'&#39;');
+  const safeTitle = JSON.stringify(String(eq.nombre||'')).slice(1,-1);
   byId('equipoDetail').innerHTML=`<div class="kpi"><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div id="eqQR" style="width:160px;height:160px;border:1px dashed #2a3442;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#0f141c"></div><div><h2 style="margin:.2rem 0">${esc(eq.nombre)}</h2><div class="sub">${esc(eq.grupo)}</div><div style="margin-top:.5rem"><code>${qrText}</code></div><div style="margin-top:.6rem;display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn gloss" onclick="printQR('eqQR','${safeTitle}')">Imprimir etiqueta</button><button class="btn gloss" onclick="nav('equipos')">Volver</button></div></div></div></div><div class="kpi" style="margin-top:12px"><h3>Historial de incidencias — ${esc(eq.nombre)}</h3><table><thead><tr><th>Fecha</th><th>Tipo</th><th>Resultado</th><th>Descripción</th><th>Parada</th><th>Reparación</th></tr></thead><tbody>${htmlInc}</tbody></table></div>`;
   new QRCode(byId('eqQR'),{text:qrText,width:150,height:150,correctLevel:QRCode.CorrectLevel.M})
 }
@@ -753,65 +1007,62 @@ function renderRepuestoByRef(code){
   ensureSectionsHidden();const host=byId('page-repuesto');host.classList.remove('hidden');
   if(!it){byId('repuestoDetail').innerHTML=`<div class="kpi">Repuesto no encontrado.</div>`;return}
   const qrText=`${baseURL()}#/repuesto/${encodeURIComponent(ref)}`;
-  const safeRefTitle=("REP-"+ref).replace(/["']/g,m=>m=='"'?'&quot;':'&#39;');
+  const safeRefTitle = JSON.stringify("REP-"+ref).slice(1,-1);
   byId('repuestoDetail').innerHTML=`<div class="kpi"><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div id="repQR" style="width:160px;height:160px;border:1px dashed #2a3442;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#0f141c"></div><div><h2 style="margin:.2rem 0">${esc(it.nombre||'')}</h2><div class="sub"><b>Ref:</b> ${esc(ref)} · <b>Stock:</b> ${+it.stock||0} · <b>Mínimo:</b> ${+it.minimo||0}</div><div style="margin-top:.5rem"><code>${qrText}</code></div><div style="margin-top:.6rem;display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn gloss" onclick="printQR('repQR','${safeRefTitle}')">Imprimir etiqueta</button><button class="btn gloss" onclick="nav('inventario')">Volver</button></div></div></div></div>`;
   new QRCode(byId('repQR'),{text:qrText,width:150,height:150,correctLevel:QRCode.CorrectLevel.M})
 }
 function printQR(containerId,title){
-  const node=byId(containerId);const img=node.querySelector('img')||node.querySelector('canvas');
+  const node=byId(containerId);
+  const img=node.querySelector('img')||node.querySelector('canvas');
   const src=img.tagName==='CANVAS'?img.toDataURL('image/png'):img.src;
-  const w=window.open('','_blank');
-  w.document.write(`<!doctype html><meta charset="utf-8"><title>${esc(title)}</title><style>body{font-family:Inter,sans-serif;text-align:center;padding:16px}</style><h3>${esc(title)}</h3><img src="${src}" width="220" height="220"><div style="margin-top:8px">${location.origin}${location.pathname}</div>`);
-  w.document.close();w.focus();w.print()
-}
-function handleHash(){
-  const h=location.hash||'';
-  const m1=h.match(/^#\/equipo\/([a-z0-9\-]+)$/);const m2=h.match(/^#\/repuesto\/(.+)$/);
-  if(m1){renderEquipoBySlug(m1[1]);return}
-  if(m2){renderRepuestoByRef(m2[1]);return}
-  ensureSectionsHidden();byId('page-'+CURRENT_PAGE).classList.remove('hidden')
-}
-window.addEventListener('hashchange',handleHash);
-document.addEventListener('click',e=>{
-  const bt=e.target.closest('.pw-toggle');if(!bt)return;
-  const id=bt.getAttribute('data-target');const inp=document.getElementById(id);if(!inp)return;
-  const isPwd=inp.type==='password';inp.type=isPwd?'text':'password';bt.setAttribute('aria-pressed',isPwd?'true':'false')
-});
-function toast(txt,ms=2200){
-  const t=document.createElement('div');t.className='toast';t.textContent=txt;document.body.appendChild(t);
-  setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s'},ms);setTimeout(()=>t.remove(),ms+320)
-}
-setUser(currentUser);
-if(location.hash){handleHash()}else{nav('equipos')}
-loadState();
-</script>
 
-<!-- ===== Exportaciones y etiquetas (cliente) ===== -->
-<script>
+  const w=window.open('','_blank','noopener,noreferrer');
+  if(!w){ alert('La ventana emergente fue bloqueada por el navegador.'); return; }
+  w.opener = null;
+
+  w.document.write(`<!doctype html><meta charset="utf-8"><title>${esc(title)}</title>
+  <style>body{font-family:Inter,sans-serif;text-align:center;padding:16px}</style>
+  <h3>${esc(title)}</h3>
+  <img src="${src}" width="220" height="220">
+  <div style="margin-top:8px">${location.origin}${location.pathname}</div>`);
+  w.document.close(); w.focus(); w.print();
+}
+
+/* =========================
+   Exportaciones (CSV/PDF)
+========================= */
 function downloadText(filename, text, mime='text/plain'){
   const blob = new Blob([text], {type: mime+';charset=utf-8'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href = url; a.download = filename;
   document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
 }
-function toCSVCell(s){ return '"' + String(s??'').replace(/"/g,'""') + '"'; }
-
-// Incidencias CSV
+function toCSVCell(s){
+  var v = (s===undefined || s===null) ? '' : s;
+  return '"' + String(v).replace(/"/g,'""') + '"';
+}
 function exportIncidCSV(){
-  if(!INCIDS_ALL?.length){alert('No hay incidencias.');return}
+  if(!INCIDS_ALL || !INCIDS_ALL.length){alert('No hay incidencias.');return}
   const cols = ['created','equipo','tipo','res','desc','hParo','hRep','reportante','asignado'];
   const header = cols.join(',');
   const rows = INCIDS_ALL.map(x => cols.map(k => toCSVCell(x[k])).join(','));
   downloadText('incidencias.csv',[header].concat(rows).join('\n'),'text/csv');
 }
-// Incidencias PDF (imprimible)
 function exportIncidPDF(){
-  const rows = (INCIDS_ALL||[]).map(x=>`<tr>
-    <td>${fmtDate(x.created)}</td><td>${esc(x.equipo||'')}</td><td>${esc(x.tipo||'')}</td>
-    <td>${esc(x.res||'')}</td><td>${esc(x.desc||'')}</td>
-    <td class="num">${fmt(x.hParo||0)}</td><td class="num">${fmt(x.hRep||0)}</td>
+  const w=window.open('','_blank','noopener,noreferrer');
+  if(!w){ alert('La ventana emergente fue bloqueada por el navegador.'); return; }
+  w.opener = null;
+
+  const rows=(INCIDS_ALL||[]).map(x=>`<tr>
+    <td>${fmtDate(x.created)}</td>
+    <td>${esc(x.equipo||'')}</td>
+    <td>${esc(x.tipo||'')}</td>
+    <td>${esc(x.res||'')}</td>
+    <td>${esc(x.desc||'')}</td>
+    <td class="num">${fmt(x.hParo||0)}</td>
+    <td class="num">${fmt(x.hRep||0)}</td>
   </tr>`).join('');
-  const w=window.open('','_blank');
+
   w.document.write(`<!doctype html><meta charset="utf-8"><title>Incidencias</title>
   <style>body{font-family:Inter,Arial,sans-serif;padding:16px}
   table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;padding:6px;font-size:12px}
@@ -820,8 +1071,6 @@ function exportIncidPDF(){
   <table><tr><th>Fecha</th><th>Equipo</th><th>Tipo</th><th>Resultado</th><th>Descripción</th><th>Parada (h)</th><th>Reparación (h)</th></tr>${rows}</table>`);
   w.document.close(); w.focus(); w.print();
 }
-
-// KPIs CSV
 function exportKPIsCSV(){
   const mttr = (INCIDS_ALL.reduce((p,x)=>p+(+x.hRep||0),0))/(INCIDS_ALL.length||1);
   const horasPeriodo = 4*30*24;
@@ -838,7 +1087,6 @@ function exportKPIsCSV(){
   ].map(r => r.map(toCSVCell).join(',')).join('\n');
   downloadText('kpis.csv', rows, 'text/csv');
 }
-// KPIs PDF (imprimible)
 function exportKPIPDF(){
   const mttr = (INCIDS_ALL.reduce((p,x)=>p+(+x.hRep||0),0))/(INCIDS_ALL.length||1);
   const horasPeriodo = 4*30*24;
@@ -846,7 +1094,11 @@ function exportKPIPDF(){
   const prodH = 120, perd = INCIDS_ALL.reduce((p,x)=>p+(+x.hParo||0),0);
   const disp = Math.max(0,(prodH-perd)/prodH);
   const oee  = disp*0.9*0.98;
-  const w=window.open('','_blank');
+
+  const w=window.open('','_blank','noopener,noreferrer');
+  if(!w){ alert('La ventana emergente fue bloqueada por el navegador.'); return; }
+  w.opener = null;
+
   w.document.write(`<!doctype html><meta charset="utf-8"><title>KPIs</title>
   <style>body{font-family:Inter,Arial,sans-serif;padding:16px}
   table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;padding:6px;font-size:13px}
@@ -861,19 +1113,16 @@ function exportKPIPDF(){
   </table>`);
   w.document.close(); w.focus(); w.print();
 }
-
-// Inventario CSV
 function exportInvCSV(){
-  if(!INV?.length){alert('No hay inventario.');return}
+ if(!INV || !INV.length){alert('No hay inventario.');return}
   const cols=['ref','nombre','stock','minimo'];
   const header=cols.join(',');
   const rows=INV.map(x=>cols.map(k=>toCSVCell(x[k])).join(','));
   downloadText('inventario.csv',[header].concat(rows).join('\n'),'text/csv');
 }
-
-// Etiquetas QR (todas las refs) – usa servicio de QR para agilizar
 function exportInvLabels(){
   if(!INV?.length){alert('No hay inventario.');return}
+
   const base = location.origin+location.pathname+'#/repuesto/';
   const cards = INV.map(it=>{
     const ref=String(it.ref||'').toUpperCase();
@@ -881,7 +1130,11 @@ function exportInvLabels(){
     const qrURL='https://api.qrserver.com/v1/create-qr-code/?size=160x160&data='+encodeURIComponent(url);
     return `<div class="tag"><div class="ref">REP-${esc(ref)}</div><img src="${qrURL}"><div class="name">${esc(it.nombre||'')}</div></div>`;
   }).join('');
-  const w=window.open('','_blank');
+
+  const w=window.open('','_blank','noopener,noreferrer');
+  if(!w){ alert('La ventana emergente fue bloqueada por el navegador.'); return; }
+  w.opener = null;
+
   w.document.write(`<!doctype html><meta charset="utf-8"><title>Etiquetas QR</title>
   <style>
     body{font-family:Inter,Arial,sans-serif;padding:10px}
@@ -896,7 +1149,34 @@ function exportInvLabels(){
   <div class="grid">${cards}</div>`);
   w.document.close(); w.focus(); w.print();
 }
+
+/* =========================
+   Router por hash
+========================= */
+function handleHash(){
+  const h=location.hash||'';
+  const m1=h.match(/^#\/equipo\/([a-z0-9\-]+)$/);const m2=h.match(/^#\/repuesto\/(.+)$/);
+  if(m1){renderEquipoBySlug(m1[1]);return}
+  if(m2){renderRepuestoByRef(m2[1]);return}
+  ensureSectionsHidden();byId('page-'+CURRENT_PAGE).classList.remove('hidden')
+}
+window.addEventListener('hashchange',handleHash);
+
+/* =========================
+   Miscelánea
+========================= */
+function toast(txt,ms=2200){
+  const t=document.createElement('div');t.className='toast';t.textContent=txt;document.body.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s'},ms);setTimeout(()=>t.remove(),ms+320)
+}
+
+/* =========================
+   Init
+========================= */
+setUser(currentUser);
+if(location.hash){handleHash()}else{nav('equipos')}
+loadState();
 </script>
 
 </body>
-</html> 
+</html>
