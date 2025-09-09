@@ -27,7 +27,8 @@ header{
   z-index:60;
   background:#fff;
   color:#000;
-  overflow:visible;       /* deja salir los paneles */
+  overflow:visible;
+  isolation:isolate;       /* deja salir los paneles */
   min-height:100px;       /* altura estable */
 }
 header::before{
@@ -73,6 +74,7 @@ header::before{
   box-shadow:0 18px 36px rgba(0,0,0,.5);
   min-width:280px;
   overflow:hidden;
+  transform:translateZ(0);
 }
 .row{padding:.85rem 1rem;border-bottom:1px solid #1e2a38}
 .row:last-child{border-bottom:0}
@@ -191,8 +193,11 @@ button:focus, .linkish:focus, .page-btn:focus, select:focus, input:focus, textar
   <div class="nav" id="navBar">
     <!-- Menú de páginas -->
     <div class="menu">
-      <button id="pagesBtn" class="mbtn" aria-label="Menú">☰</button>
-      <div id="pagesPanel" class="panel hidden" style="min-width:260px">
+      <button id="pagesBtn" class="mbtn" aria-label="Menú"
+        onclick="openMenu('pages'); event.stopPropagation()">☰</button>
+
+      <div id="pagesPanel" class="panel hidden" style="min-width:260px"
+     onclick="event.stopPropagation()">
         <div class="row">
           <div class="actions">
             <button class="btn" onclick="nav('equipos')">Equipos</button>
@@ -222,8 +227,9 @@ button:focus, .linkish:focus, .page-btn:focus, select:focus, input:focus, textar
 
     <!-- Menú de usuario -->
     <div class="menu">
-      <button id="userBtn" class="mbtn" aria-label="Usuario">⋮</button>
-      <div id="userPanel" class="panel hidden">
+      <button id="userBtn" class="mbtn" aria-label="Usuario"
+        onclick="openMenu('user'); event.stopPropagation()">⋮</button>
+      <div id="userPanel" class="panel hidden" onclick="event.stopPropagation()">
         <div class="row">
           <label class="small">Usuario</label>
           <select id="userSelect">
@@ -436,6 +442,17 @@ const byId=id=>document.getElementById(id),
 function show(id){const n=byId(id);if(n)n.classList.remove("hidden")}
 function hide(id){const n=byId(id);if(n)n.classList.add("hidden")}
 function toggle(id){const n=byId(id);if(n)n.classList.toggle("hidden")}
+function openMenu(which){
+  const userPanel = byId('userPanel');
+  const pagesPanel = byId('pagesPanel');
+  if(which==='pages'){
+    pagesPanel.classList.toggle('hidden');
+    userPanel.classList.add('hidden');
+  }else{
+    userPanel.classList.toggle('hidden');
+    pagesPanel.classList.add('hidden');
+  }
+}
 
 /* =========================
    Roles
@@ -471,44 +488,11 @@ function applyRoleUI(){
   if(byId('btnAddOT')) byId('btnAddOT').disabled = (g==="guest");
 }
 
-function bindMenus(){ 
-console.log("✅ bindMenus ejecutado");
-  const userBtn=byId('userBtn'), pagesBtn=byId('pagesBtn');
-  const userPanel=byId('userPanel'), pagesPanel=byId('pagesPanel');
-  if(!userBtn || !pagesBtn || !userPanel || !pagesPanel) return;
-
-  userBtn.addEventListener('click',e=>{
-    e.stopPropagation();
-    pagesPanel.classList.add('hidden');
-    userPanel.classList.toggle('hidden');
-  });
-
-  pagesBtn.addEventListener('click',e=>{
-    e.stopPropagation();
-    userPanel.classList.add('hidden');
-    pagesPanel.classList.toggle('hidden');
-  });
-
-  userPanel.addEventListener('click',e=>e.stopPropagation());
-  pagesPanel.addEventListener('click',e=>e.stopPropagation());
-
-  document.addEventListener('click',e=>{
-    if(e.target!==userBtn && !userPanel.contains(e.target)) userPanel.classList.add('hidden');
-    if(e.target!==pagesBtn && !pagesPanel.contains(e.target)) pagesPanel.classList.add('hidden');
-  });
-}
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', bindMenus);
-} else {
-  bindMenus();
-}
-console.log({
-  userBtn: !!document.getElementById('userBtn'),
-  pagesBtn: !!document.getElementById('pagesBtn'),
-  userPanel: !!document.getElementById('userPanel'),
-  pagesPanel: !!document.getElementById('pagesPanel')
+// Clic fuera: cierra ambos paneles
+document.addEventListener('click', ()=>{
+  hide('userPanel');
+  hide('pagesPanel');
 });
-
 
 /* API helpers */
 async function apiGet(q){const r=await fetch(API_BASE+"?"+new URLSearchParams(q));return r.json()}
@@ -519,6 +503,8 @@ async function apiPost(o){const r=await fetch(API_BASE,{method:'POST',headers:{'
 ========================= */
 let CURRENT_PAGE='equipos';
 function nav(id){
+function nav(id){
+  hide('pagesPanel'); hide('userPanel');   // autocerrar al navegar
   CURRENT_PAGE=id;
   ['equipos','gruas','otros','incidencias','indicadores','ot','inventario','tv','equipo','repuesto'].forEach(s=>byId('page-'+s).classList.add('hidden'));
   byId('page-'+id).classList.remove('hidden');
