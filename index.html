@@ -441,9 +441,8 @@ function show(id){const n=byId(id);if(n)n.classList.remove("hidden")}
 function hide(id){const n=byId(id);if(n)n.classList.add("hidden")}
 
 // =========================
-// Menús (sólidos y aislados)
+// Menús (robustos y aislados)
 // =========================
-
 const pagesBtn   = byId('pagesBtn');
 const userBtn    = byId('userBtn');
 const pagesPanel = byId('pagesPanel');
@@ -455,11 +454,11 @@ function closePanel(panelEl, btnEl){ panelEl?.classList.add('hidden'); setExpand
 function isOpen(panelEl){ return panelEl && !panelEl.classList.contains('hidden'); }
 function closeAllMenus(){ closePanel(pagesPanel,pagesBtn); closePanel(userPanel,userBtn); }
 
-// Evita múltiples bindings si el script se re-inyecta
+// Evita múltiples bindings si el script se inyecta dos veces
 if(!document.documentElement.dataset.menusBound){
   document.documentElement.dataset.menusBound = '1';
 
-  // Abrir/cerrar por CLICK, sin que se pisen
+  // Click en botones (no se pisan entre sí)
   pagesBtn?.addEventListener('click', (e)=>{
     e.stopPropagation();
     closePanel(userPanel, userBtn);
@@ -472,19 +471,26 @@ if(!document.documentElement.dataset.menusBound){
     isOpen(userPanel) ? closePanel(userPanel, userBtn) : openPanel(userPanel, userBtn);
   });
 
-  // No cerrar al interactuar dentro del panel
+  // No burbujea dentro del panel
   pagesPanel?.addEventListener('click', e=>e.stopPropagation());
   userPanel?.addEventListener('click', e=>e.stopPropagation());
 
-  // Clic fuera = cerrar
-  document.addEventListener('click', closeAllMenus);
+  // Cerrar al hacer clic FUERA — pointerdown en CAPTURA para que no se cuele antes/después
+  document.addEventListener('pointerdown', (e)=>{
+    const t = e.target;
+    const clickDentroPages = pagesPanel?.contains(t) || pagesBtn?.contains(t);
+    const clickDentroUser  = userPanel?.contains(t)  || userBtn?.contains(t);
+    if(!clickDentroPages && !clickDentroUser){
+      closeAllMenus();
+    }
+  }, true); // <- captura
 
   // ESC = cerrar
   document.addEventListener('keydown', (e)=>{
     if(e.key === 'Escape') closeAllMenus();
   });
 
-  // Accesible con teclado (Enter/Espacio sobre los botones)
+  // Accesibilidad teclado
   [pagesBtn,userBtn].forEach(btn=>{
     btn?.setAttribute('role','button');
     btn?.setAttribute('tabindex','0');
@@ -493,13 +499,6 @@ if(!document.documentElement.dataset.menusBound){
     });
   });
 }
-
-/* --- (OPCIONAL) Abrir al pasar el mouse, sin romper el click ---
-pagesBtn?.addEventListener('mouseenter', ()=>{ closePanel(userPanel,userBtn); openPanel(pagesPanel,pagesBtn); });
-userBtn ?.addEventListener('mouseenter', ()=>{ closePanel(pagesPanel,pagesBtn); openPanel(userPanel,userBtn); });
-// Al salir del header, cierra (para no molestar)
-byId('navBar')?.addEventListener('mouseleave', closeAllMenus);
-*/
 
 /* =========================
    Roles
