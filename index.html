@@ -874,7 +874,7 @@ function calcKPIs(){
 let charts={};
 function draw(id,labels,data,label){
   const ctx=byId(id).getContext('2d');if(charts[id])charts[id].destroy();
-  charts[id]=new Chart(ctx,{type:'line',data:{labels,datasets:[{label,borderWidth:2,pointRadius:0,data}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#0f172a'}},y:{ticks:{color:'#0f172a'}}}})}
+  charts[id]=new Chart(ctx,{type:'line',data:{labels,datasets:[{label,borderWidth:2,pointRadius:0,data}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#0f172a'}},y:{ticks:{color:'#0f172a'}}}}});
 function drawAllCharts(){
   const weeks=groupByWeek(INCIDS_ALL),labels=Object.keys(weeks).sort();
   draw('chartMttr',labels,labels.map(w=>kpiMTTR(weeks[w])),'MTTR');
